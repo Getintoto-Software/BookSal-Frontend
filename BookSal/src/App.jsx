@@ -1,16 +1,14 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from "react";
+import "./App.css";
+import Auth from "./pages/Auth";
 
-function App() {
-  const [count, setCount] = useState(0)
-
+const App = () => {
   return (
-    <div className="w-full h-screen text-4xl text-blue-700 flex items-center">
-      HELLO WORLD, TAILWIND CSS
+    <div className="App">
+      <Auth/>
+      
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
