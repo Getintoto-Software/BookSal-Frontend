@@ -1,7 +1,14 @@
 import React from 'react';
 import "../App.css"
 
+var futsal = {
+  "name": "Futsal",
+  "description": "Futsal",
+  "location" : "bhaktapur", 
+}
+
 const Card = () => {
+  
   return (
     <div className="bg-white shadow-md rounded px-4 py-6">
       <h2 className="text-lg font-bold">{futsal.name}</h2>

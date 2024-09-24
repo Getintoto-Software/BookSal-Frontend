@@ -5,7 +5,7 @@ const SignUp = () =>{
     const [isLogin, setIsLogin] = useState(true);
 
     const toggleAuthMode = () => {
-    setIsLogin(!isLogin);
+        setIsLogin(!isLogin);
   };
     return(
         <form className="space-y-4">
