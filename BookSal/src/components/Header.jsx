@@ -4,7 +4,7 @@ import "../App.css"
 import { useEffect } from 'react';
 import { FaBars } from 'react-icons/fa';
 
-const Header = () => {
+const Header = ({sidebarToggle,setSideBarToggle}) => {
   const [scrollPosition, setScrollPosition] = useState(0);
   const [headerColor, setHeaderColor] = useState('#347723');
   useEffect(() => {
@@ -28,12 +28,12 @@ const Header = () => {
   }, [scrollPosition]);
   
   return (
-    <header className={`bg-[${headerColor}] text-white shadow-md w-full sticky top-0`} style={{ transition: 'bg-white 0.5s ease text-[#347723]' }}>
+    <header className={`bg-[${headerColor}] text-white shadow-md w-full sticky top-0 `} style={{ transition: 'bg-white 0.5s ease text-[#347723]' }} >
       <div className="container mx-auto flex justify-between items-center p-4 w-full">
 
         <nav className="space-x-6 hidden md:flex items-center w-full justify-between">
 
-          <FaBars className='text-white me-4 cursor-pointer'/>
+          <FaBars className='text-white me-4 cursor-pointer' onClick = {() => setSideBarToggle(!sidebarToggle)}/>
           
           <Link to="/" className="hover:text-gray-300 text-[25px] pb-2.5 pt-2.5">Home</Link>
           <Link to="/register" className="hover:text-gray-300 text-[25px]">Registration</Link>

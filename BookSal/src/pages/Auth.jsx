@@ -18,7 +18,7 @@ const Auth = () => {
               <SignIn/>
             </div>
           </div>
-          <div className={`w-1/2 absolute right-0 h-full bg-[#347723] text-white rounded-tr-2xl ${isLogin ? 'rounded-tr-2xl':'rounded-tl-2xl'} rounded-br-2xl py-36 px-14 ${isLogin ? 'rounded-br-2xl':'rounded-bl-2xl'} transition-transform duration-700 transform ${
+          <div className={`w-1/2 absolute right-0 h-full bg-[#347723] text-white rounded-tr-2xl ${isLogin ? 'rounded-tr-2xl':'rounded-tl-2xl'} transition ease-out 3sec rounded-br-2xl py-36 px-14 ${isLogin ? 'rounded-br-2xl':'rounded-bl-2xl'} transition-transform duration-700 transform ${
             isLogin ? 'translate-x-0' : '-translate-x-full'
           }`}>
             <h2 className="text-3xl font-bold mb-2">

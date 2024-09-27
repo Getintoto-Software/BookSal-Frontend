@@ -11,11 +11,14 @@ const  App = () =>{
   const[sidebarToggle, setSideBarToggle] = useState(false)
   return (
     <Router>
-      <Header />
-      <Sidebar sidebarToggle = {sidebarToggle}/>
-      <Routes>
-        <Route path="/" element={<Home sidebarToggle = {sidebarToggle}
-                                       setSideBarToggle={setSideBarToggle}/>} />
+      <Header sidebarToggle={sidebarToggle}
+      setSideBarToggle={setSideBarToggle}/>
+      <Sidebar sidebarToggle = {sidebarToggle}
+        setSideBarToggle={setSideBarToggle}/>
+
+      
+      <Routes> 
+        <Route path="/" element={<Home />} />
         {/* <Route path="/services" element={<Services />} /> */}
         <Route path="/register" element={<Auth />} />
       </Routes>
