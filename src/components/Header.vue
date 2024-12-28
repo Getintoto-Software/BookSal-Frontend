@@ -3,7 +3,7 @@
       <div class="container">
         <!-- Logo -->
         <div class="logo">
-          <span>BookSa</span>
+          <span>BookSal</span>
           <img src="./assets/logo.png" alt="Logo" class="logo-icon" />
         </div>
   
@@ -18,13 +18,14 @@
         <ul :class="['menu', { 'menu-open': isMenuOpen }]">
           <li><a href="#" class="menu-link">Home</a></li>
           <li><a href="#" class="menu-link">Futsals</a></li>
-          <li><a href="#" class="menu-link">Login</a></li>
+          <li><a href="Signin.vue" class="menu-link">Login</a></li>
         </ul>
       </div>
     </nav>
   </template>
   
   <script>
+  // import Signin from "Signin.vue"
   export default {
     name: "Navbar",
     data() {
