@@ -8,9 +8,13 @@
           </button>
         </div>
       </div>
-      <div class="right-container">
-        <div class="right-top-topic">BookSal Login</div>
-
+      <div class="right-container"> 
+        <div class="right-top-topic">BookSal Login <br>
+          <div class="input-boxes-login">
+            <input class="input-box" type="number">
+            <input class="input-box" type="text" placeholder="Password">
+          </div>
+        </div>
       </div>
 
     </div>
@@ -24,6 +28,18 @@
   </script>
   
   <style scoped>
+    .input-box{
+      width: 350px;
+      height: 35px;
+      display: flex;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      justify-content: space-evenly;
+      align-items: center;
+      align-content: center;
+      
+    }
+
     .container {
       display: flex;
       align-items: center;
@@ -56,7 +72,28 @@
       height: 600px;
       width: 610px;
       display: flex;
-      justify-content: right;
+    }
+    .right-top-topic{
+      display: flex;
+      flex-wrap: nowrap;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-evenly;
+	    align-content: center;
+      width: 100%;
+      height: 50px;
+      font-size: 60px;
+      color: #364958;
+      font-weight: 600;
+    }
+    .input-boxes-login{
+      display: flex;
+      flex-wrap: nowrap;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-evenly;
+	    align-content: center;
+      
     }
     .signup-content-slider{
       color: #FFFFFF;
@@ -73,13 +110,15 @@
       font-size: 35px;
       border: 0px;
       width: 350px;
-      height: 60px;
+      /* height: 10px; */
       align-items: center;
       border-radius: 10px;
       font-weight: 700;
       font-family: Montserrat;
 
     }
+
+    
   
   </style>
   
