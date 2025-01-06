@@ -18,13 +18,15 @@
         <ul :class="['menu', { 'menu-open': isMenuOpen }]">
           <li><a href="#" class="menu-link">Home</a></li>
           <li><a href="#" class="menu-link">Futsals</a></li>
-          <li><a href="Signin.vue" class="menu-link">Login</a></li>
+          <li><RouterLink to="/signin" class="menu-link">Sign In</RouterLink></li>
         </ul>
       </div>
     </nav>
   </template>
   
   <script>
+import { RouterLink } from 'vue-router';
+
   // import Signin from "Signin.vue"
   export default {
     name: "Navbar",

@@ -1,18 +1,9 @@
 <template>
     <div class="container">
-      <div class="left-container">
-        <div class="left-top-topic">
-          <h2 class="signup-content-slider">Want to Register your Futsal with us?</h2>
-          <button class="signup-slide-button">
-            <RouterLink to="/signup" style="text-decoration: none; color: #364958;"> Sign Up Now -></RouterLink>
-          </button>
-        </div>
-      </div>
       <div class="right-container">
-        <div class="right-top-topic">BookSal Login</div>
-
       </div>
-
+      <div class="left-container">
+      </div>
     </div>
   </template>
   
@@ -42,8 +33,8 @@
       background: #368033;
       height: 600px;
       width: 610px;
-      border-top-left-radius: 20px;
-      border-bottom-left-radius: 20px;
+      border-top-right-radius: 20px;
+      border-bottom-right-radius: 20px;
       text-align: center;
 
     }
@@ -51,8 +42,8 @@
     .right-container{
       background: #ffffff;
       /* border: solid 1px #000; */
-      border-top-right-radius: 20px;
-      border-bottom-right-radius: 20px;
+      border-top-left-radius: 20px;
+      border-bottom-left-radius: 20px;
       height: 600px;
       width: 610px;
       display: flex;
