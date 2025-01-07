@@ -3,7 +3,7 @@
       <div class="left-container">
         <div class="left-top-topic">
           <h2 class="signup-content-slider">Want to Register your Futsal with us?</h2>
-          <button class="signup-slide-button">
+          <button class="login-section-button">
             <RouterLink to="/signup" style="text-decoration: none; color: #364958;"> Sign Up Now -></RouterLink>
           </button>
         </div>
@@ -11,9 +11,11 @@
       <div class="right-container"> 
         <div class="right-top-topic">BookSal Login <br>
           <div class="input-boxes-login">
-            <input class="input-box" type="number">
-            <input class="input-box" type="text" placeholder="Password">
+            <input class="input-box" step="0.01" type="number" placeholder="Phone Number" onkeydown="javascript: return ['Backspace','Delete','ArrowLeft','ArrowRight'].includes(event.code) ? true : !isNaN(Number(event.key)) && event.code!=='Space'" >
+            <input class="input-box" type="password" placeholder="Password" hidden="true">
           </div>
+          <p>Forgot Password?</p>
+          <button class="login-section-button" style="width: 120px; font-size: 25px; height: 42px;">Login</button>
         </div>
       </div>
 
@@ -28,6 +30,13 @@
   </script>
   
   <style scoped>
+    p{
+      font-size: 15px;
+      display: flex;
+      padding-left: 216px;
+      /* padding-bottom: 10px; */
+      height: auto;
+    }
     .input-box{
       width: 350px;
       height: 35px;
@@ -38,6 +47,16 @@
       align-items: center;
       align-content: center;
       
+    }
+    ::v-deep(input[type="number"]::-webkit-inner-spin-button), 
+    ::v-deep(input[type="number"]::-webkit-outer-spin-button) {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    ::v-deep(input[type="number"]) {
+        -moz-appearance: textfield;
+        appearance: textfield;
     }
 
     .container {
@@ -73,27 +92,44 @@
       width: 610px;
       display: flex;
     }
+    ::placeholder{
+      opacity: 0.5;
+      font-size: 20px;
+      margin-left: 20px;
+    }
     .right-top-topic{
       display: flex;
-      flex-wrap: nowrap;
       flex-direction: column;
       align-items: center;
-      justify-content: space-evenly;
-	    align-content: center;
-      width: 100%;
-      height: 50px;
-      font-size: 60px;
+      justify-content: center;
+      height: 514px;
+      width: 610px;
+      font-size: 50px;
       color: #364958;
-      font-weight: 600;
+      font-weight: 700;
+      margin-inline: auto;
+      font-family: Montserrat;
+      margin-bottom: 10px
+
     }
+
     .input-boxes-login{
       display: flex;
-      flex-wrap: nowrap;
       flex-direction: column;
       align-items: center;
       justify-content: space-evenly;
-	    align-content: center;
-      
+      margin-inline: auto; 
+      height: 170px;
+    }
+    .input-box{
+      display: flex;
+      flex-direction: column;
+      border-color: #368033;
+      height: 40px;
+      border-radius: 6px;
+      border-width: 1px;
+      font-size: 20px;
+
     }
     .signup-content-slider{
       color: #FFFFFF;
@@ -101,7 +137,7 @@
       margin-left: 20px;
       margin-top: 135px;
     }
-    .signup-slide-button{
+    .login-section-button{
       display: flex;
       justify-content: center;
       margin-inline: auto;
@@ -110,12 +146,14 @@
       font-size: 35px;
       border: 0px;
       width: 350px;
-      /* height: 10px; */
+      height: 60px;
       align-items: center;
       border-radius: 10px;
       font-weight: 700;
       font-family: Montserrat;
-
+    }
+    input[type="password"] {
+      font-size: 30px; /* Adjust size to make dots larger */
     }
 
     
