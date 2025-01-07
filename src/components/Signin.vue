@@ -11,11 +11,11 @@
       <div class="right-container"> 
         <div class="right-top-topic">BookSal Login <br>
           <div class="input-boxes-login">
-            <input class="input-box" step="0.01" type="number" placeholder="Phone Number" onkeydown="javascript: return ['Backspace','Delete','ArrowLeft','ArrowRight'].includes(event.code) ? true : !isNaN(Number(event.key)) && event.code!=='Space'" >
-            <input class="input-box" type="password" placeholder="Password" hidden="true">
+            <input class="input-box" step="0.01" type="number" v-model="phoneNumber" placeholder="Phone Number" onkeydown="javascript: return ['Backspace','Delete','ArrowLeft','ArrowRight'].includes(event.code) ? true : !isNaN(Number(event.key)) && event.code!=='Space'" >
+            <input class="input-box" type="password" placeholder="Password" v-model="password">
           </div>
           <p>Forgot Password?</p>
-          <button class="login-section-button" style="width: 120px; font-size: 25px; height: 42px;">Login</button>
+          <button class="login-section-button" style="width: 120px; font-size: 25px; height: 42px;" @click="handleLogin">Login</button>
         </div>
       </div>
 
@@ -24,12 +24,53 @@
   
   <script>
   
-    export default {
-      
-    }
+  import { ref } from "vue";
+  import { useRouter } from "vue-router";
+
+  export default {
+    name: "SignIn",
+    setup() {
+      const phoneNumber = ref("");
+      const password = ref("");
+      const router = useRouter();
+
+      // Function to validate phone number
+      const validatePhoneNumber = (number) => {
+        const phoneRegex = /^[0-9]{10}$/; // Example: 10-digit phone number
+        return phoneRegex.test(number);
+      };
+
+      // Function to handle login
+      const handleLogin = () => {
+        if (!validatePhoneNumber(phoneNumber.value)) {
+          alert("Please enter a valid phone number!");
+          return;
+        }
+        if (!password.value) {
+          alert("Password cannot be empty!");
+          return;
+        }
+
+        // Simulate login logic (replace with actual API call)
+        if (phoneNumber.value === "1234567890" && password.value === "password") {
+          alert("Login Successful!");
+          router.push("/dashboard"); // Navigate to a dashboard or home page
+        } else {
+          alert("Invalid phone number or password.");
+        }
+      };
+
+      return {
+        phoneNumber,
+        password,
+        handleLogin,
+      };
+    },
+  };// End of setup function
   </script>
   
   <style scoped>
+    
     p{
       font-size: 15px;
       display: flex;
@@ -137,6 +178,11 @@
       margin-left: 20px;
       margin-top: 135px;
     }
+    .login-section-button:hover{
+      background: #ade25dbb;
+      color: #364958b7;
+      cursor: pointer;
+    }
     .login-section-button{
       display: flex;
       justify-content: center;
@@ -155,8 +201,5 @@
     input[type="password"] {
       font-size: 30px; /* Adjust size to make dots larger */
     }
-
-    
-  
   </style>
   
