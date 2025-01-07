@@ -1,8 +1,23 @@
 <template>
     <div class="container">
       <div class="right-container">
+        <div class="right-top-topic">Register your Futsal<br>
+          <div class="input-boxes-login">
+            <input class="input-box" step="0.01" type="number" placeholder="Phone Number" onkeydown="javascript: return ['Backspace','Delete','ArrowLeft','ArrowRight'].includes(event.code) ? true : !isNaN(Number(event.key)) && event.code!=='Space'" >
+            <input class="input-box" type="password" placeholder="Password" hidden="true">
+            <input class="input-box" type="password" placeholder="Password" hidden="true">
+          </div>
+          <button class="login-section-button" style="width: 1px32; font-size: 25px; height: 46px;">Register</button>
+        </div>
+        
       </div>
       <div class="left-container">
+        <div class="left-top-topic">
+          <h2 class="signup-content-slider">Already Registered?</h2>
+          <button class="login-section-button">
+            <RouterLink to="/signin" style="text-decoration: none; color: #364958;"> Login Here -></RouterLink>
+          </button>
+        </div>
       </div>
     </div>
   </template>
@@ -15,6 +30,35 @@
   </script>
   
   <style scoped>
+    p{
+      font-size: 15px;
+      display: flex;
+      padding-left: 216px;
+      /* padding-bottom: 10px; */
+      height: auto;
+    }
+    .input-box{
+      width: 350px;
+      height: 35px;
+      display: flex;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      justify-content: space-evenly;
+      align-items: center;
+      align-content: center;
+      
+    }
+    ::v-deep(input[type="number"]::-webkit-inner-spin-button), 
+    ::v-deep(input[type="number"]::-webkit-outer-spin-button) {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    ::v-deep(input[type="number"]) {
+        -moz-appearance: textfield;
+        appearance: textfield;
+    }
+
     .container {
       display: flex;
       align-items: center;
@@ -47,15 +91,53 @@
       height: 600px;
       width: 610px;
       display: flex;
-      justify-content: right;
+    }
+    ::placeholder{
+      opacity: 0.5;
+      font-size: 20px;
+      margin-left: 20px;
+    }
+    .right-top-topic{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 560px;
+      width: 610px;
+      font-size: 50px;
+      color: #364958;
+      font-weight: 700;
+      margin-inline: auto;
+      font-family: Montserrat;
+      margin-bottom: 10px
+
+    }
+
+    .input-boxes-login{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-evenly;
+      margin-inline: auto; 
+      height: 250px;
+    }
+    .input-box{
+      display: flex;
+      flex-direction: column;
+      border-color: #368033;
+      height: 40px;
+      border-radius: 6px;
+      border-width: 1px;
+      font-size: 20px;
+
     }
     .signup-content-slider{
       color: #FFFFFF;
       font-size: 52px;
       margin-left: 20px;
-      margin-top: 135px;
+      margin-top: 185px;
     }
-    .signup-slide-button{
+    .login-section-button{
       display: flex;
       justify-content: center;
       margin-inline: auto;
@@ -69,7 +151,9 @@
       border-radius: 10px;
       font-weight: 700;
       font-family: Montserrat;
-
+    }
+    input[type="password"] {
+      font-size: 30px; /* Adjust size to make dots larger */
     }
   
   </style>
