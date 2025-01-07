@@ -5,9 +5,9 @@
           <div class="input-boxes-login">
             <input class="input-box" step="0.01" type="number" placeholder="Phone Number" onkeydown="javascript: return ['Backspace','Delete','ArrowLeft','ArrowRight'].includes(event.code) ? true : !isNaN(Number(event.key)) && event.code!=='Space'" >
             <input class="input-box" type="password" placeholder="Password" hidden="true">
-            <input class="input-box" type="password" placeholder="Password" hidden="true">
+            <input class="input-box" type="password" placeholder="confirm Password">
           </div>
-          <button class="login-section-button" style="width: 1px32; font-size: 25px; height: 46px;">Register</button>
+          <button class="login-section-button" style="width: 132px; font-size: 25px; height: 46px;">Register</button>
         </div>
         
       </div>
@@ -130,6 +130,11 @@
       border-width: 1px;
       font-size: 20px;
 
+    }
+    .login-section-button:hover{
+      background: #ade25dbb;
+      color: #364958b7;
+      cursor: pointer;
     }
     .signup-content-slider{
       color: #FFFFFF;
