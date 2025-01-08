@@ -12,7 +12,6 @@ import Homepage from './components/Homepage.vue';
     <div class="main-div">
       <RouterView />
     </div>
-    <Homepage></Homepage>
     <Footer></Footer>
   </div>
 </template>
