@@ -56,27 +56,6 @@ body {
   padding: 0;
 }
 
-/* Header */
-header {
-  background-color: #44b648;
-  padding: 1rem 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: #fff;
-}
-
-header nav a {
-  text-decoration: none;
-  color: #fff;
-  margin: 0 1rem;
-  font-weight: bold;
-}
-
-header nav a:hover {
-  text-decoration: underline;
-}
-
 /* Search Section */
 .search-section {
   background-color: #fff;
@@ -164,26 +143,6 @@ header nav a:hover {
 .futsal-card .contact button:hover {
   background-color: #36993a;
 }
-
-/* Footer */
-footer {
-  background-color: #44b648;
-  padding: 2rem;
-  text-align: center;
-  color: #fff;
-}
-
-footer a {
-  text-decoration: none;
-  color: #fff;
-  margin: 0 1rem;
-}
-
-footer a:hover {
-  text-decoration: underline;
-}
-
-
 </style>
   
   
