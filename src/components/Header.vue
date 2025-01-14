@@ -16,7 +16,7 @@
   
         <!-- Menu Items -->
         <ul :class="['menu', { 'menu-open': isMenuOpen }]">
-          <li><RouterLink to="/home" class="menu-link">Home</RouterLink></li>
+          <li><RouterLink to="/" class="menu-link">Home</RouterLink></li>
           <li><a href="#" class="menu-link">Futsals</a></li>
           <li><RouterLink to="/signin" class="menu-link">Sign In</RouterLink></li>
         </ul>
