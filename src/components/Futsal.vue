@@ -1,6 +1,5 @@
 <template>
     <div class="futsal-list-page">
-      <!-- Header Section -->
       <section class="search-section">
         <h1>Search For A Futsal</h1>
         <div class="search-bar">
