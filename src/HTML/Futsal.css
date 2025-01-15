@@ -20,6 +20,7 @@ body {
   }
   
   .search-section {
+    border: white;
     color:#4caf50;
     text-align: center;
     margin: 20px 0;
@@ -34,7 +35,7 @@ body {
     font-size: 20px;
   }
   .search-inputs select{
-   
+    border:white;
     width: 120px;
     background-color:#4caf50;
     border-radius: 8px;
@@ -43,6 +44,7 @@ body {
     font-size: 20px;
   }
   .search-inputs button {
+    border:white;
     width: 120px;
     background-color: #4caf50;
     border-radius: 8px;
@@ -89,6 +91,27 @@ body {
     color:aliceblue;
     padding: 10px;
     place-content: bottom;
+  }
+  .register-section h2{
+    font-size: 40px;
+    color: #4caf50;
+    text-align: center;
+    margin-bottom: 5px;
+  }
+  .register-section h3{
+    color: #4caf50;
+    text-align: center;
+    margin-top: 5px;
+  }
+  .register-section button{
+    color: black;
+    border: white;
+    font:bold;
+    background-color: #4caf50;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    padding: 10px;
   }
   
  
