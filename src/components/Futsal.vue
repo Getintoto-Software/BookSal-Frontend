@@ -64,7 +64,15 @@ export default {
           contact: 'XXXXXXXX',
           image: 'https://via.placeholder.com/100',
         },
-
+        {
+          id: 3,
+          name: 'Imperial Futsal',
+          location: 'Kausaltar, Bhaktapur',
+          price: 1000,
+          type: '5-A-Side',
+          contact: 'XXXXXXXX',
+          image: 'https://via.placeholder.com/100',
+        },
         // Add more futsal entries here
       ],
       filteredFutsals: [],
