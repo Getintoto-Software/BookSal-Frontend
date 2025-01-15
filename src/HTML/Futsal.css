@@ -20,6 +20,7 @@ body {
   }
   
   .search-section {
+    font-size: 25px;
     border: white;
     color:#4caf50;
     text-align: center;
@@ -54,6 +55,7 @@ body {
   }
   
   .futsal-list {
+    font-size: 25px;
     text-align: center;
     color: #4caf50;
     padding: 20px;
