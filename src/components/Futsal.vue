@@ -1,5 +1,6 @@
 <template>
     <div class="futsal-list-page">
+      <!-- Header Section -->
       <section class="search-section">
         <h1>Search For A Futsal</h1>
         <div class="search-bar">
@@ -62,15 +63,7 @@ export default {
           contact: 'XXXXXXXX',
           image: 'https://via.placeholder.com/100',
         },
-        {
-          id: 3,
-          name: 'Imperial Futsal',
-          location: 'Kausaltar, Bhaktapur',
-          price: 1000,
-          type: '5-A-Side',
-          contact: 'XXXXXXXX',
-          image: 'https://via.placeholder.com/100',
-        },
+       
         // Add more futsal entries here
       ],
       filteredFutsals: [],
@@ -93,8 +86,6 @@ export default {
     this.filteredFutsals = this.futsals;
   },
 };
-</script>
-
 
 </script>
 
@@ -201,6 +192,7 @@ body {
 .futsal-card .contact button:hover {
   background-color: #36993a;
 }
+
 </style>
   
   
