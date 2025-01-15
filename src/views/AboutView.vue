@@ -1,9 +1,14 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
-  </div>
+  <Futsal />
 </template>
 
-<style>
+<script>
+import Futsal from '@/components/Futsal.vue';
+export default {
+  components: {
+    Futsal,
+  },
+}
+</script>
 
-</style>
+<style></style>

@@ -56,6 +56,8 @@ export default {
 <style scoped>
 .footer-container {
     display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
     padding: 20px 40px;

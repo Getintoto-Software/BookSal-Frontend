@@ -1,43 +1,44 @@
 <template>
-    <div class="futsal-list-page">
-      <!-- Header Section -->
-      <section class="search-section">
-        <h1>Search For A Futsal</h1>
-        <div class="search-bar">
-          <select>
-            <option>Location</option>
-            <option value="Kathmandu">Kathmandu</option>
-            <option value="Bhaktapur">Bhaktapur</option>
-            <option value="Lalitpur">Lalitpur</option>
-          </select>
-          <input type="text" placeholder="Futsal Name" />
-          <button>Search</button>
-        </div>
-      </section>
-  
-      <!-- Available Futsals Section -->
-      <section class="available-futsals">
-        <h2>Available Futsals</h2>
-        <div class="futsal-card" v-for="futsal in futsal" :key="futsal.id">
-          <div class="futsal-info">
-            <div class="image-placeholder">Image Here</div>
-            <div class="details">
-              <h3>{{ futsal.name }}</h3>
-              <p>{{ futsal.location }}</p>
-              <p>NRs. {{ futsal.price }}/hour</p>
-              <p>{{ futsal.type }}</p>
-            </div>
+  <div class="futsal-list-page">
+    <!-- Header Section -->
+    <section class="search-section">
+      <h1>Search For A Futsal</h1>
+      <div class="search-bar">
+        <select>
+          <option>Location</option>
+          <option value="Kathmandu">Kathmandu</option>
+          <option value="Bhaktapur">Bhaktapur</option>
+          <option value="Lalitpur">Lalitpur</option>
+        </select>
+        <input type="text" placeholder="Futsal Name" />
+        <button>Search</button>
+      </div>
+    </section>
+
+    <!-- Available Futsals Section -->
+    <section class="available-futsals">
+      <h2>Available Futsals</h2>
+      <div class="futsal-card" v-for="futsal in futsals" :key="futsal.id">
+        <div class="futsal-info">
+          <div class="image-placeholder">Image Here</div>
+          <div class="details">
+            <h3>{{ futsal.name }}</h3>
+            <p>{{ futsal.location }}</p>
+            <p>NRs. {{ futsal.price }}/hour</p>
+            <p>{{ futsal.type }}</p>
           </div>
-          <button>Contact Now</button>
         </div>
-      </section>
-  
-      <!-- Footer Section -->
-    </div>
+        <button>Contact Now</button>
+      </div>
+    </section>
+
+    <!-- Footer Section -->
+  </div>
 </template>
 
 <script>
 export default {
+  name: 'Futsal',
   data() {
     return {
       search: {
@@ -63,7 +64,7 @@ export default {
           contact: 'XXXXXXXX',
           image: 'https://via.placeholder.com/100',
         },
-       
+
         // Add more futsal entries here
       ],
       filteredFutsals: [],
@@ -192,7 +193,4 @@ body {
 .futsal-card .contact button:hover {
   background-color: #36993a;
 }
-
 </style>
-  
-  
