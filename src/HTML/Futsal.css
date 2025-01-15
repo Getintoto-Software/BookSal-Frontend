@@ -27,21 +27,28 @@ body {
   
   .search-inputs input{
     background-color: white;
-    margin: 5px;
+    width: 250px;
+    border-radius: 8px;
+    margin: 10px;
     padding: 10px;
-    font-size: 16px;
+    font-size: 20px;
   }
   .search-inputs select{
+   
+    width: 120px;
     background-color:#4caf50;
-    margin: 5px;
+    border-radius: 8px;
+    margin: 10px;
     padding:10px;
-    font-size: 16px;
+    font-size: 20px;
   }
   .search-inputs button {
+    width: 120px;
     background-color: #4caf50;
-    margin: 5px;
+    border-radius: 8px;
+    margin: 10px;
     padding: 10px;
-    font-size: 16px;
+    font-size: 20px;
   }
   
   .futsal-list {
@@ -65,24 +72,24 @@ body {
     color:#333
   }
   .futsal-card {
+    text-align: center;
     border: 1px solid #333;
+    width: 600px;
+    border-radius: 20px;
     margin-bottom: 15px;
     padding: 15px;
-    display: flex;
+    display:flex;
     justify-content: space-between;
     align-items: center;
   }
-  
-  footer {
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 10px 0;
+  .futsal-card button{
+    border-radius: 8px;
+    border:white;
+    background-color: #4caf50;
+    color:aliceblue;
+    padding: 10px;
+    place-content: bottom;
   }
   
-  .footer-links a {
-    color: #4caf50;
-    margin: 0 10px;
-    text-decoration: none;
-  }
+ 
   
