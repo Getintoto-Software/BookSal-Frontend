@@ -36,6 +36,65 @@
 </template>
 
 <script>
+export default {
+  data() {
+    return {
+      search: {
+        location: '',
+        name: '',
+      },
+      futsals: [
+        {
+          id: 1,
+          name: 'Prime Futsal',
+          location: 'Gwarko, Kathmandu',
+          price: 1200,
+          type: '5-A-Side',
+          contact: 'XXXXXXXX',
+          image: 'https://via.placeholder.com/100',
+        },
+        {
+          id: 2,
+          name: 'Dhanyentari Futsal',
+          location: 'Yellow Pati, Kathmandu',
+          price: 1500,
+          type: '5-A-Side',
+          contact: 'XXXXXXXX',
+          image: 'https://via.placeholder.com/100',
+        },
+        {
+          id: 3,
+          name: 'Imperial Futsal',
+          location: 'Kausaltar, Bhaktapur',
+          price: 1000,
+          type: '5-A-Side',
+          contact: 'XXXXXXXX',
+          image: 'https://via.placeholder.com/100',
+        },
+        // Add more futsal entries here
+      ],
+      filteredFutsals: [],
+    };
+  },
+  methods: {
+    filterFutsals() {
+      const { location, name } = this.search;
+      this.filteredFutsals = this.futsals.filter((futsal) =>
+        (location === '' || futsal.location.toLowerCase().includes(location.toLowerCase())) &&
+        (name === '' || futsal.name.toLowerCase().includes(name.toLowerCase()))
+      );
+    },
+    contactFutsal(contactNumber) {
+      alert(`Contacting: ${contactNumber}`);
+    },
+  },
+  mounted() {
+    // Initialize filteredFutsals with all futsals initially
+    this.filteredFutsals = this.futsals;
+  },
+};
+</script>
+
 
 </script>
 
