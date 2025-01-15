@@ -1,0 +1,88 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 20px;
+  }
+  
+  nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+  }
+  
+  .search-section {
+    color:#4caf50;
+    text-align: center;
+    margin: 20px 0;
+  }
+  
+  .search-inputs input{
+    background-color: white;
+    margin: 5px;
+    padding: 10px;
+    font-size: 16px;
+  }
+  .search-inputs select{
+    background-color:#4caf50;
+    margin: 5px;
+    padding:10px;
+    font-size: 16px;
+  }
+  .search-inputs button {
+    background-color: #4caf50;
+    margin: 5px;
+    padding: 10px;
+    font-size: 16px;
+  }
+  
+  .futsal-list {
+    text-align: center;
+    color: #4caf50;
+    padding: 20px;
+  }
+  
+  .futsal-image{
+    color:#333;
+    }
+
+  .futsal-contact {
+    color:black;
+  }
+  .futsal-details h3 {
+    color:#4caf50;
+  }
+
+  .futsal-details p{
+    color:#333
+  }
+  .futsal-card {
+    border: 1px solid #333;
+    margin-bottom: 15px;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+  }
+  
+  .footer-links a {
+    color: #4caf50;
+    margin: 0 10px;
+    text-decoration: none;
+  }
+  
