@@ -1,0 +1,91 @@
+/* Container for the booking form */
+
+.booking-main{
+    text-align: center;
+    color:#368033;   
+   }
+   .booking-container {
+       max-width: 600px;
+       margin: 50px auto;
+       padding: 30px;
+       background-color: #ffffff;
+       border: 1px solid #ccc;
+       border-radius: 10px;
+       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+       text-align: center;
+       margin-top: 20px;
+     }
+     
+     /* Heading styles */
+     .booking-container h2 {
+       color: #368033;
+       font-size: 24px;
+       margin-bottom: 20px;
+       margin-top: 5px;
+     }
+     
+     /* Form styles */
+     .booking-form {
+       display: flex;
+       flex-direction: column;
+     }
+     
+     .form-row {
+       display: flex;
+       gap: 15px;
+       justify-content: space-between;
+       margin-bottom: 20px;
+     }
+     
+     .form-group {
+       flex: 1;
+       display: flex;
+       flex-direction: column;
+     }
+     
+     .form-group label {
+       text-align: left;
+       font-size: 20px;
+       font-weight: bold;
+       margin-bottom: 5px;
+       color: #368033;
+     }
+     
+     .form-group input,
+     .form-group select {
+       padding: 10px;
+       border: 1px solid #ccc;
+       border-radius: 5px;
+       font-size: 14px;
+     }
+     
+     /* Buttons */
+     .form-actions {
+       display: flex;
+       justify-content: space-evenly;
+       margin-top: 20px;
+     }
+     
+     .btn {
+       padding: 10px 20px;
+       font-size: 16px;
+       border: none;
+       border-radius: 5px;
+       cursor: pointer;
+     }
+     
+     .btn-success {
+       background-color: #ade25d;
+       color: white;
+       width:120px
+     }
+     
+     .btn-danger {
+       background-color: #e63946;
+       color: white;
+       width:120px
+     }
+     .booking-main h1{
+       margin-bottom: 5px;
+       font-size: 40px;
+     }

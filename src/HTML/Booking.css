@@ -19,7 +19,7 @@
   /* Heading styles */
   .booking-container h2 {
     color: #368033;
-    font-size: 24px;
+    font-size: 20x;
     margin-bottom: 20px;
     margin-top: 5px;
   }
@@ -45,7 +45,7 @@
   
   .form-group label {
     text-align: left;
-    font-size: 14px;
+    font-size: 20px;
     font-weight: bold;
     margin-bottom: 5px;
     color: #368033;
