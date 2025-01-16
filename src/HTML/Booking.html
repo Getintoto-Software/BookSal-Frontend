@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Futsal Booking Form</title>
+  <link rel="stylesheet" href="Booking.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <button>List Bookings</button>
+      <button>Add A Booking</button>
+      <button>Update Booking</button>
+      <button>Contact Admins</button>
+      <h2>Hello, Prime Futsal</h2>
+      <button>Update Profile</button>
+      <button>Change Password</button>
+      <button>Delete Account</button>
+      <button>Log Out</button>
+    </div>
+
+    <!-- Main Content -->
+    <section class="main-content">
+      <h1>Add A Booking to Your Futsal</h1>
+    <div class="form-container">
+        <h2>Futsal Booking Form</h2>
+        <form>
+          <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" placeholder="First Name">
+          </div>
+          <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" placeholder="Last Name">
+          </div>
+          <div class="form-group">
+            <label for="date">Date</label>
+            <input type="date" id="date">
+          </div>
+          <div class="form-group">
+            <label for="time">Time</label>
+            <input type="time" id="time">
+          </div>
+          <div class="form-group">
+            <label for="ground">Ground Number</label>
+            <select id="ground">
+              <option>Ground 1</option>
+              <option>Ground 2</option>
+              <option>Ground 3</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone</label>
+            <input type="text" id="phone" placeholder="Phone Number">
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="book-btn">Book</button>
+            <button type="button" class="cancel-btn">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+</body>
+</html>

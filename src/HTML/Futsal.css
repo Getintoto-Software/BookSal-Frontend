@@ -66,8 +66,10 @@ body {
   }
   
   .futsal-image{
+    display: grid;
+    justify-content: left;
+    align-items: left;
     background-color: #364958;
-    padding:50px;
     color:#368033;
     }
 

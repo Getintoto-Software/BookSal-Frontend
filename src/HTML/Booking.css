@@ -1,0 +1,144 @@
+/* Global Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f4f4f4;
+  }
+  
+  /* Container */
+  .container {
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    max-width: 1200px;
+  }
+  
+  /* Sidebar */
+  .sidebar {
+    background-color: #264653;
+    color: white;
+    width: 25%;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .sidebar h2 {
+    text-align: center;
+  }
+  
+  .sidebar button {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #ade25d;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .sidebar button:hover {
+    background-color: #21867a;
+  }
+  
+  /* Main Content */
+  .main-content {
+    background-color: white;
+    flex: 1;
+    padding: 20px;
+    margin-left: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .main-content h1 {
+    text-align: center;
+    color: #368033;
+  }
+  
+  .form-container {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .form-container h2 {
+    text-align: center;
+    color: #368033;
+  }
+  
+  /* Form */
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+  }
+  
+  .form-group label {
+    width: 30%;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #368033;
+  }
+  
+  
+  .form-group select {
+    width: 65%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .form-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .form-actions button {
+    width: 48%;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .form-actions .book-btn {
+    width:150px;
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #ade25d;
+    color: white;
+  }
+  
+  .form-actions .cancel-btn {
+    width:150px;
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #e63946;
+    color: white;
+  }
+  
+  .form-actions button:hover {
+    opacity: 0.9;
+  }
+  .form-container{
+    border-color: black;
+  }
+  .main-content h1{
+    font-size: 40px;
+  }
+  .form-group input{
+    width: 250px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  
