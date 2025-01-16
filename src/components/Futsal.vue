@@ -1,204 +1,208 @@
 <template>
-  <div class="futsal-list-page">
-    <!-- Header Section -->
+  <div>
     <section class="search-section">
-      <h1>Search For A Futsal</h1>
-      <div class="search-bar">
-        <select>
-          <option>Location</option>
-          <option value="Kathmandu">Kathmandu</option>
-          <option value="Bhaktapur">Bhaktapur</option>
-          <option value="Lalitpur">Lalitpur</option>
-        </select>
-        <input type="text" placeholder="Futsal Name" />
-        <button>Search</button>
+    <h2>Search For A Futsal</h2>
+    <div class="search-inputs">
+      <select name="location" id="location" onchange="somefunction(this.value)">
+        <option value="" disabled selected>Location</option>
+        <option value="Kathmandu">Kathmandu</option>
+        <option value="Bhaktapur">Bhaktapur</option>
+        <option value="Lalitpur">Lalitpur</option>
+      </select>
+      <input type="text" placeholder="Futsal Name">
+      <button class="search-button">Search</button>
+    </div>
+  </section>
+
+    <div class="futsal-list">
+      <FutsalCard
+        v-for="futsal in filteredFutsals"
+        :key="futsal.name"
+        :name="futsal.name"
+        :location="futsal.location"
+        :price="futsal.price"
+        :type="futsal.type"
+        :contact="futsal.contact"
+      />
+    </div>
+    <section class="register-section">
+      <h2>Own A Futsal? We Have You Covered</h2>
+      <h3>Regiter Your Business Today. Benefit from Online Booking</h3>
+      <div style="display: grid; place-items: center; height: 5vh;">
+          <button>Register Your Futsal! -></button>
       </div>
     </section>
-
-    <!-- Available Futsals Section -->
-    <section class="available-futsals">
-      <h2>Available Futsals</h2>
-      <div class="futsal-card" v-for="futsal in futsals" :key="futsal.id">
-        <div class="futsal-info">
-          <div class="image-placeholder">Image Here</div>
-          <div class="details">
-            <h3>{{ futsal.name }}</h3>
-            <p>{{ futsal.location }}</p>
-            <p>NRs. {{ futsal.price }}/hour</p>
-            <p>{{ futsal.type }}</p>
-          </div>
-        </div>
-        <button>Contact Now</button>
-      </div>
-    </section>
-
-    <!-- Footer Section -->
+    <div class="futsal-list">
+      <FutsalCard
+        v-for="secondfutsals in filteredFutsalssecond"
+        :key="secondfutsals.name"
+        :name="secondfutsals.name"
+        :location="secondfutsals.location"
+        :price="secondfutsals.price"
+        :type="secondfutsals.type"
+        :contact="secondfutsals.contact"
+      />
+    </div>
   </div>
 </template>
 
 <script>
+import FutsalCard from "./FutsalCard.vue";
+
+
 export default {
-  name: 'Futsal',
+  components: {
+    FutsalCard,
+  },
+  
   data() {
     return {
-      search: {
-        location: '',
-        name: '',
-      },
+      searchQuery: "",
+      selectedLocation: "",
+      locations: ["Kathmandu", "Bhaktapur", "Lalitpur"],
       futsals: [
-        {
-          id: 1,
-          name: 'Prime Futsal',
-          location: 'Gwarko, Kathmandu',
-          price: 1200,
-          type: '5-A-Side',
-          contact: 'XXXXXXXX',
-          image: 'https://via.placeholder.com/100',
-        },
-        {
-          id: 2,
-          name: 'Dhanyentari Futsal',
-          location: 'Yellow Pati, Kathmandu',
-          price: 1500,
-          type: '5-A-Side',
-          contact: 'XXXXXXXX',
-          image: 'https://via.placeholder.com/100',
-        },
-        {
-          id: 3,
-          name: 'Imperial Futsal',
-          location: 'Kausaltar, Bhaktapur',
-          price: 1000,
-          type: '5-A-Side',
-          contact: 'XXXXXXXX',
-          image: 'https://via.placeholder.com/100',
-        },
-        // Add more futsal entries here
+        { name: "Prime Futsal", location: "Gyaneshwor, Kathmandu", price: "Nrs. 1200", type: "5-A-Side" ,contact: 9815116518},
+        { name: "Dhanyentari Futsal", location: "Yellow Pul, Kathmandu", price: "Nrs. 1500", type: "5-A-Side",contact: 9815116518 },
       ],
-      filteredFutsals: [],
+      secondfutsals:[
+        { name: "Imperial Futsal", location: "Kaushaltar, Bhaktapur", price: "Nrs. 1200", type: "5-A-Side" ,contact: 9815116518},
+        { name: "Dhuku Sports Hub", location: "Dhuku, Kathmandu", price: "Nrs. 1200", type: "5-A-Side",contact: 9815116518 },
+        { name: "Madhyapur Sports Hub", location: "Lokanthali, Bhaktapur", price: "Nrs. 2000", type: "5-A-Side",contact: 9815116518 },
+        { name: "Royal Futsal", location: "Anamnagar, Kathmandu", price: "Nrs. 1500", type: "5-A-Side",contact: 9815116518 },
+        { name: "Sankhamul Futsal", location: "Sankhamul, Kathmandu", price: "Nrs. 1500", type: "5-A-Side",contact: 9815116518 },
+      ]
     };
   },
-  methods: {
-    filterFutsals() {
-      const { location, name } = this.search;
-      this.filteredFutsals = this.futsals.filter((futsal) =>
-        (location === '' || futsal.location.toLowerCase().includes(location.toLowerCase())) &&
-        (name === '' || futsal.name.toLowerCase().includes(name.toLowerCase()))
-      );
+  computed: {
+    filteredFutsals() {
+      return this.futsals.filter((futsal) => {
+        const matchesLocation = this.selectedLocation ? futsal.location.includes(this.selectedLocation) : true;
+        const matchesQuery = this.searchQuery ? futsal.name.toLowerCase().includes(this.searchQuery.toLowerCase()) : true;
+        return matchesLocation && matchesQuery;
+      });
     },
-    contactFutsal(contactNumber) {
-      alert(`Contacting: ${contactNumber}`);
+    filteredFutsalssecond() {
+      return this.secondfutsals.filter((secondfutsals) => {
+        const matchesLocation = this.selectedLocation ? secondfutsals.location.includes(this.selectedLocation) : true;
+        const matchesQuery = this.searchQuery ? secondfutsals.name.toLowerCase().includes(this.searchQuery.toLowerCase()) : true;
+        return matchesLocation && matchesQuery;
+      });
     },
   },
-  mounted() {
-    // Initialize filteredFutsals with all futsals initially
-    this.filteredFutsals = this.futsals;
+  methods: {
+    searchFutsals() {
+      // Filter logic is handled in computed property
+    },
   },
 };
-
 </script>
 
-<style>
-/* General Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f5f5f5;
-  color: #333;
-  margin: 0;
-  padding: 0;
-}
-
-/* Search Section */
-.search-section {
-  background-color: #fff;
-  padding: 2rem;
-  margin: 1rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.search-section h2 {
-  margin-bottom: 1rem;
-  color: #44b648;
-}
-
-.search-section input,
-.search-section select {
-  padding: 0.5rem;
-  width: calc(50% - 1rem);
-  margin-right: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.search-section button {
-  padding: 0.5rem 1rem;
-  background-color: #44b648;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.search-section button:hover {
-  background-color: #36993a;
-}
-
-/* Futsal List */
-.futsal-list {
-  margin: 2rem 1rem;
-}
-
-.futsal-card {
+<style scoped>
+.search-bar {
   display: flex;
-  align-items: center;
-  background-color: #fff;
-  padding: 1rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  margin-bottom: 1rem;
+  gap: 8px;
+  margin-bottom: 16px;
 }
 
-.futsal-card img {
-  width: 100px;
-  height: 100px;
-  background-color: #ddd;
-  border-radius: 8px;
-  margin-right: 1rem;
-}
-
-.futsal-card .details {
+.search-bar select,
+.search-bar input {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
   flex: 1;
 }
-
-.futsal-card .details h3 {
-  color: #44b648;
+.search-button{
+  /* display: flex; */
+      justify-content: center;
+      margin-inline: auto;
+      background: #ADE25D;
+      color: #364958;
+      font-size: 18px;
+      border: 0px;
+      width: 93px;
+      height: 47px;
+      align-items: center;
+      border-radius: 10px;
+      font-weight: 700;
+      font-family: Montserrat;
 }
+.register-section h2{
+    font-size: 40px;
+    color: #368033;
+    text-align: center;
+    margin-bottom: 5px;
+  }
+  .register-section h3{
+    color: #368033;
+    text-align: center;
+    margin-top: 5px;
+  }
+  .register-section button{
+    display: flex;
+    justify-content: center;
+      margin-inline: auto;
+      background: #ADE25D;
+      color: #364958;
+      font-size: 25px;
+      border: 0px;
+      width: 350px;
+      height: 62px;
+      align-items: center;
+      border-radius: 10px;
+      font-weight: 700;
+      font-family: Montserrat;
+  }
+  
 
-.futsal-card .details p {
-  margin: 0.5rem 0;
-}
-
-.futsal-card .contact {
-  text-align: right;
-}
-
-.futsal-card .contact button {
-  padding: 0.5rem 1rem;
-  background-color: #44b648;
+.search-bar button {
+  background: #4caf50;
   color: #fff;
   border: none;
+  padding: 8px 12px;
   border-radius: 4px;
   cursor: pointer;
 }
 
-.futsal-card .contact button:hover {
-  background-color: #36993a;
+.search-bar button:hover {
+  background: #45a049;
 }
+
+.futsal-list {
+  display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	justify-content: center;
+	align-items: center;
+	align-content: space-around;
+}
+.search-section {
+    font-size: 25px;
+    border: white;
+    color: #368033;
+    text-align: center;
+    margin: 20px 0;
+    margin-bottom: 5px;
+  }
+  
+  .search-inputs input{
+    background-color: white;
+    width: 250px;
+    border-radius: 8px;
+    margin: 10px;
+    padding: 10px;
+    font-size: 20px;
+  }
+  .search-inputs select{
+    border:white;
+    width: 127px;
+    background-color:#ade25d;
+    color: #364958;
+    border-radius: 8px;
+    font-size: 18px;
+    margin: 10px;
+    padding:10px;
+    font-size: 20px;
+    font-weight: 700;
+    font-family: Montserrat;
+  }
 </style>
