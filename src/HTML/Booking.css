@@ -13,9 +13,10 @@ body {
   /* Container */
   .container {
     display: flex;
-    flex-direction: row;
-    width: 90%;
-    max-width: 1200px;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1500px;
+    height: 1500px;
   }
   
   /* Sidebar */
@@ -58,13 +59,15 @@ body {
   }
   
   .main-content h1 {
+    font-size: 20px;
     text-align: center;
     color: #368033;
   }
   
   .form-container {
-    max-width: 600px;
+    max-width: 800px;
     margin: 0 auto;
+    height: 600px;
   }
   
   .form-container h2 {
@@ -74,13 +77,14 @@ body {
   
   /* Form */
   .form-group {
+    flex: 1;
     display: flex;
-    flex-direction: column;
-    margin-bottom: 15px;
+    flex-direction:column;
   }
   
   .form-group label {
-    width: 30%;
+    font-size: 20px;
+    width: 50%;
     margin-bottom: 5px;
     font-weight: bold;
     color: #368033;
@@ -129,7 +133,11 @@ body {
     opacity: 0.9;
   }
   .form-container{
-    border-color: black;
+    width: 1000px;
+    background-color: #ffffff; /* White background for the box */
+    border: 1px solid #ccc; /* Light gray border */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1)
   }
   .main-content h1{
     font-size: 40px;
@@ -139,6 +147,18 @@ body {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    margin-bottom: 30px;
   }
+  .form-row{
+    display: flex; /* Use flexbox to arrange items horizontally */
+    justify-content: space-between; /* Add space between the two inputs */
+    gap: 20px; 
+    margin-bottom: 20px;
+  }
+  .form-row .form-group:first-child {
+    margin-right: 5%;
+    
+}
+
 
   
