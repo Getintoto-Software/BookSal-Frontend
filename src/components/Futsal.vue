@@ -92,6 +92,7 @@ export default {
   methods: {
     searchFutsals() {
       // Filter logic is handled in computed property
+      
     },
   },
 };
