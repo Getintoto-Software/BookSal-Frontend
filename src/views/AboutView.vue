@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import Futsal from '@/components/Futsal.vue';
+import Futsal from '@/views/Futsal.vue';
 export default {
   components: {
     Futsal,
