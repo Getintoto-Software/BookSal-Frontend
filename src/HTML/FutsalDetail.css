@@ -1,0 +1,59 @@
+/* Container Styling */
+.futsal-container {
+    max-width: 900px;
+    margin: 30px auto;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Top Section Styling */
+  .top-section {
+    display: flex;
+    gap: 20px;
+    
+  }
+  
+  .images-section {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    color: white;
+    border-radius: 10px;
+    height: 200px;
+  }
+  
+  .details-section {
+    flex: 2;
+    text-align: left;
+  }
+  
+  .details-section h2 {
+    font-size: 40px;
+    color: #368033;
+    margin-bottom: 10px;
+  }
+  
+  .details-section h3 {
+    font-size: 20px;
+    color: #368033;
+    margin-top: 10px;
+  }
+  
+  .details-section p {
+    margin: 5px 0;
+    font-size: 20px;
+    color: black
+  }
+  
+  .btn-primary {
+    background-color: #368033;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 20px;
+  }
+  
+  
