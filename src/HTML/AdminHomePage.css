@@ -1,0 +1,56 @@
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  
+  /* Container styles */
+  .upcoming-bookings-container {
+    text-align: center;
+    background-color: white;
+    padding: 20px 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 900px;
+  }
+  
+  /* Title styles */
+  .title {
+    color: #368033;
+    margin-bottom: 20px;
+  }
+  
+  /* Bookings grid styles */
+  .bookings-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Two columns */
+    gap: 15px; /* Space between cards */
+  }
+  
+  /* Individual booking card styles */
+  .booking-card {
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+    text-align: left;
+  }
+  
+  .booking-card p {
+    margin: 5px 0;
+    color: black;
+  }
+  
+  .booking-card strong {
+    color:black;
+  }
+  

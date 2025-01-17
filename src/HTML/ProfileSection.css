@@ -28,10 +28,14 @@
   }
   
   .bar button:hover {
-    background-color: #21867a;
+    background-color: #b5e8a7;
   }
   .del button{
     background-color: red;
     color: white;
+  }
+  
+  .del button:hover{
+    background-color: #d1475d;
   }
 
