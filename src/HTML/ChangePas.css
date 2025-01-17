@@ -70,7 +70,6 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     width:320px; /* Adjust width as needed */
-    height: 400px;
   }
   
   .booking-form h2 {
@@ -116,31 +115,12 @@ body {
   .btn-success {
     background-color: #ade25d;
     color: black;
-    width:80px;
-    margin-top: 50px;
+    width:80px
   }
   
   .btn-danger {
     background-color: #e63946;
     color: white;
     width: 80px;
-    margin-top: 50px;
   }
-
-  .form-g label{
-    text-align: left;
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-    color: #368033;
-    font-size: 20px;
-  }
-
-  .form-g input{
-    height:100px;
-    width: 90%;
-    padding: 10px;
-    font-size: 14px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-  }
+  
