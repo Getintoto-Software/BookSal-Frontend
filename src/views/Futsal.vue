@@ -50,15 +50,15 @@ export default {
       selectedLocation: "",
       locations: ["Kathmandu", "Bhaktapur", "Lalitpur"],
       futsals: [
-        { name: "Prime Futsal", location: "Gyaneshwor, Kathmandu", price: "Nrs. 1200", type: "5-A-Side", contact: 9815116518 },
-        { name: "Dhanyentari Futsal", location: "Yellow Pul, Kathmandu", price: "Nrs. 1500", type: "5-A-Side", contact: 9815116518 },
+        { id: 'str', name: "Prime Futsal", location: "Gyaneshwor, Kathmandu", price: "Nrs. 1200", type: "5-A-Side", contact: 9815116518 },
+        { id: 'str', name: "Dhanyentari Futsal", location: "Yellow Pul, Kathmandu", price: "Nrs. 1500", type: "5-A-Side", contact: 9815116518 },
       ],
       secondfutsals: [
-        { name: "Imperial Futsal", location: "Kaushaltar, Bhaktapur", price: "Nrs. 1200", type: "5-A-Side", contact: 9815116518 },
-        { name: "Dhuku Sports Hub", location: "Dhuku, Kathmandu", price: "Nrs. 1200", type: "5-A-Side", contact: 9815116518 },
-        { name: "Madhyapur Sports Hub", location: "Lokanthali, Bhaktapur", price: "Nrs. 2000", type: "5-A-Side", contact: 9815116518 },
-        { name: "Royal Futsal", location: "Anamnagar, Kathmandu", price: "Nrs. 1500", type: "5-A-Side", contact: 9815116518 },
-        { name: "Sankhamul Futsal", location: "Sankhamul, Kathmandu", price: "Nrs. 1500", type: "5-A-Side", contact: 9815116518 },
+        { id: 'str', name: "Imperial Futsal", location: "Kaushaltar, Bhaktapur", price: "Nrs. 1200", type: "5-A-Side", contact: 9815116518 },
+        { id: 'str', name: "Dhuku Sports Hub", location: "Dhuku, Kathmandu", price: "Nrs. 1200", type: "5-A-Side", contact: 9815116518 },
+        { id: 'str', name: "Madhyapur Sports Hub", location: "Lokanthali, Bhaktapur", price: "Nrs. 2000", type: "5-A-Side", contact: 9815116518 },
+        { id: 'str', name: "Royal Futsal", location: "Anamnagar, Kathmandu", price: "Nrs. 1500", type: "5-A-Side", contact: 9815116518 },
+        { id: 'str', name: "Sankhamul Futsal", location: "Sankhamul, Kathmandu", price: "Nrs. 1500", type: "5-A-Side", contact: 9815116518 },
       ]
     };
   },

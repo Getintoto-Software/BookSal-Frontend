@@ -21,6 +21,7 @@
 <script>
 export default {
   props: {
+    id: String,
     name: String,
     location: String,
     price: String,
