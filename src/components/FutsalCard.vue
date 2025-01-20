@@ -84,7 +84,13 @@ export default {
 .futsal-contact button {
   background-color: #368033;
   color: white;
-  height: 30px;
+  font: 32px;
+  height: 40px;
+  font-weight: bold;
   border-radius: 10px;
+}
+.futsal-contact button:hover {
+  background-color: #368033d3;
+  cursor: pointer;
 }
 </style>

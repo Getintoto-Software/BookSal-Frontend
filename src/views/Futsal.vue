@@ -23,7 +23,10 @@
       <h2>Own A Futsal? We Have You Covered</h2>
       <h3>Regiter Your Business Today. Benefit from Online Booking</h3>
       <div style="display: grid; place-items: center; height: 5vh;">
-        <button>Register Your Futsal! <i class="bi bi-arrow-right" style="margin-inline-start: 10px;"></i> </button>
+        <button>
+          <RouterLink to="/signup"  style="text-decoration: none; color: #364958;">Register Your Futsal! <i class="bi bi-arrow-right" style="margin-inline-start: 10px;"></i> </RouterLink>
+          
+          </button>
       </div>
     </section>
 
@@ -36,6 +39,7 @@
 </template>
 
 <script>
+import { RouterLink } from "vue-router";
 import FutsalCard from "../components/FutsalCard.vue";
 
 
@@ -117,6 +121,11 @@ export default {
   font-weight: 700;
   font-family: Montserrat;
 }
+.search-button:hover {
+  background: #ade25dbb;
+  color: #364958b7;
+  cursor: pointer;
+}
 
 .register-section h2 {
   font-size: 40px;
@@ -145,6 +154,11 @@ export default {
   border-radius: 10px;
   font-weight: 700;
   font-family: Montserrat;
+}
+.register-section button:hover {
+  background: #ade25dbb;
+  color: #364958b7;
+  cursor: pointer;
 }
 
 
