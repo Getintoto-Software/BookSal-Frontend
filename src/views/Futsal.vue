@@ -14,34 +14,38 @@
       </div>
     </section>
 
-    <div class="futsal-list">
-      <FutsalCard v-for="futsal in filteredFutsals" :key="futsal.name" :name="futsal.name" :location="futsal.location"
-        :price="futsal.price" :type="futsal.type" :contact="futsal.contact" />
-    </div>
-
     <section class="register-section">
       <h2>Own A Futsal? We Have You Covered</h2>
       <h3>Regiter Your Business Today. Benefit from Online Booking</h3>
       <div style="display: grid; place-items: center; height: 5vh;">
         <button>
-          <RouterLink to="/signup"  style="text-decoration: none; color: #364958;">Register Your Futsal! <i class="bi bi-arrow-right" style="margin-inline-start: 10px;"></i> </RouterLink>
-          
-          </button>
+          <RouterLink to="/signup" style="text-decoration: none; color: #364958;">Register Your Futsal! <i
+              class="bi bi-arrow-right" style="margin-inline-start: 10px;"></i> </RouterLink>
+
+        </button>
       </div>
     </section>
 
     <div class="futsal-list">
+      <FutsalCard v-for="futsal in futsals" :key="futsal.id" :name="futsal.futsal_name" :location="futsal.location"
+        :id="futsal.id" :price="futsal.price_per_hour" :type="futsal.a_side" :contact="futsal.futsal_phone_number"
+        :image="futsal.futsal_image_1" />
+    </div>
+
+
+
+    <!-- <div class="futsal-list">
       <FutsalCard v-for="secondfutsals in filteredFutsalssecond" :key="secondfutsals.name" :name="secondfutsals.name"
         :location="secondfutsals.location" :price="secondfutsals.price" :type="secondfutsals.type"
         :contact="secondfutsals.contact" />
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
 import { RouterLink } from "vue-router";
 import FutsalCard from "../components/FutsalCard.vue";
-
+import axios from "axios";
 
 export default {
   components: {
@@ -53,40 +57,25 @@ export default {
       searchQuery: "",
       selectedLocation: "",
       locations: ["Kathmandu", "Bhaktapur", "Lalitpur"],
-      futsals: [
-        { id: 'str', name: "Prime Futsal", location: "Gyaneshwor, Kathmandu", price: "Nrs. 1200", type: "5-A-Side", contact: 9815116518 },
-        { id: 'str', name: "Dhanyentari Futsal", location: "Yellow Pul, Kathmandu", price: "Nrs. 1500", type: "5-A-Side", contact: 9815116518 },
-      ],
-      secondfutsals: [
-        { id: 'str', name: "Imperial Futsal", location: "Kaushaltar, Bhaktapur", price: "Nrs. 1200", type: "5-A-Side", contact: 9815116518 },
-        { id: 'str', name: "Dhuku Sports Hub", location: "Dhuku, Kathmandu", price: "Nrs. 1200", type: "5-A-Side", contact: 9815116518 },
-        { id: 'str', name: "Madhyapur Sports Hub", location: "Lokanthali, Bhaktapur", price: "Nrs. 2000", type: "5-A-Side", contact: 9815116518 },
-        { id: 'str', name: "Royal Futsal", location: "Anamnagar, Kathmandu", price: "Nrs. 1500", type: "5-A-Side", contact: 9815116518 },
-        { id: 'str', name: "Sankhamul Futsal", location: "Sankhamul, Kathmandu", price: "Nrs. 1500", type: "5-A-Side", contact: 9815116518 },
-      ]
+      futsals: []
     };
   },
-  computed: {
-    filteredFutsals() {
-      return this.futsals.filter((futsal) => {
-        const matchesLocation = this.selectedLocation ? futsal.location.includes(this.selectedLocation) : true;
-        const matchesQuery = this.searchQuery ? futsal.name.toLowerCase().includes(this.searchQuery.toLowerCase()) : true;
-        return matchesLocation && matchesQuery;
-      });
-    },
-    filteredFutsalssecond() {
-      return this.secondfutsals.filter((secondfutsals) => {
-        const matchesLocation = this.selectedLocation ? secondfutsals.location.includes(this.selectedLocation) : true;
-        const matchesQuery = this.searchQuery ? secondfutsals.name.toLowerCase().includes(this.searchQuery.toLowerCase()) : true;
-        return matchesLocation && matchesQuery;
-      });
-    },
+
+  mounted() {
+    this.getFutsals();
   },
   methods: {
     searchFutsals() {
       // Filter logic is handled in computed property
 
     },
+
+    async getFutsals() {
+      const endpoint = import.meta.env.VITE_API_BASE + "futsal/list-futsals/"
+      const response = await axios.get(endpoint)
+      this.futsals = response.data
+      console.log(this.futsals)
+    }
   },
 };
 </script>
@@ -121,6 +110,7 @@ export default {
   font-weight: 700;
   font-family: Montserrat;
 }
+
 .search-button:hover {
   background: #ade25dbb;
   color: #364958b7;
@@ -155,6 +145,7 @@ export default {
   font-weight: 700;
   font-family: Montserrat;
 }
+
 .register-section button:hover {
   background: #ade25dbb;
   color: #364958b7;

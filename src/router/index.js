@@ -33,7 +33,7 @@ const router = createRouter({
       component: Signup
     },
     {
-      path: '/available',
+      path: '/futsal/:id',
       name: 'available',
       component: FutsalDetails
     },

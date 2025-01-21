@@ -1,6 +1,6 @@
 <template>
   <div class="futsal-card">
-    <img src="https://placehold.co/1920x1080" class="futsal-image">
+    <img :src="image" class="futsal-image">
     <div class="futsal-details">
       <h1 class="futsal-name">{{ name }}</h1>
       <div class="futsal-data">
@@ -8,14 +8,15 @@
         <h3>{{ contact }}</h3>
       </div>
       <div class="futsal-contact">
-        <p>{{ price }}</p>
+        <p>Nrs. {{ price }}/Hour</p>
         <p> | </p>
-        <p>{{ type }}</p>
+        <p>{{ type }} a side</p>
 
         <button>
-          <RouterLink to="/available"  style="text-decoration: none; color: #ffffff;">Contact Now <i class="bi bi-arrow-right"></i>
+          <RouterLink :to="'/futsal/' + id" style="text-decoration: none; color: #ffffff;">Contact Now <i
+              class="bi bi-arrow-right"></i>
           </RouterLink>
-          </button>
+        </button>
       </div>
     </div>
   </div>
@@ -29,7 +30,8 @@ export default {
     location: String,
     price: String,
     type: String,
-    contact: Number
+    contact: Number,
+    image: String
   },
 };
 </script>
@@ -92,6 +94,7 @@ export default {
   font-weight: bold;
   border-radius: 10px;
 }
+
 .futsal-contact button:hover {
   background-color: #368033d3;
   cursor: pointer;
