@@ -31,11 +31,6 @@
                         <p><i class="bi bi-geo-alt"></i> Google Maps</p>
                     </div>
                 </div>
-                <div class="book-button-for-futsal">
-                    <RouterLink to="/booking"  style="text-decoration: none; color: #ffffff;">
-                        <button class="btn-primary">Book this Futsal Now</button>
-                    </RouterLink>
-                </div>
             </div>
         </div>
     </div>

@@ -2,7 +2,9 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import Signin from '@/views/Signin.vue'
 import Signup from '@/views/Signup.vue'
+import FutsalDetails from '@/views/FutsalDetails.vue'
 import FutsalAvailability from '@/components/FutsalAvailability.vue'
+import FutsalBooking from '@/views/FutsalBooking.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -33,8 +35,13 @@ const router = createRouter({
     {
       path: '/available',
       name: 'available',
-      component: FutsalAvailability
-    }
+      component: FutsalDetails
+    },
+    {
+      path: '/booking',
+      name: 'booking',
+      component: FutsalBooking
+    },
   ],
 })
 
