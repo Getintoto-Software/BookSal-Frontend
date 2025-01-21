@@ -89,7 +89,7 @@ export default {
                 perPage: 4,
                 gap: '5rem',
                 autoplay: true, // Enable auto-sliding
-                interval: 2000, // Set the interval between slides (3000ms = 3 seconds)
+                interval: 3000, // Set the interval between slides (3000ms = 3 seconds)
                 pauseOnHover: true, // Pause auto-sliding on hover  
                 breakpoints: {
                     768: { perPage: 1 },
