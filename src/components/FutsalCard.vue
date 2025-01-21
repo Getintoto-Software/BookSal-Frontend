@@ -12,7 +12,10 @@
         <p> | </p>
         <p>{{ type }}</p>
 
-        <button>Contact Now <i class="bi bi-arrow-right"></i> </button>
+        <button>
+          <RouterLink to="/available"  style="text-decoration: none; color: #ffffff;">Contact Now <i class="bi bi-arrow-right"></i>
+          </RouterLink>
+          </button>
       </div>
     </div>
   </div>
