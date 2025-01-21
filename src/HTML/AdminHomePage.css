@@ -70,6 +70,7 @@ body {
   .details {
     display: flex;
     justify-content: space-between;
+    font-weight: bolder;
     font-size: 14px;
     color: #2f3a4f; /* Dark text color */
   }
