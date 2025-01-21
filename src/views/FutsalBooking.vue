@@ -110,7 +110,8 @@
         margin: 20px auto;
         font-family: Arial, sans-serif;
         background: #fdfdfd;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        box-shadow: 10px 8px 15px rgba(3, 3, 3, 0.41);
+
     }
 
     h2 {
