@@ -61,26 +61,29 @@ body {
 .title {
   font-size: 35px;
   color: #368033;
+  font-weight: bolder;
   margin: 0;
 }
 
 .location,
 .price {
-  font-size: 16px;
+  font-size: 17px;
   color: black;
+  font-weight: bolder;
   margin: 5px 0;
 }
 
 .description {
   font-size: 14px;
-  color: #6c757d;
+  color: #2f3a4f;
   margin: 10px 0;
 }
 
 .contact-info {
   display: flex;
   justify-content: flex-start;
-  font-size: 14px;
+  font-size: 18px;
+  font-weight: bolder;
   color: black;
   margin: 15px 0;
   gap:25px;
@@ -100,6 +103,7 @@ body {
   background-color: #ade25d;
   color: black;
   font-size: 16px;
+  font-weight: bolder;
   border: none;
   border-radius: 12px;
   padding: 10px 15px;
