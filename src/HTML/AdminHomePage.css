@@ -42,12 +42,13 @@ body {
   }
   
   .card {
-    background-color: #f5f5f5;
+    background-color: #f5f5f5; /* Light background */
     padding: 15px;
     border-radius: 5px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 300px;
+    width: 400px; /* Adjust width as needed */
     font-family: Arial, sans-serif;
+    height: 35px;
   }
   
   .header {
@@ -58,19 +59,19 @@ body {
   
   .name {
     font-weight: bold;
-    color: #2f3a4f;
+    color: #2f3a4f; /* Dark text color */
   }
   
   .contact {
     font-weight: bold;
-    color: #2f3a4f;
+    color: #2f3a4f; /* Dark text color */
   }
   
   .details {
     display: flex;
     justify-content: space-between;
     font-size: 14px;
-    color: #2f3a4f;
+    color: #2f3a4f; /* Dark text color */
   }
   
   .detail {
@@ -78,15 +79,4 @@ body {
     text-align: center;
   }
   
-  
-  /* Individual booking card styles */
-  
-  .booking-card p {
-    margin: 5px 0;
-    color: black;
-  }
-  
-  .booking-card strong {
-    color:black;
-  }
   
