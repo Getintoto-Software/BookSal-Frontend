@@ -55,6 +55,7 @@ export default {
 
 .futsal-image {
   width: 23em;
+  height: 13em;
   border-radius: 20px 0 0 20px;
 }
 
@@ -62,11 +63,12 @@ export default {
   display: flex;
   flex-direction: column;
   text-align: left;
-  width: 23em;
+  width: 29em;
   color: #364958;
   font-weight: bold;
   margin-inline: 10px;
   margin-block: 10px;
+  margin-left: 10px;
 }
 
 .futsal-details h1 {
