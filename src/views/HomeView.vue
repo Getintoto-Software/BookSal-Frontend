@@ -88,6 +88,9 @@ export default {
                 type: 'loop',
                 perPage: 4,
                 gap: '5rem',
+                autoplay: true, // Enable auto-sliding
+                interval: 2000, // Set the interval between slides (3000ms = 3 seconds)
+                pauseOnHover: true, // Pause auto-sliding on hover  
                 breakpoints: {
                     768: { perPage: 1 },
                 },
@@ -102,6 +105,21 @@ export default {
                     title: 'Tips for Improving Your Game',
                     author: 'Adarsh Neupane',
                     date: '10/10/2023',
+                },
+                {
+                    title: 'Best Futsal Courts in Nepal',
+                    author: 'Adarsh Neupane',
+                    date: '11/11/2023',
+                },
+                {
+                    title: 'Best Futsal Courts in Nepal',
+                    author: 'Adarsh Neupane',
+                    date: '11/11/2023',
+                },
+                {
+                    title: 'Best Futsal Courts in Nepal',
+                    author: 'Adarsh Neupane',
+                    date: '11/11/2023',
                 },
                 {
                     title: 'Best Futsal Courts in Nepal',

@@ -2,7 +2,7 @@
     <div class="main-div">
         <div class="futsal-container">
             <div class="images-section">
-                <img src="https://dummyimage.com/1920x1080/c2a9c2/b7678" alt="Futsal field" class="hero-image" />
+                <img src="https://dummyimage.com/1920x1080/364958/368033" alt="Futsal field" class="hero-image" />
             </div>
             <div class="details-section">
                 <div class="heading-section">
