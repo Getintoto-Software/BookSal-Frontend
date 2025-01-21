@@ -53,6 +53,22 @@
         align-items: center;
 
     }
+    .btn-primary{
+        display: flex;
+        justify-content: center;
+        margin-inline: auto;
+        background: #ADE25D;
+        color: #364958;
+        font-size: 22px;
+        border: 0px;
+        width: 310px;
+        height: 40px;
+        cursor: pointer;
+        align-items: center;
+        border-radius: 10px;
+        font-weight: 700;
+        font-family: Montserrat;
+    }
     .futsal-container{
         display: flex;
         flex-direction: row;
@@ -61,16 +77,17 @@
         width: 1197px;
         height: 351px;
         margin-top: -54px;
+        gap: 20px;
         /* padding-left: 420px; */
-        background: #c4c4c4;
+        /* background: #c4c4c4; */
     }
     .content{
         display: flex;
         flex-direction: row;
         justify-content: space-around;
         align-items: center;
-        width: 100%;
-        padding: 10px;
+        width: 90%;
+        /* padding: 10px; */
     }
     .images-section{
         display: flex;
@@ -82,7 +99,7 @@
         width: 100%;
     }
     .hero-image{
-        max-width: 547px;
+        max-width: 644px;
         border-radius: 10px;
     }
     .details-section{
@@ -117,6 +134,10 @@
         margin-top: -28px;
         color: #364958;
         font-weight: bolder;
+        font-style:Montserrat;
+    }
+    p{
+        font-size: medium;
         font-style:Montserrat;
     }
     .bi{
