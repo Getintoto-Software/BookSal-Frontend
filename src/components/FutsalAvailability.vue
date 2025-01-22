@@ -32,7 +32,8 @@
                     </div>
                 </div>
                 <div class="book-button-for-futsal">
-                    <RouterLink :to="id + 'booking'" style="text-decoration: none; color: #ffffff;">
+                    <RouterLink v-if="endpoint === 'available'" :to="id + 'booking'"
+                        style="text-decoration: none; color: #ffffff;">
                         <button class="btn-primary">Book this Futsal Now</button>
                     </RouterLink>
                 </div>
@@ -60,7 +61,8 @@ export default {
     methods: {
         async getFutsalData() {
             const endpoint = await import.meta.env.VITE_API_BASE + "futsal/retrieve-futsal/" + this.id
-            this.endpoint = endpoint
+            this.endpoint = this.$route.name
+            console.log(this.endpoint)
             const response = await axios.get(endpoint)
             this.futsal = response.data
         }
