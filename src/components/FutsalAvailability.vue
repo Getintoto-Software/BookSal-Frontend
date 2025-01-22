@@ -32,7 +32,7 @@
                     </div>
                 </div>
                 <div class="book-button-for-futsal">
-                    <RouterLink to="/booking" style="text-decoration: none; color: #ffffff;">
+                    <RouterLink :to="id + 'booking'" style="text-decoration: none; color: #ffffff;">
                         <button class="btn-primary">Book this Futsal Now</button>
                     </RouterLink>
                 </div>
@@ -63,7 +63,6 @@ export default {
             this.endpoint = endpoint
             const response = await axios.get(endpoint)
             this.futsal = response.data
-
         }
     }
 }

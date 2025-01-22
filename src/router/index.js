@@ -36,19 +36,19 @@ const router = createRouter({
       component: FutsalDetails
     },
     {
-      path: '/booking',
+      path: '/futsal/:id/booking',
       name: 'booking',
       component: FutsalBooking
 
     },
     {
       path: '/admin',
-      name: 'adminhome',
+      name: 'admin-home',
       component: AdminHomeview,
     },
     {
       path:'/admin-booking',
-      name:'admib-booking',
+      name:'admin-booking',
       component: FutsalBookAdd,
     }
   ],
