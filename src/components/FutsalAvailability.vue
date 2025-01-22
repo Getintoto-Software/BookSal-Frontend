@@ -1,23 +1,21 @@
 <template>
-    <div class="main-div">
+    <div class="main-div" v-if="futsal">
         <div class="futsal-container">
             <div class="images-section">
-                <img src="https://dummyimage.com/1920x1080/364958/368033" alt="Futsal field" class="hero-image" />
+                <img :src="futsal.futsal_image_1" alt="Futsal field" class="hero-image" />
             </div>
             <div class="details-section">
                 <div class="heading-section">
-                    <h2>Prime Futsal</h2>
-                    <p><i class="bi bi-geo-alt"></i> Gyaneshwor, Kathmandu</p>
-                    <h3>Nrs. 1200/hr</h3>
+                    <h2>{{ futsal.futsal_name }}</h2>
+                    <p><i class="bi bi-geo-alt"></i> {{ futsal.location }}</p>
+                    <h3>{{ futsal.price_per_hour }}</h3>
                 </div>
                 <div class="line">
 
                 </div>
                 <div class="description">
-                    <p style="font-size: medium; font-style:Montserrat;">
-                        Lorem Ipsum is simply dummy text of the printing and typesetting
-                        industry. Lorem Ipsum has been the industry's standard dummy text ever
-                        since the 1500s...
+                    <p style="font-size: medium; font-style:Montserrat;" v-html="futsal.futsal_description">
+
                     </p>
                 </div>
                 <div class="line">
@@ -25,10 +23,12 @@
                 </div>
                 <div class="content">
                     <div>
-                        <p><i class="bi bi-telephone"></i> 98XXXXXXXX </p>
+                        <p><i class="bi bi-telephone"></i> {{ futsal.futsal_phone_number }} </p>
                     </div>
                     <div>
-                        <p><i class="bi bi-geo-alt"></i> Google Maps</p>
+                        <a :href="futsal.google_maps_link" style="text-decoration: none; color: #364958;">
+                            <p><i class="bi bi-geo-alt"></i> Google Maps</p>
+                        </a>
                     </div>
                 </div>
                 <div class="book-button-for-futsal">
@@ -42,16 +42,28 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
+    data() {
+        return {
+            endpoint: null,
+            futsal: null
+        }
+    },
     props: {
         id: String
     },
     mounted() {
-        getFutsalData()
+        this.getFutsalData()
     },
-    methods : {
-        async getFutsalData(){
-            const endpoint = import.meta.env.BASE_URL 
+    methods: {
+        async getFutsalData() {
+            const endpoint = await import.meta.env.VITE_API_BASE + "futsal/retrieve-futsal/" + this.id
+            this.endpoint = endpoint
+            const response = await axios.get(endpoint)
+            this.futsal = response.data
+
         }
     }
 }

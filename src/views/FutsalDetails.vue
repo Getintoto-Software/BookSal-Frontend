@@ -27,11 +27,11 @@ export default {
     },
     methods: {
         async getFutsalDetails() {
-            const endpoint = import.meta.env.VITE_API_BASE + "futsal/retrieve-futsal/" + this.$route.params.id + "/"
-            console.log(endpoint)
-            const response = await axios.get(endpoint)
-            this.futsal.id = response.data
+            const id = this.$route.params.id + "/"
+            // console.log(endpoint)
+            this.futsal.id = id
             console.log(this.futsal)
+
         }
     }
 }
