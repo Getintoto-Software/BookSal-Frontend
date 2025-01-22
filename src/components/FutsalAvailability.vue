@@ -44,13 +44,15 @@
 <script>
 export default {
     props: {
-        id: String,
-        name: String,
-        location: String,
-        price: String,
-        type: String,
-        contact: String,
-        images: []
+        id: String
+    },
+    mounted() {
+        getFutsalData()
+    },
+    methods : {
+        async getFutsalData(){
+            const endpoint = import.meta.env.BASE_URL 
+        }
     }
 }
 </script>

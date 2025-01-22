@@ -3,7 +3,6 @@ import HomeView from '../views/HomeView.vue'
 import Signin from '@/views/Signin.vue'
 import Signup from '@/views/Signup.vue'
 import FutsalDetails from '@/views/FutsalDetails.vue'
-import FutsalAvailability from '@/components/FutsalAvailability.vue'
 import FutsalBooking from '@/views/FutsalBooking.vue'
 import AdminHomeview from '@/views/admin/AdminHomeview.vue'
 
@@ -18,9 +17,6 @@ const router = createRouter({
     {
       path: '/futsals',
       name: 'futsals',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../views/AboutView.vue'),
     },
     {
@@ -44,7 +40,7 @@ const router = createRouter({
       component: FutsalBooking
     },
     {
-      path:'/admin',
+      path: '/admin',
       name: 'adminhome',
       component: AdminHomeview,
     }
