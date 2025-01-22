@@ -18,7 +18,7 @@
         }
     }
 </script>
-<style>
+<style scoped>
     .main-div {
         display: flex;
         flex-direction: column;

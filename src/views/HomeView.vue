@@ -137,7 +137,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .hero {
     display: flex;
     justify-content: space-between;
@@ -198,7 +198,6 @@ export default {
 .btn:hover {
     background: #ade25dbb;
     color: #364958a4;
-
     cursor: pointer;
 }
 

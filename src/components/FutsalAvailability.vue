@@ -8,7 +8,7 @@
                 <div class="heading-section">
                     <h2>{{ futsal.futsal_name }}</h2>
                     <p><i class="bi bi-geo-alt"></i> {{ futsal.location }}</p>
-                    <h3>{{ futsal.price_per_hour }}</h3>
+                    <h3>NRs. {{ futsal.price_per_hour }}/hour</h3>
                 </div>
                 <div class="line">
 
