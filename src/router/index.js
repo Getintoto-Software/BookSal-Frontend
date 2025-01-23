@@ -6,6 +6,7 @@ import FutsalDetails from '@/views/FutsalDetails.vue'
 import FutsalBooking from '@/views/FutsalBooking.vue'
 import AdminHomeview from '@/views/admin/AdminHomeview.vue'
 import FutsalBookAdd from '@/views/admin/FutsalBookAdd.vue'
+import FutsalUpdateboking from '@/views/admin/FutsalUpdateboking.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -50,6 +51,11 @@ const router = createRouter({
       path:'/admin-booking',
       name:'admin-booking',
       component: FutsalBookAdd,
+    },
+    {
+      path:'/admin-update',
+      name:'admin-update',
+      component: FutsalUpdateboking,
     }
   ],
 })

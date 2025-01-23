@@ -104,10 +104,11 @@
         border: none;
         border-radius: 10px;
         cursor: pointer;
-        font-size: 41px;
+        font-size: 45px;
+        font-weight: 450;
         text-align: center;
         width: 168px;
-        height: 55px;
+        height: 65px;
     }
     .btn-book {
     background-color: #ADE25D;;
