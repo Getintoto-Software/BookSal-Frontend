@@ -173,6 +173,7 @@ export default {
   justify-content: center;
   align-items: center;
   align-content: space-around;
+  margin-top: 45px;
 }
 
 .search-section {

@@ -4,9 +4,8 @@
             <h3>Add a Booking To Your Futsal</h3>
         </div>
         <div class="form">
-            <AdminbookingFrom/>
+            <AdminbookingForm></AdminbookingForm>
         </div>
-
     </div>
 </template>
 <script>
@@ -35,6 +34,14 @@
     }
     h3{
         color: #ADE25D;
-        font-size: 30px;
+        font-size: 64px;
+    }
+    .form{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: space-around;
+        align-items: center;
+        align-content: center;
     }
 </style>
