@@ -125,13 +125,17 @@ export default {
     justify-content: center;
     align-items: center;
     align-content: center;
-    width: 100%;
+    width: 500px;
+    height: 200px;
 }
 
+
 .hero-image {
-    max-width: 644px;
+    width: 527px;
     border-radius: 10px;
+    height: 338px;
 }
+
 
 .details-section {
     display: flex;
