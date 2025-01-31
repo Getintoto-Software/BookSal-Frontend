@@ -59,6 +59,8 @@ export default {
     const logout = () => {
       store.commit("SET_TOKEN", null);
       store.commit("SET_AUTH", false);
+      localStorage.removeItem("token");
+      localStorage.removeItem("expiryTime");
       router.push("/signin");
       closeMenu(); // Close menu on logout
     };

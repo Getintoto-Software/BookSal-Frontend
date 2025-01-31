@@ -28,7 +28,7 @@ const store = createStore({
             if (isSessionValid()) {
                 // Session is still valid, perform login
                 commit('SET_TOKEN', payload.token);
-                commit('SET_USER', payload.user);
+                // commit('SET_USER', payload.user);
                 commit('SET_AUTH', true);
             } else {
                 // Session expired, force logout

@@ -28,7 +28,7 @@
 <script>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import axios from '../axios'; // Adjust this path based on your axios setup
+import apiClient from '../axios'; // Adjust this path based on your axios setup
 import { useStore } from 'vuex';
 
 export default {
@@ -48,24 +48,13 @@ export default {
     };
 
     async function getUser(token) {
-      const user = await axios.get('/auth/user', {
-        headers: {
-          "Authorization": "Token " + token,
-          "Content-Type": "application/json"
-        }
-      })
-
       const expiryTime = new Date().getTime() + 24 * 60 * 60 * 1000; // 1 day in ms
-
-      store.commit("SET_TOKEN", token)
-      store.commit("SET_USER", user)
       store.commit("SET_AUTH", true)
 
       localStorage.setItem('token', token);
       localStorage.setItem('expiryTime', expiryTime.toString());
       // Navigate to the dashboard or home page
       router.push("/profile");
-      return user;
     }
 
     // Function to handle login
@@ -87,7 +76,7 @@ export default {
       };
 
       // Send login request to the backend
-      const response = await axios.post('/auth/login/', payload).catch((error) => {
+      const response = await apiClient.post('/auth/login/', payload).catch((error) => {
         // Handle error - login failed
         console.error(error);
         alert("Invalid phone number or password.", error);
