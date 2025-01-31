@@ -74,10 +74,13 @@
         background: #ffffff;
         border-radius: 15px;
         border-color: #368033;
+        box-shadow: 5px 0 5px rgba(3, 3, 3, 0.275);
         border-width: 2px;
         border-style: solid;
         width: 765px;
         height: 585px;
+        margin-bottom: 90px;
+        
     }
     .form-section{
         display: flex;
@@ -96,7 +99,9 @@
         align-items: center;
         align-content: flex-start;
         width: 100%;
-        gap: 395px
+        gap: 395px;
+        margin-bottom: 25px;
+        margin-left: -10px;
     }
     .btn{
         flex: 1;
