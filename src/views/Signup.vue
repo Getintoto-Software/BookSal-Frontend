@@ -49,8 +49,8 @@ export default {
           const send_phone_number = this.phoneNumber
           const send_password = this.password
 
-          // const endpoint = import.meta.env.VITE_API_BASE + "auth/registration/"
-          const endpoint = "http://127.0.0.1:8000/api/v1/auth/registration/"
+          const endpoint = import.meta.env.VITE_API_BASE + "auth/registration/"
+          // const endpoint = "auth/registration/"
 
           axios.post(endpoint, {
             username: send_phone_number,
@@ -89,7 +89,6 @@ export default {
                 } else {
                   errorMessage += errorData;
                 }
-
                 alert(errorMessage);
               } else if (error.request) {
                 alert("Registration failed: No response from server.");
@@ -97,6 +96,7 @@ export default {
                 alert(`Registration failed: ${error.message}`);
               }
             });
+
         }
         else {
           alert("Passwords do not match.");
