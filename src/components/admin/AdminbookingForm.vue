@@ -67,6 +67,7 @@
     .booking-form{
         display: flex;
         flex-direction: column;
+        box-shadow: 5px 0 5px rgba(3, 3, 3, 0.275);
         flex-wrap: nowrap;
         justify-content: center;
         align-items: stretch;
@@ -78,6 +79,7 @@
         border-style: solid;
         width: 765px;
         height: 585px;
+        margin-bottom: 90px;
     }
     .form-section{
         display: flex;
@@ -96,7 +98,9 @@
         align-items: center;
         align-content: flex-start;
         width: 100%;
-        gap: 395px
+        gap: 395px;
+        margin-bottom: 25px;
+        margin-left: -10px;
     }
     .btn{
         flex: 1;
