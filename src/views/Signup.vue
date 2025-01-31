@@ -1,15 +1,20 @@
 <template>
   <div class="container">
     <div class="right-container">
-      <div class="right-top-topic">Register your Futsal<br>
+      <form class="right-top-topic">Register to Booksal<br>
         <div class="input-boxes-login">
-          <input class="input-box" step="0.01" type="number" placeholder="Phone Number"
-            onkeydown="javascript: return ['Backspace','Delete','ArrowLeft','ArrowRight'].includes(event.code) ? true : !isNaN(Number(event.key)) && event.code!=='Space'">
-          <input class="input-box" type="password" placeholder="Password" hidden="true">
-          <input class="input-box" type="password" placeholder="confirm Password">
+          <input class="input-box" step="0.01" type="number" placeholder="Phone Number" id="phoneNumber"
+            v-model="phoneNumber"
+            onkeydown="javascript: return ['Backspace','Delete','ArrowLeft','ArrowRight'].includes(event.code) ? true : !isNaN(Number(event.key)) && event.code!=='Space'"
+            required>
+          <input class="input-box" type="password" placeholder="Password" id="password" v-model="password" hidden="true"
+            required>
+          <input class="input-box" type="password" placeholder="confirm Password" id="confirmPassword"
+            v-model="confirmPassword" required>
         </div>
-        <button class="login-section-button" style="width: 132px; font-size: 25px; height: 46px;">Register</button>
-      </div>
+        <button @click.prevent="validateForm()" type="submit" class="login-section-button"
+          style="width: 132px; font-size: 25px; height: 46px;">Register</button>
+      </form>
 
     </div>
     <div class="left-container">
@@ -26,8 +31,81 @@
 
 <script>
 
+import axios from 'axios';
+
 export default {
-  name: "Signup"
+  name: "Signup",
+  data() {
+    return {
+      phoneNumber: "",
+      password: "",
+      confirmPassword: ""
+    }
+  },
+  methods: {
+    validateForm() {
+      if (this.phoneNumber && this.password && this.confirmPassword) {
+        if (this.password === this.confirmPassword) {
+          const send_phone_number = this.phoneNumber
+          const send_password = this.password
+
+          // const endpoint = import.meta.env.VITE_API_BASE + "auth/registration/"
+          const endpoint = "http://127.0.0.1:8000/api/v1/auth/registration/"
+
+          axios.post(endpoint, {
+            username: send_phone_number,
+            password1: send_password,
+            password2: send_password
+          }, {
+            headers: {
+              "Content-Type": "application/json",
+            },
+            withCredentials: true
+          })
+            .then(response => {
+              if (response.status === 201) {
+                alert("Registration Successful!");
+                this.$router.push("/");
+              } else {
+                alert(`Registration failed: Unexpected response code ${response.status}`);
+              }
+            })
+            .catch(error => {
+              console.error(error);
+
+              if (error.response) {
+                // Extract error messages from the response
+                const errorData = error.response.data;
+                let errorMessage = "Registration failed:\n";
+
+                if (typeof errorData === "object") {
+                  for (const key in errorData) {
+                    if (Array.isArray(errorData[key])) {
+                      errorMessage += `${errorData[key].join("\n")}\n`; // Join multiple error messages
+                    } else {
+                      errorMessage += `${errorData[key]}\n`;
+                    }
+                  }
+                } else {
+                  errorMessage += errorData;
+                }
+
+                alert(errorMessage);
+              } else if (error.request) {
+                alert("Registration failed: No response from server.");
+              } else {
+                alert(`Registration failed: ${error.message}`);
+              }
+            });
+        }
+        else {
+          alert("Passwords do not match.");
+        }
+      } else {
+        alert("Please fill in all fields.");
+      }
+    }
+  }
 }
 </script>
 

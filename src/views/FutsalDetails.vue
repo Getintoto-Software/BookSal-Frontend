@@ -4,6 +4,9 @@
 
         </FutsalAvailability>
 
+        <div>
+            <!-- Calendar Component -->
+        </div>
 
     </div>
 </template>
@@ -31,7 +34,6 @@ export default {
             // console.log(endpoint)
             this.futsal.id = id
             console.log(this.futsal)
-
         }
     }
 }
