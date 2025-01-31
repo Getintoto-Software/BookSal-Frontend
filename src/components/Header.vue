@@ -8,7 +8,7 @@
       </div>
 
       <!-- Hamburger Icon -->
-      <div class="hamburger" @click="toggleMenu">
+      <div class="hamburger" @click="this.toggleMenu">
         <span :class="{ open: isMenuOpen }"></span>
         <span :class="{ open: isMenuOpen }"></span>
         <span :class="{ open: isMenuOpen }"></span>
@@ -22,8 +22,14 @@
         <li>
           <RouterLink to="/futsals" class="menu-link">Futsals</RouterLink>
         </li>
-        <li>
+        <li v-if="!isAuthenticated">
           <RouterLink to="/signin" class="menu-link">Sign In</RouterLink>
+        </li>
+        <li v-if="isAuthenticated">
+          <RouterLink to="/profile" class="menu-link"> <i class="bi bi-person-circle"></i> </RouterLink>
+        </li>
+        <li v-if="isAuthenticated">
+          <i v-if="isAuthenticated" @click="logout" class="bi bi-box-arrow-right menu-link"></i>
         </li>
       </ul>
     </div>
@@ -31,20 +37,35 @@
 </template>
 
 <script>
-import { RouterLink } from 'vue-router';
+import { useStore } from 'vuex';
+import { computed } from 'vue';
+import { useRouter } from 'vue-router';
+import { ref } from 'vue';
 
-// import Signin from "Signin.vue"
 export default {
-  name: "Navbar",
-  data() {
-    return {
-      isMenuOpen: false,
+  setup() {
+    const store = useStore();
+    const router = useRouter();
+    let isMenuOpen = ref(false);
+
+    const isAuthenticated = computed(() => store.state.isAuthenticated);
+
+    const logout = () => {
+      store.commit('SET_TOKEN', null);
+      store.commit('SET_AUTH', false);
+      router.push('/signin'); // Redirect to login after logout
     };
-  },
-  methods: {
-    toggleMenu() {
-      this.isMenuOpen = !this.isMenuOpen;
-    },
+
+    const toggleMenu = () => {
+      isMenuOpen = !isMenuOpen;
+    };
+
+    return {
+      isAuthenticated,
+      logout,
+      isMenuOpen,
+      toggleMenu,
+    };
   },
 };
 </script>

@@ -42,8 +42,6 @@ export default {
     // Function to validate phone number
     const validatePhoneNumber = (number) => {
       const phoneRegex = /^[0-9]{10}$/; // Example: 10-digit phone number
-      console.log(number)
-      console.log(password.value)
       return phoneRegex.test(number);
     };
 
@@ -64,16 +62,12 @@ export default {
         "email": "", // Email is optional, so we set it to an empty string
         "password": password.value, // The password entered by the user
       };
-
-      console.log(payload)
-
       // Send login request to the backend
       axios
         .post('/auth/login/', payload)
         .then((response) => {
           if (response.status === 200) {
 
-            console.log(response.data.key) // working
             // Login successful
             const token = response.data.key; // Assuming the token is returned in the response, working
 
@@ -82,10 +76,10 @@ export default {
             store.commit("SET_AUTH", true);
 
             // Navigate to the dashboard or home page
-            // router.push("/");
 
             console.log(store.state.token)
             console.log(store.state.isAuthenticated)
+            router.push("/");
           }
         })
         .catch((error) => {

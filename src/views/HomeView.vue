@@ -6,16 +6,18 @@
                 <p style="color: #368033;">Futsals at your fingertips.</p>
                 <div class="buttons">
                     <button class="btn book-btn">
-                        <RouterLink to="/futsals"  style="text-decoration: none; color: #364958;">Book Futsal Now <i class="bi bi-arrow-right"></i>
+                        <RouterLink to="/futsals" style="text-decoration: none; color: #364958;">Book Futsal Now <i
+                                class="bi bi-arrow-right"></i>
                         </RouterLink>
-                     </button>
+                    </button>
                     <button class="btn register-btn">
-                        <RouterLink to="/signup"  style="text-decoration: none; color: #364958;">Register a Futsal <i class="bi bi-arrow-right"></i> 
+                        <RouterLink to="/signup" style="text-decoration: none; color: #364958;">Register a Futsal <i
+                                class="bi bi-arrow-right"></i>
                         </RouterLink>
                     </button>
                 </div>
             </div>
-            <img src="https://placehold.co/600x400" alt="Futsal field" class="hero-image" />
+            <img src="@/assets/images/Booksal Logo.png" alt="Futsal field" class="hero-image" />
         </section>
 
         <div class="stats">
@@ -37,8 +39,9 @@
             <h2 style="color: #368033;">Own A Futsal? We have you covered</h2>
             <p style="color: #368033;">Register your Business Today. Benefit from online Booking.</p>
             <button class="btn register-btn">
-                <RouterLink to="/signup"  style="text-decoration: none; color: #364958;">Register your Futsal!! <i class="bi bi-arrow-right"></i></RouterLink>
-                </button>
+                <RouterLink to="/signup" style="text-decoration: none; color: #364958;">Register your Futsal!! <i
+                        class="bi bi-arrow-right"></i></RouterLink>
+            </button>
         </section>
 
         <section class="booking-section">
@@ -46,10 +49,10 @@
             <p style="color: #368033;">Select Futsal, Select Date and Time, Provide Details and play without any issue.
             </p>
             <button class="btn book-btn">
-                <RouterLink to="/futsals"  style="text-decoration: none; color: #364958;">
+                <RouterLink to="/futsals" style="text-decoration: none; color: #364958;">
                     Book a Game Now!!! <i class="bi bi-arrow-right"></i>
                 </RouterLink>
-             </button>
+            </button>
         </section>
 
         <div class="blog-section">
@@ -146,7 +149,8 @@ export default {
     position: relative;
     background-color: #f4f4f4;
 }
-.bi{
+
+.bi {
     font-size: 20px;
     font-weight: bolder;
 }
@@ -195,6 +199,7 @@ export default {
     background-color: #ADE25D;
     color: #364958;
 }
+
 .btn:hover {
     background: #ade25dbb;
     color: #364958a4;
