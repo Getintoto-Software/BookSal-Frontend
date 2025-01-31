@@ -11,6 +11,7 @@ import FutsalBookAdd from '@/views/admin/FutsalBookAdd.vue'
 import FutsalUpdateboking from '@/views/admin/FutsalUpdateboking.vue'
 import UpdateProfile from '@/views/admin/UpdateProfile.vue'
 import Profile from '@/views/profile/Profile.vue'
+import DeleteAccount from '@/views/admin/DeleteAccount.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -73,6 +74,11 @@ const router = createRouter({
       meta: {
         requiresAuth: true
       }
+    },
+    {
+      path:'/admin-delete-account',
+      name:'admin-delete-account',
+      component: DeleteAccount
     }
   ],
 })
