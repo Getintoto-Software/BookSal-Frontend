@@ -1,35 +1,37 @@
 <template>
-  <nav class="navbar">
+  <nav class="navbar" ref="navbar">
     <div class="container">
       <!-- Logo -->
       <div class="logo">
         <span>BookSal</span>
-        <img src="./assets/logo.png" alt="Logo" class="logo-icon" />
+        <img src="@/assets/logo.svg" alt="Logo" class="logo-icon" />
       </div>
 
       <!-- Hamburger Icon -->
-      <div class="hamburger" @click="this.toggleMenu">
+      <div class="hamburger" @click="toggleMenu">
         <span :class="{ open: isMenuOpen }"></span>
         <span :class="{ open: isMenuOpen }"></span>
         <span :class="{ open: isMenuOpen }"></span>
       </div>
 
       <!-- Menu Items -->
-      <ul :class="['menu', { 'menu-open': isMenuOpen }]">
+      <ul :class="['menu', { 'menu-open': isMenuOpen }]" ref="menu">
         <li>
-          <RouterLink to="/" class="menu-link">Home</RouterLink>
+          <RouterLink to="/" class="menu-link" @click="closeMenu">Home</RouterLink>
         </li>
         <li>
-          <RouterLink to="/futsals" class="menu-link">Futsals</RouterLink>
+          <RouterLink to="/futsals" class="menu-link" @click="closeMenu">Futsals</RouterLink>
         </li>
         <li v-if="!isAuthenticated">
-          <RouterLink to="/signin" class="menu-link">Sign In</RouterLink>
+          <RouterLink to="/signin" class="menu-link" @click="closeMenu">Sign In</RouterLink>
         </li>
         <li v-if="isAuthenticated">
-          <RouterLink to="/profile" class="menu-link"> <i class="bi bi-person-circle"></i> </RouterLink>
+          <RouterLink to="/profile" class="menu-link" @click="closeMenu">
+            <i class="bi bi-person-circle"></i>
+          </RouterLink>
         </li>
         <li v-if="isAuthenticated">
-          <i v-if="isAuthenticated" @click="logout" class="bi bi-box-arrow-right menu-link"></i>
+          <i @click="logout" class="bi bi-box-arrow-right menu-link"></i>
         </li>
       </ul>
     </div>
@@ -37,34 +39,60 @@
 </template>
 
 <script>
-import { useStore } from 'vuex';
-import { computed } from 'vue';
-import { useRouter } from 'vue-router';
-import { ref } from 'vue';
+import { useStore } from "vuex";
+import { computed, ref, onMounted, onUnmounted } from "vue";
+import { useRouter, RouterLink } from "vue-router";
 
 export default {
+  components: {
+    RouterLink,
+  },
   setup() {
     const store = useStore();
     const router = useRouter();
-    let isMenuOpen = ref(false);
+    const isMenuOpen = ref(false);
+    const navbar = ref(null);
+    const menu = ref(null);
 
     const isAuthenticated = computed(() => store.state.isAuthenticated);
 
     const logout = () => {
-      store.commit('SET_TOKEN', null);
-      store.commit('SET_AUTH', false);
-      router.push('/signin'); // Redirect to login after logout
+      store.commit("SET_TOKEN", null);
+      store.commit("SET_AUTH", false);
+      router.push("/signin");
+      closeMenu(); // Close menu on logout
     };
 
     const toggleMenu = () => {
-      isMenuOpen = !isMenuOpen;
+      isMenuOpen.value = !isMenuOpen.value;
     };
+
+    const closeMenu = () => {
+      isMenuOpen.value = false;
+    };
+
+    const handleClickOutside = (event) => {
+      if (menu.value && !menu.value.contains(event.target) && !navbar.value.contains(event.target)) {
+        closeMenu();
+      }
+    };
+
+    onMounted(() => {
+      document.addEventListener("click", handleClickOutside);
+    });
+
+    onUnmounted(() => {
+      document.removeEventListener("click", handleClickOutside);
+    });
 
     return {
       isAuthenticated,
       logout,
       isMenuOpen,
       toggleMenu,
+      closeMenu,
+      navbar,
+      menu,
     };
   },
 };
@@ -74,7 +102,6 @@ export default {
 /* Navbar Container */
 .navbar {
   background-color: #b3e64d;
-  /* Greenish background */
   color: #2c3e50;
   padding: 10px 20px;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
@@ -84,6 +111,7 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
 }
 
 /* Logo */
@@ -105,6 +133,7 @@ export default {
   display: flex;
   gap: 20px;
   list-style: none;
+  transition: all 0.3s ease-in-out;
 }
 
 .menu-link {
@@ -122,6 +151,7 @@ export default {
   display: none;
   flex-direction: column;
   cursor: pointer;
+  z-index: 1000;
 }
 
 .hamburger span {
@@ -146,7 +176,7 @@ export default {
     display: none;
     flex-direction: column;
     background-color: #b3e64d;
-    position: absolute;
+    position: fixed;
     top: 50px;
     right: 0;
     width: 100%;
@@ -154,10 +184,11 @@ export default {
     gap: 10px;
     padding: 10px 0;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 999;
   }
 
   .menu.menu-open {
-    display: flex;
+    display: flex !important;
   }
 }
 </style>
