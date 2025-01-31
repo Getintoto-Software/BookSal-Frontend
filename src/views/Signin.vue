@@ -35,9 +35,11 @@ export default {
   name: "SignIn",
   setup() {
     const phoneNumber = ref();  // Store the phone number input
-    const password = ref("admin");     // Store the password input
+    const password = ref("");     // Store the password input
     const router = useRouter();   // Get the router instance for navigation
     const store = useStore();  // Get Vuex store instance
+    const token = ref("")
+    const isAuthenticated = ref(false)
 
     // Function to validate phone number
     const validatePhoneNumber = (number) => {
@@ -45,8 +47,29 @@ export default {
       return phoneRegex.test(number);
     };
 
+    async function getUser(token) {
+      const user = await axios.get('/auth/user', {
+        headers: {
+          "Authorization": "Token " + token,
+          "Content-Type": "application/json"
+        }
+      })
+
+      const expiryTime = new Date().getTime() + 24 * 60 * 60 * 1000; // 1 day in ms
+
+      store.commit("SET_TOKEN", token)
+      store.commit("SET_USER", user)
+      store.commit("SET_AUTH", true)
+
+      localStorage.setItem('token', token);
+      localStorage.setItem('expiryTime', expiryTime.toString());
+      // Navigate to the dashboard or home page
+      router.push("/profile");
+      return user;
+    }
+
     // Function to handle login
-    const handleLogin = () => {
+    async function handleLogin() {
       if (!validatePhoneNumber(phoneNumber.value)) {
         alert("Please enter a valid phone number!");
         return;
@@ -62,31 +85,22 @@ export default {
         "email": "", // Email is optional, so we set it to an empty string
         "password": password.value, // The password entered by the user
       };
+
       // Send login request to the backend
-      axios
-        .post('/auth/login/', payload)
-        .then((response) => {
-          if (response.status === 200) {
+      const response = await axios.post('/auth/login/', payload).catch((error) => {
+        // Handle error - login failed
+        console.error(error);
+        alert("Invalid phone number or password.", error);
+      });
 
-            // Login successful
-            const token = response.data.key; // Assuming the token is returned in the response, working
-
-            // Commit token and user information to Vuex store
-            store.commit("SET_TOKEN", token);
-            store.commit("SET_AUTH", true);
-
-            // Navigate to the dashboard or home page
-
-            console.log(store.state.token)
-            console.log(store.state.isAuthenticated)
-            router.push("/");
-          }
-        })
-        .catch((error) => {
-          // Handle error - login failed
-          console.error("Login failed:", error.response ? error.response.data : error.message);
-          alert("Invalid phone number or password.");
-        });
+      if (response.status === 200) {
+        const obtained_token = response.data.key; // Assuming the token is returned in the response, working
+        token.value = obtained_token;
+        // console.log(token.value)
+        isAuthenticated.value = true;
+        // console.log(isAuthenticated.value)
+        getUser(token.value)
+      }
     };
 
     return {

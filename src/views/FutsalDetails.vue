@@ -31,9 +31,7 @@ export default {
     methods: {
         async getFutsalDetails() {
             const id = this.$route.params.id + "/"
-            // console.log(endpoint)
             this.futsal.id = id
-            console.log(this.futsal)
         }
     }
 }

@@ -74,7 +74,6 @@ export default {
       const endpoint = import.meta.env.VITE_API_BASE + "futsal/list-futsals/"
       const response = await axios.get(endpoint)
       this.futsals = response.data
-      console.log(this.futsals)
     }
   },
 };

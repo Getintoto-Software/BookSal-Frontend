@@ -62,7 +62,6 @@ export default {
         async getFutsalData() {
             const endpoint = await import.meta.env.VITE_API_BASE + "futsal/retrieve-futsal/" + this.id
             this.endpoint = this.$route.name
-            console.log(this.endpoint)
             const response = await axios.get(endpoint)
             this.futsal = response.data
         }

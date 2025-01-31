@@ -1,13 +1,17 @@
-// src/axios.js
 import axios from 'axios';
 
-// Set default base URL for all Axios requests
-axios.defaults.baseURL = 'http://127.0.0.1:8080/api/v1/';  // Your Django backend API URL
+const apiClient = axios.create({
+    baseURL: 'http://localhost:8080/api/v1/',
+    withCredentials: true, // Make sure the cookies are sent with the request
+});
 
-// Add the token from localStorage (if it exists) to the Authorization header
-const token = localStorage.getItem('token');
-if (token) {
-    axios.defaults.headers.common['Authorization'] = `Token ${token}`;
-}
+// Add token to each request if it's available
+apiClient.interceptors.request.use(config => {
+    const token = localStorage.getItem('token');
+    if (token) {
+        config.headers['Authorization'] = `Token ${token}`;
+    }
+    return config;
+}, error => Promise.reject(error));
 
-export default axios;
+export default apiClient;
