@@ -104,7 +104,7 @@
         border: none;
         border-radius: 10px;
         cursor: pointer;
-        font-size: 45px;
+        font-size: 35px;
         font-weight: 450;
         text-align: center;
         width: 168px;
