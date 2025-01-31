@@ -87,18 +87,17 @@
     }
     .topic{
         display: flex;
-	flex-direction: column;
-	flex-wrap: nowrap;
-	justify-content: center;
-	align-items: flex-start;
-	align-content: flex-start;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-items: flex-start;
+        align-content: flex-start;
     }
     .topic label{
         font-size: 25px;
         color: #368033;
         text-align: left;
         font-style: Montserrat;
-
     }
     .topic input{
         width: 300px;
@@ -109,7 +108,6 @@
         border-style: solid;
         font-size: 20px;
         font-style: Montserrat;
-
     }
     .message{
         display: flex;
@@ -157,6 +155,5 @@
         font-size: 45px;
         color: #368033;
         font-style: Montserrat;
-
     }
 </style>

@@ -31,9 +31,9 @@
                     <h3 style="color: #ADE25D;">Hello, Prime Futsal</h3>
                     <ul>
                         <li style="margin-top: 15px;"><RouterLink to="/admin-update-profile" class="menu-link" @click="toggleProfileOpen">Update Profile</RouterLink></li>
-                        <li><RouterLink to="/" class="menu-link" @click="toggleProfileOpen">Change Password</RouterLink></li>
+                        <li><RouterLink to="/admin-change-password" class="menu-link" @click="toggleProfileOpen">Change Password</RouterLink></li>
                         <li><RouterLink to="/admin-delete-account" class="menu-link" @click="toggleProfileOpen">Delete Account</RouterLink></li>
-                        <li class="logout"><RouterLink to="" class="menu-link" @click="toggleProfileOpen">Log Out<i class="bi bi-box-arrow-right"></i></RouterLink></li>
+                        <li class="logout"><RouterLink to="/" class="menu-link" @click="toggleProfileOpen">Log Out<i class="bi bi-box-arrow-right"></i></RouterLink></li>
                     </ul>
                 </div>
             </div>

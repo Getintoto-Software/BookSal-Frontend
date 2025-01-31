@@ -1,5 +1,5 @@
 <template>
-    <div class="homepage-main-container" style="background: #f4f4f4;;">
+    <div class="homepage-main-container" style="background: #f9f9f9;">
         <section class="hero">
             <div class="hero-content">
                 <h1 style="color: #368033;">#1 Futsal Booking Platform In Nepal</h1>
@@ -142,12 +142,19 @@ export default {
 
 <style scoped>
 .hero {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 40px;
     position: relative;
-    background-color: #f4f4f4;
+    width: 100%;
+    height: auto; /* Keeps height flexible */
+    min-height: 500px; /* Ensures enough height */
+    background-image: url('@/assets/images/Booksal Logo.png'); /* Use correct path */
+    background-size: cover; /* Ensures it fills the entire width */
+    background-repeat: no-repeat;
+    background-position: right center; /* Adjust alignment */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2rem;
+    color: white;
 }
 
 .bi {
@@ -157,6 +164,8 @@ export default {
 
 .hero-content {
     text-align: left;
+    position: relative;
+    z-index: 2;
 }
 
 .hero-content h1 {
@@ -170,8 +179,7 @@ export default {
 }
 
 .hero-image {
-    max-width: 300px;
-    border-radius: 10px;
+    display: none;
 }
 
 .buttons {
@@ -209,14 +217,14 @@ export default {
 
 /* Stats Section */
 .stats {
-    display: flex;
     position: relative;
-    top: 50px;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    align-items: flex-start;
-    align-content: space-around;
+    top: -65px;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-evenly;
+	align-items: center;
+	align-content: center;
     background-color: #eeeeee;
     /* padding: 20px 355px 26px 355px; */
     box-shadow: 5px 0 5px rgba(3, 3, 3, 0.275);
@@ -227,8 +235,15 @@ export default {
 }
 
 .stat-item h2 {
-    font-size: 24px;
+    font-size: 32px;
     color: #7cbf4d;
+    text-align: center;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-evenly;
+	align-items: center;
+	align-content: center;
 }
 
 .stat-item p {

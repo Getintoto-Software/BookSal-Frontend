@@ -13,6 +13,7 @@ import UpdateProfile from '@/views/admin/UpdateProfile.vue'
 import Profile from '@/views/profile/Profile.vue'
 import DeleteAccount from '@/views/admin/DeleteAccount.vue'
 import Contact from '@/views/admin/ContactAdmins.vue'
+import ChangePassword from '@/views/admin/ChangePassword.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -84,6 +85,11 @@ const router = createRouter({
       path: '/admin-contact',
       name: 'admin-contact',
       component: Contact
+    },
+    {
+      path: '/admin-change-password',
+      name: 'admin-change-password',
+      component: ChangePassword
     }
   ],
 })
