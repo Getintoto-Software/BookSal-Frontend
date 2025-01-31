@@ -32,7 +32,7 @@
                     <ul>
                         <li style="margin-top: 15px;"><RouterLink to="/admin-update-profile" class="menu-link">Update Profile</RouterLink></li>
                         <li><RouterLink to="/" class="menu-link">Change Password</RouterLink></li>
-                        <li><RouterLink to="/" class="menu-link">Delete Account</RouterLink></li>
+                        <li><RouterLink to="/admin-delete-account" class="menu-link">Delete Account</RouterLink></li>
                         <li class="logout"><RouterLink to="" class="menu-link">Log Out<i class="bi bi-box-arrow-right"></i></RouterLink></li>
                     </ul>
                 </div>
