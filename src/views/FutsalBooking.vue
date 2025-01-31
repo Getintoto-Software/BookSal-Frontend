@@ -78,19 +78,6 @@ export default {
             this.form.phone = "";
         },
     }
-
-    // data() {
-    //     return {
-
-    //     };
-    // },
-    // methods: {
-    //     async getFutsal() {
-    //         const endpoint = import.meta.env.VITE_API_BASE + "futsal/retrieve-futsal/" + this.id;
-    //         const response = await axios.get(endpoint);
-    //         this.futsal = response.data;
-    //     },
-    // },
 }
 
 </script>
@@ -183,6 +170,7 @@ input:focus {
     cursor: pointer;
     font-size: 25px;
     text-align: center;
+    height: 50px;
     width: 20px;
     /* padding-right: 50px; */
     ;
@@ -190,7 +178,6 @@ input:focus {
 
 .btn-book {
     background-color: #ADE25D;
-    ;
     color: #364958;
     width: 20px;
 }
