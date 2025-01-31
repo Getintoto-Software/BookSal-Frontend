@@ -30,12 +30,14 @@ const router = createRouter({
     {
       path: '/signin',
       name: 'signin',
-      component: Signin
+      component: Signin,
+      meta: { requiresGuest: true } // Prevent logged-in users from accessing
     },
     {
       path: '/signup',
       name: 'signup',
-      component: Signup
+      component: Signup,
+      meta: { requiresGuest: true } // Prevent logged-in users from accessing
     },
     {
       path: '/futsal/:id',
@@ -46,7 +48,6 @@ const router = createRouter({
       path: '/futsal/:id/booking',
       name: 'booking',
       component: FutsalBooking
-
     },
     {
       path: '/admin',
@@ -72,34 +73,42 @@ const router = createRouter({
       path: '/profile',
       name: 'profile',
       component: Profile,
-      meta: {
-        requiresAuth: true
-      }
+      meta: { requiresAuth: true } // Require authentication
     },
     {
-      path:'/admin-delete-account',
-      name:'admin-delete-account',
+      path: '/admin-delete-account',
+      name: 'admin-delete-account',
       component: DeleteAccount
     },
     {
-      path:'/admin-contact',
-      name:'admin-contact',
+      path: '/admin-contact',
+      name: 'admin-contact',
       component: Contact
     }
   ],
 })
 
+// Function to check authentication
+function checkIfAuthenticated() {
+  const store = useStore(); // Access Vuex store
+  return store.state.isAuthenticated;
+}
+
 // Navigation Guard
 router.beforeEach((to, from, next) => {
-  const store = useStore(); // Access Vuex store
+  const isAuthenticated = checkIfAuthenticated();
 
-  if (to.meta.requiresAuth && !store.state.isAuthenticated) {
-    // If the route requires authentication and user is NOT authenticated
-    next('/signin'); // Redirect to SignIn page
-  } else {
-    next(); // Proceed to the requested route
+  // Redirect unauthenticated users trying to access protected routes
+  if (to.meta.requiresAuth && !isAuthenticated) {
+    next('/signin');
+  }
+  // Prevent authenticated users from accessing Sign In or Sign Up
+  else if (to.meta.requiresGuest && isAuthenticated) {
+    next('/profile');
+  }
+  else {
+    next();
   }
 });
 
-
-export default router
+export default router;
