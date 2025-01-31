@@ -12,6 +12,7 @@ import FutsalUpdateboking from '@/views/admin/FutsalUpdateboking.vue'
 import UpdateProfile from '@/views/admin/UpdateProfile.vue'
 import Profile from '@/views/profile/Profile.vue'
 import DeleteAccount from '@/views/admin/DeleteAccount.vue'
+import Contact from '@/views/admin/ContactAdmins.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -79,6 +80,11 @@ const router = createRouter({
       path:'/admin-delete-account',
       name:'admin-delete-account',
       component: DeleteAccount
+    },
+    {
+      path:'/admin-contact',
+      name:'admin-contact',
+      component: Contact
     }
   ],
 })
