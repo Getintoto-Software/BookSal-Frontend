@@ -11,7 +11,7 @@ const route = useRoute();
 </script>
 
 <template>
-  <div>
+  <div style="background-color: #f9f9f9;">
     <Header v-if="!route.path.includes('admin')">
     </Header>
     <AdminHeader v-else></AdminHeader>
@@ -25,5 +25,6 @@ const route = useRoute();
 <style scoped>
 .main-div {
   min-height: 80vh;
+  background-color: #f9f9f9;
 }
 </style>

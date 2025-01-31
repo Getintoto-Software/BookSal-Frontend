@@ -1,6 +1,6 @@
 <template>
     <div class="profile-page">
-      <main class="main-container">
+      <div class="main-container">
         <div class="profile-header">
           <div class="profile-avatar">
             <i class="bi bi-person"></i>
@@ -34,7 +34,7 @@
             <i class="bi bi-pencil"></i> Edit Profile
           </button>
         </div>
-      </main>
+      </div>
     </div>
   </template>
   
@@ -91,8 +91,8 @@
   
   <style scoped>
   .profile-page {
-    background-color: #f7f7f7;
-    min-height: 100vh;
+    background-color: #f9f9f9;
+    min-height: 90vh;
     font-style: Montserrat;
   }
   
