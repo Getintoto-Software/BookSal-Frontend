@@ -136,6 +136,11 @@
         background: #ADE25D;
         color: #364958;
     }
+    .cancel:hover{
+        background: #ade25db7;
+        color: #364958b7;
+        cursor: pointer;
+    }
 
     
     

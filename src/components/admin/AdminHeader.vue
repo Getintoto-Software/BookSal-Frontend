@@ -7,7 +7,7 @@
                 <!-- Menu Popup -->
                 <div v-if="isMenuOpen" class="popup-menu left-popup">
                     <ul>
-                        <li style="margin-top: 15px;"><RouterLink to="/" class="menu-link" @click="toggleMenuOpen">List Bookings</RouterLink></li>
+                        <li style="margin-top: 15px;"><RouterLink to="/admin" class="menu-link" @click="toggleMenuOpen">List Bookings</RouterLink></li>
                         <li><RouterLink to="/admin-booking" class="menu-link" @click="toggleMenuOpen">Add a Booking</RouterLink></li>
                         <li><RouterLink to="/admin-update" class="menu-link" @click="toggleMenuOpen">Update Booking</RouterLink></li>
                         <li><RouterLink to="/admin-contact" class="menu-link" @click="toggleMenuOpen">Contact Admins</RouterLink></li>
