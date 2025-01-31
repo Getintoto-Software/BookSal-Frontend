@@ -9,37 +9,41 @@
         </button>
       </div>
     </div>
-    <div class="right-container">
+    <form class="right-container">
       <div class="right-top-topic">BookSal Login <br>
         <div class="input-boxes-login">
           <input class="input-box" step="0.01" type="number" v-model="phoneNumber" placeholder="Phone Number"
-            onkeydown="javascript: return ['Backspace','Delete','ArrowLeft','ArrowRight'].includes(event.code) ? true : !isNaN(Number(event.key)) && event.code!=='Space'">
+            onkeydown="javascript: return ['Backspace','Delete','ArrowLeft','ArrowRight', 'Tab'].includes(event.code) ? true : !isNaN(Number(event.key)) && event.code!=='Space'">
           <input class="input-box" type="password" placeholder="Password" v-model="password">
         </div>
         <p>Forgot Password?</p>
         <button class="login-section-button" style="width: 120px; font-size: 25px; height: 42px;"
-          @click="handleLogin">Login</button>
+          @click.prevent="handleLogin">Login</button>
       </div>
-    </div>
+    </form>
 
   </div>
 </template>
 
 <script>
-
-import { ref } from "vue";
-import { useRouter } from "vue-router";
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import axios from '../axios'; // Adjust this path based on your axios setup
+import { useStore } from 'vuex';
 
 export default {
   name: "SignIn",
   setup() {
-    const phoneNumber = ref("");
-    const password = ref("");
-    const router = useRouter();
+    const phoneNumber = ref();  // Store the phone number input
+    const password = ref("admin");     // Store the password input
+    const router = useRouter();   // Get the router instance for navigation
+    const store = useStore();  // Get Vuex store instance
 
     // Function to validate phone number
     const validatePhoneNumber = (number) => {
       const phoneRegex = /^[0-9]{10}$/; // Example: 10-digit phone number
+      console.log(number)
+      console.log(password.value)
       return phoneRegex.test(number);
     };
 
@@ -54,13 +58,41 @@ export default {
         return;
       }
 
-      // Simulate login logic (replace with actual API call)
-      if (phoneNumber.value === "1234567890" && password.value === "password") {
-        alert("Login Successful!");
-        router.push("/dashboard"); // Navigate to a dashboard or home page
-      } else {
-        alert("Invalid phone number or password.");
-      }
+      // Prepare the payload for the login request
+      const payload = {
+        "username": String(phoneNumber.value),  // The phone number used as the username
+        "email": "", // Email is optional, so we set it to an empty string
+        "password": password.value, // The password entered by the user
+      };
+
+      console.log(payload)
+
+      // Send login request to the backend
+      axios
+        .post('/auth/login/', payload)
+        .then((response) => {
+          if (response.status === 200) {
+
+            console.log(response.data.key) // working
+            // Login successful
+            const token = response.data.key; // Assuming the token is returned in the response, working
+
+            // Commit token and user information to Vuex store
+            store.commit("SET_TOKEN", token);
+            store.commit("SET_AUTH", true);
+
+            // Navigate to the dashboard or home page
+            // router.push("/");
+
+            console.log(store.state.token)
+            console.log(store.state.isAuthenticated)
+          }
+        })
+        .catch((error) => {
+          // Handle error - login failed
+          console.error("Login failed:", error.response ? error.response.data : error.message);
+          alert("Invalid phone number or password.");
+        });
     };
 
     return {
@@ -69,7 +101,9 @@ export default {
       handleLogin,
     };
   },
-};// End of setup function
+
+};
+
 </script>
 
 <style scoped>
