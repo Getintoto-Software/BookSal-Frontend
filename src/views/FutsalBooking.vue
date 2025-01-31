@@ -78,19 +78,6 @@ export default {
             this.form.phone = "";
         },
     }
-
-    // data() {
-    //     return {
-
-    //     };
-    // },
-    // methods: {
-    //     async getFutsal() {
-    //         const endpoint = import.meta.env.VITE_API_BASE + "futsal/retrieve-futsal/" + this.id;
-    //         const response = await axios.get(endpoint);
-    //         this.futsal = response.data;
-    //     },
-    // },
 }
 
 </script>

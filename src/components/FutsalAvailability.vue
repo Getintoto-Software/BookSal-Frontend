@@ -31,12 +31,6 @@
                         </a>
                     </div>
                 </div>
-                <div class="book-button-for-futsal">
-                    <RouterLink v-if="endpoint === 'available'" :to="id + 'booking'"
-                        style="text-decoration: none; color: #ffffff;">
-                        <button class="btn-primary">Book this Futsal Now</button>
-                    </RouterLink>
-                </div>
             </div>
         </div>
     </div>
