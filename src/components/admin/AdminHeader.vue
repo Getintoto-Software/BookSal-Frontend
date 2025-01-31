@@ -8,8 +8,8 @@
                 <div v-if="isMenuOpen" class="popup-menu left-popup">
                     <ul>
                         <li style="margin-top: 15px;"><RouterLink to="/" class="menu-link">List Bookings</RouterLink></li>
-                        <li><RouterLink to="/" class="menu-link">Add a Booking</RouterLink></li>
-                        <li><RouterLink to="/" class="menu-link">Update Booking</RouterLink></li>
+                        <li><RouterLink to="/admin-booking" class="menu-link">Add a Booking</RouterLink></li>
+                        <li><RouterLink to="/admin-update" class="menu-link">Update Booking</RouterLink></li>
                         <li><RouterLink to="/" class="menu-link">Contact Admins</RouterLink></li>
                     </ul>
                 </div>
@@ -18,7 +18,7 @@
             <!-- Center: Logo -->
             <div class="logo">
                 <div class="brand">
-                    <span>BookSa</span>
+                    <span>BookSal</span>
                 </div>
                 <span class="fw-bold">Admin Panel</span>
             </div>
@@ -30,10 +30,10 @@
                 <div v-if="isProfileOpen" class="popup-menu right-popup">
                     <h3 style="color: #ADE25D;">Hello, Prime Futsal</h3>
                     <ul>
-                        <li style="margin-top: 15px;"><RouterLink to="/" class="menu-link">Update Profile</RouterLink></li>
+                        <li style="margin-top: 15px;"><RouterLink to="/admin-update-profile" class="menu-link">Update Profile</RouterLink></li>
                         <li><RouterLink to="/" class="menu-link">Change Password</RouterLink></li>
                         <li><RouterLink to="/" class="menu-link">Delete Account</RouterLink></li>
-                        <li><RouterLink to="/" class="menu-link">Log Out</RouterLink></li>
+                        <li class="logout"><RouterLink to="" class="menu-link">Log Out<i class="bi bi-box-arrow-right"></i></RouterLink></li>
                     </ul>
                 </div>
             </div>
@@ -98,6 +98,10 @@ export default {
   font-weight: bold;
   color: #2c3e50;
 }
+.popup-menu .logout{
+    background: #ef2c2c;
+
+}
 
 /* Popup Menu Styles */
 .popup-menu {
@@ -145,7 +149,14 @@ export default {
 }
 
 .popup-menu ul li:hover {
-    background: #f0f0f0;
+    background: #ade25dbb;
+    color: #364958b7;
+    cursor: pointer;
+}
+.popup-menu .logout:hover{
+    background: #ef2c2ca0;
+    color: #364958b7;
+    cursor: pointer;
 }
 
 /* Close on click outside */
