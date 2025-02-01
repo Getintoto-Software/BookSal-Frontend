@@ -14,6 +14,7 @@ import Profile from '@/views/profile/Profile.vue'
 import DeleteAccount from '@/views/admin/DeleteAccount.vue'
 import Contact from '@/views/admin/ContactAdmins.vue'
 import ChangePassword from '@/views/admin/ChangePassword.vue'
+import EditProfile from '@/views/profile/EditProfile.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -74,6 +75,12 @@ const router = createRouter({
       path: '/profile',
       name: 'profile',
       component: Profile,
+      meta: { requiresAuth: true } // Require authentication
+    },
+    {
+      path: '/edit-profile',
+      name: 'edit-profile',
+      component: EditProfile,
       meta: { requiresAuth: true } // Require authentication
     },
     {

@@ -30,7 +30,6 @@
 </template>
 
 <script>
-
 import axios from 'axios';
 
 export default {
@@ -43,62 +42,63 @@ export default {
     }
   },
   methods: {
-    validateForm() {
+    async validateForm() {
       if (this.phoneNumber && this.password && this.confirmPassword) {
         if (this.password === this.confirmPassword) {
-          const send_phone_number = this.phoneNumber
-          const send_password = this.password
+          const endpoint = import.meta.env.VITE_API_BASE + "auth/registration/";
 
-          const endpoint = import.meta.env.VITE_API_BASE + "auth/registration/"
-          // const endpoint = "auth/registration/"
-
-          axios.post(endpoint, {
-            username: send_phone_number,
-            password1: send_password,
-            password2: send_password
-          }, {
-            headers: {
-              "Content-Type": "application/json",
-            },
-            withCredentials: true
-          })
-            .then(response => {
-              if (response.status === 201) {
-                alert("Registration Successful!");
-                this.$router.push("/");
-              } else {
-                alert(`Registration failed: Unexpected response code ${response.status}`);
-              }
-            })
-            .catch(error => {
-              console.error(error);
-
-              if (error.response) {
-                // Extract error messages from the response
-                const errorData = error.response.data;
-                let errorMessage = "Registration failed:\n";
-
-                if (typeof errorData === "object") {
-                  for (const key in errorData) {
-                    if (Array.isArray(errorData[key])) {
-                      errorMessage += `${errorData[key].join("\n")}\n`; // Join multiple error messages
-                    } else {
-                      errorMessage += `${errorData[key]}\n`;
-                    }
-                  }
-                } else {
-                  errorMessage += errorData;
-                }
-                alert(errorMessage);
-              } else if (error.request) {
-                alert("Registration failed: No response from server.");
-              } else {
-                alert(`Registration failed: ${error.message}`);
-              }
+          try {
+            // Step 1: Register User
+            const registerResponse = await axios.post(endpoint, {
+              username: this.phoneNumber,
+              password1: this.password,
+              password2: this.password
+            }, {
+              headers: {
+                "Content-Type": "application/json",
+              },
+              withCredentials: true
             });
 
-        }
-        else {
+            if (registerResponse.status === 201) {
+              alert("Registration Successful!");
+
+              // Step 2: Store Token
+              const token = registerResponse.data.key; // Ensure key exists
+              if (!token) {
+                alert("Error: Token missing from response.");
+                return;
+              }
+              localStorage.setItem("authToken", token);
+
+              // Step 3: Get User PK
+              const userResponse = await axios.get(import.meta.env.VITE_API_BASE + "auth/user/", {
+                headers: { Authorization: `Token ${token}` }
+              });
+
+              const userPk = userResponse.data.pk;
+              if (!userPk) {
+                alert("Error: Could not fetch user ID.");
+                return;
+              }
+
+              // Step 4: Create User Profile
+              await axios.post(import.meta.env.VITE_API_BASE + "user/profile/create-user-profile/", {
+                user: userPk
+              }, {
+                headers: { Authorization: `Token ${token}` }
+              });
+
+              alert("Profile created successfully!");
+              this.$router.push("/");
+            } else {
+              alert(`Registration failed: Unexpected response code ${registerResponse.status}`);
+            }
+          } catch (error) {
+            console.error("Error:", error);
+            alert("An error occurred. Please try again.");
+          }
+        } else {
           alert("Passwords do not match.");
         }
       } else {
@@ -106,8 +106,10 @@ export default {
       }
     }
   }
-}
+};
 </script>
+
+
 
 <style scoped>
 p {
