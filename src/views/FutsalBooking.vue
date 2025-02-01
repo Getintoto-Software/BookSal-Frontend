@@ -27,6 +27,9 @@
                     </button>
                 </div>
             </form>
+            <div>
+                <AvailabilityCalendar :id="futsal.id"></AvailabilityCalendar>
+            </div>
         </div>
     </div>
 
@@ -34,7 +37,7 @@
 
 <script>
 import FutsalAvailability from '@/components/FutsalAvailability.vue';
-
+import AvailabilityCalendar from '@/components/AvailabilityCalendar.vue';
 
 export default {
     data() {
@@ -51,6 +54,7 @@ export default {
     },
     components: {
         FutsalAvailability,
+        AvailabilityCalendar
     },
     mounted() {
         this.getFutsalDetails()

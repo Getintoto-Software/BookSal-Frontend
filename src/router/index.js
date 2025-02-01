@@ -15,6 +15,8 @@ import DeleteAccount from '@/views/admin/DeleteAccount.vue'
 import Contact from '@/views/admin/ContactAdmins.vue'
 import ChangePassword from '@/views/admin/ChangePassword.vue'
 import EditProfile from '@/views/profile/EditProfile.vue'
+import AvailabilityCalendar from '@/components/AvailabilityCalendar.vue'
+import FutsalMatchmaking from '@/views/FutsalMatchmaking.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -97,6 +99,16 @@ const router = createRouter({
       path: '/admin-change-password',
       name: 'admin-change-password',
       component: ChangePassword
+    },
+    {
+      path: '/calendar-test',
+      name: 'calendar-test',
+      component: AvailabilityCalendar
+    },
+    {
+      path:'/matchmaking',
+      name:'matchmaking',
+      component: FutsalMatchmaking
     }
   ],
 })
