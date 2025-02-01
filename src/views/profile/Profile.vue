@@ -15,7 +15,7 @@
             <i v-if="user_profile.is_verified" class="bi bi-check-circle"> <small style="font-size: small;"> Verified
               </small></i>
             <i v-else class="bi bi-x-circle" style="color: red;"> <small
-                style="font-size: small;">UnVerified</small></i>
+                style="font-size: small;">Unverified</small></i>
           </h2>
           <p>{{ user?.email }}</p>
           <p>ID: {{ user?.username }}</p>
@@ -26,17 +26,37 @@
         <div v-if="user_profile" class="account-info">
           <h3>User Details</h3>
           <p>Username: {{ user?.username }}</p>
-          <p>Email : {{ user?.email }}</p>
+          <p>Email : {{ user_profile.email_address }}</p>
           <p>Bio : {{ user_profile.bio }}</p>
           <p>Address: {{ user_profile.address }}, {{ user_profile.city }}, {{ user_profile.country }} </p>
         </div>
 
-        <!-- <div v-if="user_profile.is_futsal_admin" class="statistics">
-          <h3>Your Futsals</h3>
+        <div v-if="user_profile.is_futsal_admin" class="statistics">
           <div>
-            FUTSAL HERE
+            <h3>Your Futsals</h3>
+
+            <!-- Card To handle Futsal -->
+            <div v-if="futsalData.length > 0" class="container">
+
+              <div v-for="futsal in futsalData" :key="futsal.id" class="card mb-3" style="max-width: 540px;">
+                <RouterLink to="/admin" class="row g-0">
+                  <div class="col-md-4">
+                    <img :src="futsal.futsal_image_1" class="img-fluid rounded-start" alt="...">
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <h5 class="card-title"> {{ futsal.futsal_name }} </h5>
+                      <p class="card-text" v-html="futsal.futsal_description"></p>
+                      <p class="card-text"><small class="text-body-secondary">{{ futsal.id }}</small></p>
+                    </div>
+                  </div>
+                </RouterLink>
+              </div>
+
+            </div>
+
           </div>
-        </div> -->
+        </div>
       </div>
 
       <div class="edit-profile">
@@ -78,6 +98,8 @@ export default {
       "is_futsal_admin": null
     });
 
+    const futsalData = ref([]);
+
     if (user_token) {
       async function getUserProfile() {
         console.log("user logged")
@@ -113,11 +135,27 @@ export default {
       router.push('/edit-profile');
     };
 
+    async function getFutsalData() {
+      const endpoint = 'futsal/list-futsals'
+      const response = await apiClient(endpoint)
+      let individual_futsal;
+      for (individual_futsal in response.data) {
+        console.log(individual_futsal)
+        if (response.data[individual_futsal].futsal_owner === user.value.pk) {
+          console.log("User Logged 1")
+          futsalData.value.push(response.data[individual_futsal])
+          console.log(futsalData.value)
+        }
+      }
+    }
+
+    getFutsalData()
     return {
       user,
       user_profile,
       logout,
-      editProfile
+      editProfile,
+      futsalData
     };
   }
 };
