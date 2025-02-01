@@ -6,72 +6,90 @@
         <div class="card-section">
             <div v-for="booking in bookings" :key="booking.id" class="card">
                 <div class="name">
-                    <p style="margin-right: auto;">{{ booking.name }}</p>
-                    <p>{{ booking.phone }}</p>
+                    <p style="margin-right: auto;">{{ booking.user.username }}</p>
+                    <p>{{ booking.date }}</p>
+                    <button class="btn btn-success me-4">Update</button>
+                    <button class="btn btn-danger me-4" @click="confirmDelete(booking.id)">Delete</button>
                 </div>
                 <div class="ground-and-info">
-                    <p style="margin-right: auto;">Ground: {{ booking.ground }}</p>
-                    <p style="margin-right: auto;">{{ booking.date }}</p>
-                    <p style="margin-left: auto;">{{ booking.time }}</p>
+                    <p style="margin-right: auto;">Date: {{ booking.booking_date }}</p>
+                    <p style="margin-left: auto;"> Start: {{ booking.booking_start_time }}</p>
+                    <p style="margin-left: auto;">End: {{ booking.booking_end_time }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Delete Confirmation Popup -->
+        <div v-if="showDeletePopup" class="popup-overlay">
+            <div class="popup">
+                <h4>Are you sure you want to delete this booking?</h4>
+                <div class="popup-buttons">
+                    <button class="btn btn-danger" @click="deleteBooking">Yes, Delete</button>
+                    <button class="btn btn-secondary" @click="showDeletePopup = false">Cancel</button>
                 </div>
             </div>
         </div>
     </div>
 </template>
 
-<script setup>
-import { ref } from "vue";
+<script>
+import apiClient from "@/axios";
+import { onMounted, ref } from "vue";
+import { useRoute } from "vue-router";
 
-const bookings = ref([
-    {
-        id: 1,
-        name: "Adamya Neupane",
-        phone: "98XXXXXXXX",
-        ground: "Ground 1",
-        date: "12/12/2024",
-        time: "08:00",
-    },
-    {
-        id: 2,
-        name: "Aayash Dwa",
-        phone: "98XXXXXXXX",
-        ground: "Ground 1",
-        date: "12/12/2024",
-        time: "11:00",
-    },
-    {
-        id: 3,
-        name: "Ayush Bishwokarma",
-        phone: "98XXXXXXXX",
-        ground: "Ground 1",
-        date: "12/12/2024",
-        time: "11:00",
-    },
-    {
-        id: 4,
-        name: "Avash Mahato",
-        phone: "98XXXXXXXX",
-        ground: "Ground 1",
-        date: "12/12/2024",
-        time: "11:00",
-    },
-    {
-        id: 5,
-        name: "Sujan Bhujel",
-        phone: "98XXXXXXXX",
-        ground: "Ground 1",
-        date: "12/12/2024",
-        time: "11:00",
-    },
-    {
-        id: 6,
-        name: "Salin Khadka",
-        phone: "98XXXXXXXX",
-        ground: "Ground 1",
-        date: "12/12/2024",
-        time: "11:00",
-    },
-]);
+export default {
+    setup() {
+        const bookings = ref([]);
+        const showDeletePopup = ref(false);
+        const bookingToDelete = ref(null);
+        const route = useRoute();
+
+        async function getFutsalBookings() {
+            try {
+                const endpoint = `booking/list-bookings/${route.query.id}`;
+                const response = await apiClient.get(endpoint);
+                bookings.value = response.data;
+                console.log(response);
+            } catch (error) {
+                console.error("Error fetching bookings:", error);
+            }
+        }
+
+        // Show delete confirmation popup
+        function confirmDelete(id) {
+            bookingToDelete.value = id;
+            showDeletePopup.value = true;
+        }
+
+        // Delete Booking
+        async function deleteBooking() {
+            if (!bookingToDelete.value) return;
+
+            try {
+                const endpoint = `booking/delete-booking/${bookingToDelete.value}/`;
+                await apiClient.delete(endpoint);
+
+                // Remove deleted booking from the list
+                bookings.value = bookings.value.filter(booking => booking.id !== bookingToDelete.value);
+
+                showDeletePopup.value = false;
+                bookingToDelete.value = null;
+            } catch (error) {
+                console.error("Error deleting booking:", error);
+            }
+        }
+
+        onMounted(getFutsalBookings);
+
+        return {
+            bookings,
+            showDeletePopup,
+            bookingToDelete,
+            confirmDelete,
+            deleteBooking
+        };
+    }
+};
 </script>
 
 
@@ -160,5 +178,33 @@ p {
 
 .card p {
     margin: 5px 0;
+}
+
+/* Popup Styling */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.popup-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
 }
 </style>
