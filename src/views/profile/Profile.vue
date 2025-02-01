@@ -38,8 +38,8 @@
             <!-- Card To handle Futsal -->
             <div v-if="futsalData.length > 0" class="container">
 
-              <div v-for="futsal in futsalData" :key="futsal.id" class="card mb-3" style="max-width: 540px;">
-                <RouterLink :to="{ path: '/admin', query: { id: futsal.id } }" class="row g-0">
+              <div v-for="futsal in futsalData" :key="futsal.id" class="card mb-3 mx-auto" style="max-width: 540px;">
+                <RouterLink :to="{ path: '/admin/' + futsal.id }" class="row g-0">
                   <div class="col-md-4">
                     <img :src="futsal.futsal_image_1" class="img-fluid rounded-start" alt="...">
                   </div>

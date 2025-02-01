@@ -46,10 +46,9 @@ export default {
 
         async function getFutsalBookings() {
             try {
-                const endpoint = `booking/list-bookings/${route.query.id}`;
+                const endpoint = `booking/list-bookings/${route.params.id}`;
                 const response = await apiClient.get(endpoint);
                 bookings.value = response.data;
-                console.log(response);
             } catch (error) {
                 console.error("Error fetching bookings:", error);
             }

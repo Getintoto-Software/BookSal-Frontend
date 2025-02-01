@@ -52,7 +52,7 @@ const router = createRouter({
       component: FutsalBooking
     },
     {
-      path: '/admin',
+      path: '/admin/:id',
       name: 'admin-home',
       component: AdminHomeview,
     },
