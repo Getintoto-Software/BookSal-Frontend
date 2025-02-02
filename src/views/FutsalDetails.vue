@@ -4,9 +4,7 @@
 
         </FutsalAvailability>
 
-        <div>
-            <!-- Calendar Component -->
-        </div>
+        <AvailabilityCalendar />
 
     </div>
 </template>
@@ -14,6 +12,7 @@
 <script>
 import axios from 'axios';
 import FutsalAvailability from '../components/FutsalAvailability.vue';
+import AvailabilityCalendar from '@/components/AvailabilityCalendar.vue';
 export default {
     data() {
         return {
@@ -24,6 +23,7 @@ export default {
     },
     components: {
         FutsalAvailability,
+        AvailabilityCalendar,
     },
     mounted() {
         this.getFutsalDetails()
