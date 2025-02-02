@@ -96,7 +96,7 @@ export default {
     align-items: center;
     width: 1197px;
     height: 351px;
-    margin-top: -54px;
+    margin-top: 45px;
     gap: 20px;
     /* padding-left: 420px; */
     /* background: #c4c4c4; */
@@ -163,7 +163,7 @@ h3 {
 
 .heading-section p {
     font-size: 20px;
-    margin-top: -28px;
+    /* margin-top: -28px; */
     color: #364958;
     font-weight: bolder;
     font-style: Montserrat;

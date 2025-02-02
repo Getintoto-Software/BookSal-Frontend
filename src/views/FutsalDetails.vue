@@ -1,12 +1,13 @@
 <template>
     <div v-if="futsal" class="description-div">
-        <FutsalAvailability :id="futsal.id">
-
-        </FutsalAvailability>
-
-        <AvailabilityCalendar />
-
+            <FutsalAvailability :id="futsal.id">
+    
+            </FutsalAvailability>
+        <div class="calendar">
+            <AvailabilityCalendar />
+        </div>
     </div>
+
 </template>
 
 <script>
@@ -40,10 +41,12 @@ export default {
 <style scoped>
 .description-div {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-top: 28px;
-    height: 433px;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	justify-content: space-around;
+	align-items: stretch;
+	align-content: center;
+    /* margin-top: px; */
+    /* height: 400px; */
 }
 </style>
