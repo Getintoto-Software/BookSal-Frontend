@@ -64,9 +64,12 @@ const router = createRouter({
       component: FutsalBookAdd,
     },
     {
-      path: '/admin-update',
+      path: '/admin/:id/booking/update/:booking_id',
       name: 'admin-update',
       component: FutsalUpdateboking,
+      meta: {
+        requiresAuth: true,
+      }
     },
     {
       path: '/admin-update-profile',
@@ -106,8 +109,8 @@ const router = createRouter({
       component: AvailabilityCalendar
     },
     {
-      path:'/matchmaking',
-      name:'matchmaking',
+      path: '/matchmaking',
+      name: 'matchmaking',
       component: FutsalMatchmaking
     }
   ],

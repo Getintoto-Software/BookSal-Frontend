@@ -8,7 +8,7 @@
                 <div class="name">
                     <p style="margin-right: auto;">{{ booking.user.username }}</p>
                     <p>{{ booking.date }}</p>
-                    <button class="btn btn-success me-4">Update</button>
+                    <button class="btn btn-success me-4" @click="updateBooking(booking.id)">Update</button>
                     <button class="btn btn-danger me-4" @click="confirmDelete(booking.id)">Delete</button>
                 </div>
                 <div class="ground-and-info">
@@ -35,7 +35,7 @@
 <script>
 import apiClient from "@/axios";
 import { onMounted, ref } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 
 export default {
     setup() {
@@ -43,6 +43,7 @@ export default {
         const showDeletePopup = ref(false);
         const bookingToDelete = ref(null);
         const route = useRoute();
+        const router = useRouter();
 
         async function getFutsalBookings() {
             try {
@@ -78,6 +79,13 @@ export default {
             }
         }
 
+        function updateBooking(booking_id) {
+            const futsal_id = route.params.id
+            const booking = booking_id
+            const path = '/admin/' + futsal_id + "/booking/update/" + booking
+            router.push(path)
+        }
+
         onMounted(getFutsalBookings);
 
         return {
@@ -85,7 +93,8 @@ export default {
             showDeletePopup,
             bookingToDelete,
             confirmDelete,
-            deleteBooking
+            deleteBooking,
+            updateBooking,
         };
     }
 };
