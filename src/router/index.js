@@ -51,17 +51,26 @@ const router = createRouter({
     {
       path: '/futsal/:id/booking',
       name: 'booking',
-      component: FutsalBooking
+      component: FutsalBooking,
+      meta: {
+        requiresAuth: true,
+      }
     },
     {
       path: '/admin/:id',
       name: 'admin-home',
       component: AdminHomeview,
+      meta: {
+        requiresAuth: true,
+      }
     },
     {
-      path: '/admin-booking',
+      path: '/admin/:id/add-booking',
       name: 'admin-booking',
       component: FutsalBookAdd,
+      meta: {
+        requiresAuth: true,
+      }
     },
     {
       path: '/admin/:id/booking/update/:booking_id',
@@ -75,6 +84,9 @@ const router = createRouter({
       path: '/admin-update-profile',
       name: 'admin-update-profile',
       component: UpdateProfile,
+      meta: {
+        requiresAuth: true,
+      }
     },
     {
       path: '/profile',
@@ -91,27 +103,42 @@ const router = createRouter({
     {
       path: '/admin-delete-account',
       name: 'admin-delete-account',
-      component: DeleteAccount
+      component: DeleteAccount,
+      meta: {
+        requiresAuth: true,
+      }
     },
     {
-      path: '/admin-contact',
+      path: '/admin-contact/:id',
       name: 'admin-contact',
-      component: Contact
+      component: Contact,
+      meta: {
+        requiresAuth: true,
+      }
     },
     {
       path: '/admin-change-password',
       name: 'admin-change-password',
-      component: ChangePassword
+      component: ChangePassword,
+      meta: {
+        requiresAuth: true,
+      }
     },
     {
       path: '/calendar-test',
       name: 'calendar-test',
-      component: AvailabilityCalendar
+      component: AvailabilityCalendar,
+      meta: {
+        requiresAuth: true,
+      }
     },
     {
       path: '/matchmaking',
       name: 'matchmaking',
-      component: FutsalMatchmaking
+      component: FutsalMatchmaking,
+      meta: {
+        requiresAuth: true,
+      }
     }
   ],
 })

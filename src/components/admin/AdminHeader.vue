@@ -8,9 +8,16 @@
                 <div v-if="isMenuOpen" class="popup-menu left-popup">
                     <ul>
                         <!-- <li style="margin-top: 15px;"><RouterLink to="/admin" class="menu-link" @click="toggleMenuOpen">List Bookings</RouterLink></li> -->
-                        <li><RouterLink to="/admin-booking" class="menu-link" @click="toggleMenuOpen">Add a Booking</RouterLink></li>
+                        <li>
+                            <RouterLink :to="'/admin/' + $route.params.id + '/add-booking'" class="menu-link"
+                                @click="toggleMenuOpen">Add a Booking</RouterLink>
+                        </li>
                         <!-- <li><RouterLink to="/admin-update" class="menu-link" @click="toggleMenuOpen">Update Booking</RouterLink></li> -->
-                        <li><RouterLink to="/admin-contact" class="menu-link" @click="toggleMenuOpen">Contact Admins</RouterLink></li>
+                        <li>
+                            <RouterLink :to="'/admin-contact/' + $route.params.id" class="menu-link"
+                                @click="toggleMenuOpen">Contact Admins
+                            </RouterLink>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -30,10 +37,22 @@
                 <div v-if="isProfileOpen" class="popup-menu right-popup">
                     <h3 style="color: #ADE25D;">Hello, Prime Futsal</h3>
                     <ul>
-                        <li style="margin-top: 15px;"><RouterLink to="/edit-profile" class="menu-link" @click="toggleProfileOpen">Update Profile</RouterLink></li>
-                        <li><RouterLink to="/admin-change-password" class="menu-link" @click="toggleProfileOpen">Change Password</RouterLink></li>
-                        <li><RouterLink to="/admin-delete-account" class="menu-link" @click="toggleProfileOpen">Delete Account</RouterLink></li>
-                        <li class="logout"><RouterLink to="/" class="menu-link" @click="toggleProfileOpen">Log Out<i class="bi bi-box-arrow-right"></i></RouterLink></li>
+                        <li style="margin-top: 15px;">
+                            <RouterLink to="/edit-profile" class="menu-link" @click="toggleProfileOpen">Update Profile
+                            </RouterLink>
+                        </li>
+                        <li>
+                            <RouterLink to="/admin-change-password" class="menu-link" @click="toggleProfileOpen">Change
+                                Password</RouterLink>
+                        </li>
+                        <li>
+                            <RouterLink to="/admin-delete-account" class="menu-link" @click="toggleProfileOpen">Delete
+                                Account</RouterLink>
+                        </li>
+                        <li class="logout">
+                            <RouterLink to="/" class="menu-link" @click="toggleProfileOpen">Log Out<i
+                                    class="bi bi-box-arrow-right"></i></RouterLink>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -58,10 +77,10 @@ export default {
             this.isProfileOpen = !this.isProfileOpen;
             this.isMenuOpen = false; // Close the other popup if open
         },
-        toggleMenuOpen(){
+        toggleMenuOpen() {
             this.isMenuOpen = !this.isMenuOpen;
         },
-        toggleProfileOpen(){
+        toggleProfileOpen() {
             this.isProfileOpen = !this.isProfileOpen;
         }
     }
@@ -99,12 +118,14 @@ export default {
     font-size: 30px;
     cursor: pointer;
 }
+
 .menu-link {
-  text-decoration: none;
-  font-weight: bold;
-  color: #2c3e50;
+    text-decoration: none;
+    font-weight: bold;
+    color: #2c3e50;
 }
-.popup-menu .logout{
+
+.popup-menu .logout {
     background: #ef2c2c;
 
 }
@@ -159,7 +180,8 @@ export default {
     color: #364958b7;
     cursor: pointer;
 }
-.popup-menu .logout:hover{
+
+.popup-menu .logout:hover {
     background: #ef2c2ca0;
     color: #364958b7;
     cursor: pointer;

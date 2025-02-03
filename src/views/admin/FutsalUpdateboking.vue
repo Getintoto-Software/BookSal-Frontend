@@ -60,14 +60,10 @@
 </template>
 <script>
 import { useRoute, useRouter } from "vue-router";
-import AdminbookingForm from "../../components/admin/AdminbookingForm.vue";
 import apiClient from "@/axios";
 import { ref } from "vue";
 
 export default {
-    components: {
-        AdminbookingForm
-    },
     setup() {
         const router = useRouter()
         const route = useRoute()
