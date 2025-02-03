@@ -35,7 +35,7 @@
                 <i class="bi bi-person-circle icon" @click="toggleProfilePopup"></i>
                 <!-- Profile Popup -->
                 <div v-if="isProfileOpen" class="popup-menu right-popup">
-                    <h3 style="color: #ADE25D;">Hello, Prime Futsal</h3>
+                    <h3 style="color: #ADE25D;"></h3>
                     <ul>
                         <li style="margin-top: 15px;">
                             <RouterLink to="/edit-profile" class="menu-link" @click="toggleProfileOpen">Update Profile

@@ -23,13 +23,11 @@
                         </div>
                         <div class="form-group">
                             <label for="time">Start Time</label> <br>
-                            <input type="time" id="time" required class="time"
-                                v-model="booking_data.booking_start_time" />
+                            <TimePicker v-model="booking_data.booking_start_time" />
                         </div>
                         <div class="form-group">
                             <label for="time">End Time</label> <br>
-                            <input type="time" id="end_time" required class="time"
-                                v-model="booking_data.booking_end_time" />
+                            <TimePicker v-model="booking_data.booking_end_time" />
                         </div>
                     </div>
 
@@ -58,8 +56,13 @@
 import { useRoute, useRouter } from "vue-router";
 import apiClient from "@/axios";
 import { ref } from "vue";
+import TimePicker from 'vue3-timepicker';
+import 'vue3-timepicker/dist/VueTimepicker.css';
 
 export default {
+    components: {
+        TimePicker
+    },
     setup() {
         const router = useRouter()
         const route = useRoute()
