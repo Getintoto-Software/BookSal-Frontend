@@ -26,6 +26,11 @@
           <RouterLink to="/signin" class="menu-link" @click="closeMenu">Sign In</RouterLink>
         </li>
         <li v-if="isAuthenticated">
+          <RouterLink to="/matchmaking" class="menu-link" @click="closeMenu">
+            <button class="btn btn-success"> Find A Match </button>
+          </RouterLink>
+        </li>
+        <li v-if="isAuthenticated">
           <RouterLink to="/profile" class="menu-link" @click="closeMenu">
             <i class="bi bi-person-circle"></i>
           </RouterLink>
@@ -114,6 +119,7 @@ export default {
   justify-content: space-between;
   align-items: center;
   position: relative;
+  padding-block: auto;
 }
 
 /* Logo */
@@ -133,6 +139,7 @@ export default {
 /* Menu */
 .menu {
   display: flex;
+  align-items: center;
   gap: 20px;
   list-style: none;
   transition: all 0.3s ease-in-out;

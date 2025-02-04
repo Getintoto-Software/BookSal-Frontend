@@ -1,244 +1,231 @@
 <template>
-    <div class="futsal-matchmaking">
-      <!-- Left panel - Map -->
-      <!-- <div class="map-container"> -->
-        <!-- Placeholder for the map -->
-        <!-- <div class="map-placeholder">
-          Map Component Placeholder
-        </div> -->
-      <!-- </div> -->
-  
-      <!-- Right panel - Matchmaking UI -->
-      <div class="matchmaking-panel">
-        <h2>Find Futsal Matches</h2>
-        
-        <!-- Search input -->
-        <div class="search-container">
-          <Search class="search-icon" />
-          <input
-            v-model="searchQuery"
-            type="text"
-            placeholder="Search for matches"
-            class="search-input"
-          />
-        </div>
-  
-        <!-- Distance slider -->
-        <div class="distance-slider">
-          <label>Max Distance: {{ maxDistance }} km</label>
-          <input
-            v-model="maxDistance"
-            type="range"
-            min="0"
-            max="10"
-            step="0.1"
-          />
-        </div>
-  
-        <!-- Match list -->
-        <div class="match-list">
-          <div
-            v-for="match in filteredMatches"
-            :key="match.id"
-            class="match-card"
-          >
-            <div class="match-info">
-              <h3>{{ match.name }}</h3>
-              <p class="distance">
-                <MapPin :size="14" /> {{ match.distance }} km away
-              </p>
-              <p class="players">
-                <Users :size="14" /> {{ match.players }} players needed
-              </p>
-            </div>
-            <button @click="joinMatch(match.id)" class="join-button">
-              Join
-            </button>
-          </div>
-        </div>
-  
-        <!-- Bottom action button -->
-        <button @click="createNewMatch" class="create-match-button">
-          Create New Match
-        </button>
+  <div class="player-matchmaking">
+    <div class="matchmaking-panel">
+      <h2>Find Players</h2>
+
+      <!-- Search input -->
+      <div class="search-container">
+        <input v-model="searchQuery" type="text" placeholder="Search for players" class="search-input" />
       </div>
+
+      <!-- Distance slider -->
+      <div class="distance-slider">
+        <label>Max Distance: {{ maxDistance }} km</label>
+        <input v-model="maxDistance" type="range" min="0" max="10" step="0.1" />
+      </div>
+
+      <!-- Player list -->
+      <div class="player-list">
+        <div v-for="player in filteredPlayers" :key="player.user_id" class="player-card">
+          <div class="player-info">
+            <h3>{{ player.name }}</h3>
+            <p class="distance">{{ player.distance }} km away</p>
+          </div>
+          <button @click="connectWithPlayer(player.user_id)" class="connect-button">
+            Connect
+          </button>
+        </div>
+      </div>
+
+      <button @click="registerAsAvailable" class="register-button">
+        Register as Available
+      </button>
     </div>
-  </template>
-  
-  <script setup>
-  import { ref, computed } from 'vue'
-//   import { MapPin, Users, Search } from 'lucide-vue-next'
-  
-  // Mock data for potential matches
-  const potentialMatches = [
-    { id: 1, name: "Prime Futsal", distance: 0.5, players: 3 },
-    { id: 2, name: "Dhanyentari Futsal", distance: 1.2, players: 2 },
-    { id: 3, name: "Madhyapur Futsal", distance: 2.3, players: 1 },
-    { id: 4, name: "Dhuku Futsal", distance: 3.1, players: 4 },
-    { id: 5, name: "", distance: 3.8, players: 2 },
-  ]
-  
-  const maxDistance = ref(5)
-  const searchQuery = ref('')
-  
-  const filteredMatches = computed(() => {
-    return potentialMatches
-      .filter(match => match.distance <= maxDistance.value)
-      .filter(match => match.name.toLowerCase().includes(searchQuery.value.toLowerCase()))
-  })
-  
-  const joinMatch = (matchId) => {
-    console.log(`Joining match with ID: ${matchId}`)
-    // Implement join match logic here
-  }
-  
-  const createNewMatch = () => {
-    console.log('Creating a new match')
-    // Implement create new match logic here
-  }
-  </script>
-  
-  <style scoped>
-  .futsal-matchmaking {
-    display: flex;
-    height: 100vh;
-    background-color: #f9f9f9;
-    color: white;
-    
-  }
-  
-  .map-container {
-    width: 66.66%;
-    position: relative;
-  }
-  
-  .map-placeholder {
-    position: absolute;
-    inset: 0;
-    background-color: #d1d5db;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #364958;
-  }
-  
-  .matchmaking-panel {
-    width: 33.33%;
-    background-color: #368033;
-    padding: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    margin-top: 35px;
-    border-radius: 15px;
-    /* margin-left: 38em;
-     */
-     margin-inline: auto;
-    margin-bottom: 5em;
+  </div>
+</template>
 
-  }
-  
-  h2 {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
-  }
-  
-  .search-container {
-    position: relative;
-    margin-bottom: 1rem;
-  }
-  
-  .search-icon {
-    position: absolute;
-    left: 0.75rem;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #364958;
-  }
-  
-  .search-input {
-    width: 100%;
-    padding: 0.5rem 1rem 0.5rem 2.5rem;
-    border-radius: 9999px;
-    background-color: #ADE25D;
-    color: #364958;
-  }
-  
-  .search-input::placeholder {
-    color: rgba(54, 73, 88, 0.7);
-  }
-  
-  .distance-slider {
-    margin-bottom: 1rem;
-  }
-  
-  .distance-slider label {
-    display: block;
-    margin-bottom: 0.5rem;
-  }
-  
-  .distance-slider input {
-    width: 100%;
-  }
-  
-  .match-list {
-    flex-grow: 1;
-    background-color: #364958;
-    border-radius: 0.5rem;
-    padding: 1rem;
-    overflow-y: auto;
-    /* border-color: #f9f9f9;
-    border-width: 1px; */
-    border: 1px solid #364958;
+<script setup>
+import { ref, computed, onMounted } from 'vue'
+import axios from 'axios'
+import apiClient from '@/axios'
 
-  }
-  
-  .match-card {
-    background-color: #368033;
-    border-radius: 0.5rem;
-    padding: 1rem;
-    margin-bottom: 1rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+const players = ref([])  // Stores fetched players
+const maxDistance = ref(5)
+const searchQuery = ref('')
+const userId = ref()  // Replace with actual user ID
 
+// Fetch nearby players by calling the matchmaking API
+const fetchPlayers = async () => {
+  try {
+    const response = await axios.post('http://127.0.0.1:8080/api/v1/find-match/', {
+      user_id: userId.value,
+      latitude: 27.7172,  // Replace with actual latitude
+      longitude: 85.3240  // Replace with actual longitude
+    })
+
+    if (response.data.matched_with) {
+      players.value = [{ user_id: response.data.matched_with, distance: response.data.distance_km }]
+    } else {
+      players.value = []
+    }
+  } catch (error) {
+    console.error('Error fetching players:', error)
   }
-  
-  .match-info h3 {
-    font-weight: 600;
-    margin-bottom: 0.25rem;
+}
+
+async function getUser() {
+  const endpoint = 'auth/user/'
+  const token = localStorage.getItem('token')
+
+  const request = await apiClient(endpoint, {
+    headers: {
+      Authorization: `Token ${token}`
+    }
+  }).then(response => {
+    userId.value = response.data.pk
+    console.log(userId.value)
+  }).catch(error => console.log(error))
+
+  fetchPlayers()
+}
+
+const filteredPlayers = computed(() => {
+  return players.value
+    .filter(player => player.distance <= maxDistance.value)
+    .filter(player => player.user_id.toLowerCase().includes(searchQuery.value.toLowerCase()))
+})
+
+const connectWithPlayer = async (matchedUserId) => {
+  try {
+    await axios.post('http://127.0.0.1:8080/api/v1/join-match/', {
+      user_id: userId.value,
+      matched_user_id: matchedUserId
+    })
+    alert('Match confirmed!')
+    fetchPlayers()  // Refresh player list
+  } catch (error) {
+    console.error('Error connecting with player:', error)
   }
-  
-  .distance, .players {
-    font-size: 0.875rem;
-    display: flex;
-    align-items: center;
+}
+
+const registerAsAvailable = async () => {
+  try {
+    await axios.post('http://127.0.0.1:8080/api/v1/leave-queue/', {
+      user_id: userId.value
+    })
+    await fetchPlayers()  // Try to find a match immediately
+    alert('You are now available for matchmaking!')
+  } catch (error) {
+    console.error('Error registering as available:', error)
   }
-  
-  .distance {
-    color: #ADE25D;
+}
+
+const leaveQueue = async () => {
+  try {
+    await axios.post('http://127.0.0.1:8080/api/v1/leave-queue/', { user_id: userId.value })
+    alert('You have left the matchmaking queue.')
+    players.value = []  // Clear the player list
+  } catch (error) {
+    console.error('Error leaving the queue:', error)
   }
-  
-  .distance svg, .players svg {
-    margin-right: 0.25rem;
-  }
-  
-  .join-button, .create-match-button {
-    background-color: #ADE25D;
-    color: #364958;
-    padding: 0.5rem 1rem;
-    border-radius: 0.25rem;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .join-button:hover, .create-match-button:hover {
-    background-color: rgba(173, 226, 93, 0.8);
-  }
-  
-  .create-match-button {
-    margin-top: 1rem;
-    width: 100%;
-  }
-  </style>
+}
+
+onMounted(getUser)
+</script>
+
+
+
+<style scoped>
+.player-matchmaking {
+  display: flex;
+  height: 100vh;
+  background-color: #f9f9f9;
+  color: white;
+}
+
+.matchmaking-panel {
+  width: 33.33%;
+  background-color: #368033;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  margin-top: 35px;
+  border-radius: 15px;
+  margin-inline: auto;
+  margin-bottom: 5em;
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.search-container {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  background-color: #ADE25D;
+  color: #364958;
+}
+
+.distance-slider {
+  margin-bottom: 1rem;
+}
+
+.distance-slider label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.distance-slider input {
+  width: 100%;
+}
+
+.player-list {
+  flex-grow: 1;
+  background-color: #364958;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  overflow-y: auto;
+  border: 1px solid #364958;
+}
+
+.player-card {
+  background-color: #368033;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.player-info h3 {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.distance {
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  color: #ADE25D;
+}
+
+.connect-button,
+.register-button {
+  background-color: #ADE25D;
+  color: #364958;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.connect-button:hover,
+.register-button:hover {
+  background-color: rgba(173, 226, 93, 0.8);
+}
+
+.register-button {
+  margin-top: 1rem;
+  width: 100%;
+}
+</style>
