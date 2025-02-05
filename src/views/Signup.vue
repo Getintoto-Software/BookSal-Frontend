@@ -7,8 +7,7 @@
             v-model="phoneNumber"
             onkeydown="javascript: return ['Backspace','Delete','ArrowLeft','ArrowRight'].includes(event.code) ? true : !isNaN(Number(event.key)) && event.code!=='Space'"
             required>
-          <input class="input-box" type="password" placeholder="Password" id="password" v-model="password" hidden="true"
-            required>
+          <input class="input-box" type="password" placeholder="Password" id="password" v-model="password" required>
           <input class="input-box" type="password" placeholder="confirm Password" id="confirmPassword"
             v-model="confirmPassword" required>
         </div>
