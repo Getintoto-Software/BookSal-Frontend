@@ -1,29 +1,37 @@
 <template>
-  <div>
-    <h2>Find an Opponent</h2>
-    <form @submit.prevent="findOpponent">
-      <label>Latitude:</label>
-      <input type="text" v-model="latitude" required readonly />
+  <div class="player-matchmaking">
+    <div class="matchmaking-panel">
+      <h2>Find an Opponent</h2>
+      <form @submit.prevent="findOpponent">
+        <div class="search-container" style="display: none;">
+          <label>Latitude:</label>
+          <input type="text" v-model="latitude" required readonly class="search-input" />
+        </div>
+        <div class="search-container" style="display: none;">
+          <label>Longitude:</label>
+          <input type="text" v-model="longitude" required readonly class="search-input" />
+        </div>
+        <div class="distance-slider">
+          <label>Search Radius: {{ radius }} km</label>
+          <input type="range" v-model="radius" min="1" max="10" required />
+        </div>
+        <button type="submit" class="register-button">Find Match</button>
+      </form>
 
-      <label>Longitude:</label>
-      <input type="text" v-model="longitude" required readonly />
+      <p v-if="searching" class="status-message">Searching for an opponent...</p>
+      <p v-if="opponent" class="status-message">Match Found! Room ID: {{ opponent.room_id }}</p>
 
-      <label>Search Radius (km):</label>
-      <input type="number" v-model="radius" min="1" max="10" required />
-
-      <button type="submit">Find Match</button>
-    </form>
-
-    <p v-if="searching">Searching for an opponent...</p>
-    <p v-if="opponent">Match Found! Room ID: {{ opponent.room_id }}</p>
-
-    <h3>Active Rooms</h3>
-    <ul>
-      <li v-for="room in rooms" :key="room.id">
-        Room {{ room.id }} - {{ room.player1_username }} vs {{ room.player2_username || 'Waiting...' }}
-        <button @click="joinRoom(room.id)" class="join-button">Join Matchmaking</button>
-      </li>
-    </ul>
+      <h3>Active Rooms</h3>
+      <div class="player-list">
+        <div v-for="room in rooms" :key="room.id" class="player-card">
+          <div class="player-info">
+            <h3>Room {{ room.id }}</h3>
+            <p>{{ room.player1_username }} vs {{ room.player2_username || 'Waiting...' }}</p>
+          </div>
+          <button @click="joinRoom(room.id)" class="connect-button">Join Matchmaking</button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -142,3 +150,126 @@ export default {
 
 };
 </script>
+<style scoped>
+.player-matchmaking {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f9f9f9;
+  color: white;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 2rem;
+}
+
+.matchmaking-panel {
+  width: 100%;
+  max-width: 500px;
+  background-color: #368033;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h2,
+h3 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #ADE25D;
+}
+
+.search-container {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.search-container label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #ADE25D;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  background-color: #ADE25D;
+  color: #364958;
+  border: none;
+}
+
+.distance-slider {
+  margin-bottom: 1rem;
+}
+
+.distance-slider label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #ADE25D;
+}
+
+.distance-slider input {
+  width: 100%;
+}
+
+.player-list {
+  flex-grow: 1;
+  background-color: #364958;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  overflow-y: auto;
+  border: 1px solid #364958;
+  margin-top: 1rem;
+}
+
+.player-card {
+  background-color: #368033;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.player-info h3 {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  color: #ADE25D;
+}
+
+.player-info p {
+  color: #ffffff;
+}
+
+.connect-button,
+.register-button {
+  background-color: #ADE25D;
+  color: #364958;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-weight: bold;
+}
+
+.connect-button:hover,
+.register-button:hover {
+  background-color: rgba(173, 226, 93, 0.8);
+}
+
+.register-button {
+  margin-top: 1rem;
+  width: 100%;
+}
+
+.status-message {
+  margin-top: 1rem;
+  text-align: center;
+  color: #ADE25D;
+  font-weight: bold;
+}
+</style>
