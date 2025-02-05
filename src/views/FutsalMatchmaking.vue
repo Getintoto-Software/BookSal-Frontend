@@ -69,6 +69,7 @@ export default {
         this.user_id = response.data.pk;
       });
     },
+
     async fetchRooms() {
       try {
         const response = await apiClient.get("matchmaking/");
@@ -77,6 +78,7 @@ export default {
         console.error("Error fetching rooms:", error);
       }
     },
+
     findOpponent() {
       this.searching = true;
       this.socket = new WebSocket("ws://127.0.0.1:8080/ws/matchmaking/");
@@ -84,6 +86,7 @@ export default {
       this.socket.onopen = () => {
         this.socket.send(
           JSON.stringify({
+            action: "find_match",
             player_id: this.user_id,
             latitude: this.latitude,
             longitude: this.longitude,
@@ -97,37 +100,45 @@ export default {
         if (data.type === "match_found") {
           this.opponent = data;
           this.searching = false;
+          this.fetchRooms(); // Refresh room list
+          this.socket.close();
+        } else if (data.type === "match_created") {
+          alert(data.message);
           this.fetchRooms(); // Refresh the room list
           this.socket.close();
         }
       };
     },
-  },
-  joinRoom(roomId) {
-    if (!this.socket || this.socket.readyState !== WebSocket.OPEN) {
-      this.socket = new WebSocket("ws://127.0.0.1:8080/ws/matchmaking/");
-    }
 
-    this.socket.onopen = () => {
-      this.socket.send(
-        JSON.stringify({
-          action: "join_room",
-          player_id: this.user_id,
-          room_id: roomId,
-        })
-      );
-    };
-
-    this.socket.onmessage = (event) => {
-      const data = JSON.parse(event.data);
-      if (data.type === "match_found") {
-        alert(`You have joined Room ${data.room_id}!`);
-        this.fetchRooms(); // Refresh room list
-        this.socket.close();
-      } else if (data.error) {
-        alert(data.error);
+    joinRoom(roomId) {
+      if (!this.socket || this.socket.readyState !== WebSocket.OPEN) {
+        this.socket = new WebSocket("ws://127.0.0.1:8080/ws/matchmaking/");
       }
-    };
+
+      this.socket.onopen = () => {
+        this.socket.send(
+          JSON.stringify({
+            action: "join_match",   // Updated action name to match backend
+            player_id: this.user_id,
+            room_id: roomId,
+            latitude: this.latitude, // Add latitude and longitude for matchmaking
+            longitude: this.longitude,
+          })
+        );
+      };
+
+      this.socket.onmessage = (event) => {
+        const data = JSON.parse(event.data);
+        if (data.type === "match_joined") {
+          alert(`You have joined Room ${data.room_id}!`);
+          this.fetchRooms(); // Refresh room list
+          this.socket.close();
+        } else if (data.type === "error") {
+          alert(data.message);
+        }
+      };
+    },
   },
+
 };
 </script>
