@@ -154,12 +154,6 @@
                   <span class="detail-label">Payment:</span>
                   <span class="detail-value">NPR {{ formatNumber(booking.amount) }}</span>
                 </div>
-                <div class="detail-item">
-                  <span class="detail-label">Payment Status:</span>
-                  <span class="detail-value payment-status" :class="booking.paymentStatus">
-                    {{ formatPaymentStatus(booking.paymentStatus) }}
-                  </span>
-                </div>
               </div>
             </div>
             
@@ -296,105 +290,60 @@
     statuses: []
   });
   
-  // Sample data - in a real app, this would come from an API
-  const upcomingBookings = ref([]);
-  const pastBookings = ref([]);
-  
-  // Fetch bookings
-  onMounted(async () => {
-    try {
-      // Simulate API call
-      setTimeout(() => {
-        upcomingBookings.value = [
-          {
-            id: 'BK-1001',
-            futsalName: 'Green Field Futsal',
-            location: 'Kathmandu, Nepal',
-            date: '2025-04-15',
-            timeSlot: '6:00 PM - 7:00 PM',
-            court: 'Court A - 5-a-side',
-            amount: 1500,
-            status: 'confirmed',
-            paymentStatus: 'paid'
-          },
-          {
-            id: 'BK-1002',
-            futsalName: 'Urban Kicks Futsal',
-            location: 'Lalitpur, Nepal',
-            date: '2025-04-18',
-            timeSlot: '7:00 PM - 8:00 PM',
-            court: 'Court B - 5-a-side',
-            amount: 1800,
-            status: 'pending',
-            paymentStatus: 'pending'
-          },
-          {
-            id: 'BK-1003',
-            futsalName: 'Green Field Futsal',
-            location: 'Kathmandu, Nepal',
-            date: '2025-04-22',
-            timeSlot: '8:00 PM - 9:00 PM',
-            court: 'Court C - 7-a-side',
-            amount: 2000,
-            status: 'confirmed',
-            paymentStatus: 'paid'
-          }
-        ];
-  
-        pastBookings.value = [
-          {
-            id: 'BK-0998',
-            futsalName: 'Green Field Futsal',
-            location: 'Kathmandu, Nepal',
-            date: '2025-03-28',
-            timeSlot: '6:00 PM - 7:00 PM',
-            court: 'Court A - 5-a-side',
-            amount: 1500,
-            status: 'completed',
-            paymentStatus: 'paid'
-          },
-          {
-            id: 'BK-0987',
-            futsalName: 'Urban Kicks Futsal',
-            location: 'Lalitpur, Nepal',
-            date: '2025-03-25',
-            timeSlot: '7:00 PM - 8:00 PM',
-            court: 'Court B - 5-a-side',
-            amount: 1800,
-            status: 'completed',
-            paymentStatus: 'paid'
-          },
-          {
-            id: 'BK-0975',
-            futsalName: 'Futsal Hub',
-            location: 'Bhaktapur, Nepal',
-            date: '2025-03-20',
-            timeSlot: '5:00 PM - 6:00 PM',
-            court: 'Indoor Court - 5-a-side',
-            amount: 1600,
-            status: 'cancelled',
-            paymentStatus: 'refunded'
-          },
-          {
-            id: 'BK-0965',
-            futsalName: 'Green Field Futsal',
-            location: 'Kathmandu, Nepal',
-            date: '2025-03-15',
-            timeSlot: '8:00 PM - 9:00 PM',
-            court: 'Court C - 7-a-side',
-            amount: 2000,
-            status: 'completed',
-            paymentStatus: 'paid'
-          }
-        ];
-  
-        loading.value = false;
-      }, 1000);
-    } catch (error) {
-      console.error("Error fetching bookings:", error);
-      loading.value = false;
+  const API_BASE_URL = 'api/v1/booking/'
+
+ // Get user ID and token from localStorage (adjust keys as needed)
+const userId = localStorage.getItem('userId') || 1; // Fallback to 1 if not found
+const getAuthToken = () => localStorage.getItem('authToken'); // Token key: "authToken"
+
+// Set up Axios with default headers
+const axiosInstance = axios.create({
+  baseURL: API_BASE_URL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
+// Add token to requests dynamically
+axiosInstance.interceptors.request.use((config) => {
+  const token = getAuthToken();
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+}, (error) => Promise.reject(error));
+
+// Fetch bookings from API
+onMounted(async () => {
+  try {
+    loading.value = true;
+
+    // Fetch bookings for the user
+    const response = await axiosInstance.get(`/list-bookings/user/${userId}/`);
+
+    const bookings = response.data; // Assuming the API returns an array of bookings
+
+    // Process and categorize bookings
+    const currentDate = new Date();
+    upcomingBookings.value = bookings
+      .filter(booking => new Date(booking.booking_date) >= currentDate)
+      .map(normalizeBookingData);
+    pastBookings.value = bookings
+      .filter(booking => new Date(booking.booking_date) < currentDate)
+      .map(normalizeBookingData);
+
+  } catch (error) {
+    console.error('Error fetching bookings:', error);
+    if (error.response?.status === 401) {
+      // Handle unauthorized access (e.g., redirect to login)
+      router.push('/login');
     }
-  });
+  } finally {
+    loading.value = false;
+  }
+});
+  ////// edited till here like all the error catching need to test if it works.
+
   
   // Computed properties
   const currentBookings = computed(() => {
