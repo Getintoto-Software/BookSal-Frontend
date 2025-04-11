@@ -147,7 +147,7 @@
     color: #15803d;
 
   }
-  
+
   .section-header p {
     color: #15803cab;
     max-width: 672px;
