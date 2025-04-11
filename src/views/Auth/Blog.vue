@@ -1,24 +1,23 @@
 <template>
-    <section class="blog-section py-12 px-4 md:px-8 lg:px-12">
-      <div class="container mx-auto">
+    <section class="blog-section">
+      <div class="container">
         <!-- Section Header -->
-        <div class="text-center mb-8">
-          <h2 class="text-3xl font-bold mb-2">Futsal Venue Reviews</h2>
-          <p class="text-gray-600 max-w-2xl mx-auto">
+        <div class="section-header">
+          <h2>Futsal Blogs</h2>
+          <p>
             Detailed information about the best futsal facilities in the area
           </p>
         </div>
   
         <!-- Filter Controls -->
-        <div class="mb-10 flex flex-col sm:flex-row justify-center items-center gap-4">
-          <div class="relative w-full max-w-xs">
-            <label for="location-filter" class="block text-sm font-medium text-gray-700 mb-1">
+        <div class="filter-controls">
+          <div class="filter-wrapper">
+            <label for="location-filter">
               Filter by Location
             </label>
             <select 
               id="location-filter" 
               v-model="selectedLocation"
-              class="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-primary focus:border-primary rounded-md shadow-sm"
             >
               <option value="">All Locations</option>
               <option v-for="location in availableLocations" :key="location" :value="location">
@@ -30,70 +29,46 @@
           <button 
             v-if="selectedLocation" 
             @click="clearFilter"
-            class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-primary bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary mt-4 sm:mt-0"
           >
             Clear Filter
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
         </div>
   
         <!-- Blog Grid - Centered for just two cards -->
-        <div class="flex justify-center">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl">
+        <div class="blog-grid-wrapper">
+          <div class="blog-grid">
             <!-- Blog Card -->
-            <article v-for="(post, index) in filteredPosts" :key="index" class="blog-card bg-white rounded-lg overflow-hidden shadow-md transition-transform duration-300 hover:shadow-lg hover:-translate-y-1">
-              <div class="p-6">
+            <article v-for="(post, index) in filteredPosts" :key="index" class="blog-card">
+              <div class="card-content">
                 <!-- Category and Location Tags -->
-                <div class="flex flex-wrap gap-2 mb-3">
-                  <span class="bg-primary text-white text-xs font-bold px-3 py-1 rounded-full">
+                <div class="tags">
+                  <span class="category-tag">
                     {{ post.category }}
                   </span>
-                  <span class="bg-gray-100 text-gray-700 text-xs font-medium px-3 py-1 rounded-full">
+                  <span class="location-tag">
                     {{ post.location }}
                   </span>
                 </div>
                 
                 <!-- Date and Read Time -->
-                <div class="flex items-center text-gray-500 text-sm mb-2">
-                  <span class="mr-3">{{ post.date }}</span>
+                <div class="meta">
+                  <span>{{ post.date }}</span>
                   <span>{{ post.readTime }} min read</span>
                 </div>
                 
                 <!-- Title -->
-                <h3 class="text-xl font-bold mb-3">{{ post.title }}</h3>
+                <h3>{{ post.title }}</h3>
                 
                 <!-- Excerpt -->
-                <p class="text-gray-600 mb-4">{{ post.excerpt }}</p>
-                
-                <!-- Features List -->
-                <div class="mb-4">
-                  <h4 class="text-sm font-semibold text-gray-700 mb-2">Key Features:</h4>
-                  <ul class="text-sm text-gray-600 space-y-1">
-                    <li v-for="(feature, idx) in post.features" :key="idx" class="flex items-start">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-primary mr-2 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                      </svg>
-                      {{ feature }}
-                    </li>
-                  </ul>
-                </div>
-                
-                <!-- Rating -->
-                <div class="flex items-center mb-4">
-                  <div class="flex mr-2">
-                    <svg v-for="i in 5" :key="i" xmlns="http://www.w3.org/2000/svg" :class="['h-4 w-4', i <= post.rating ? 'text-yellow-400' : 'text-gray-300']" viewBox="0 0 20 20" fill="currentColor">
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                  </div>
-                  <span class="text-sm text-gray-600">{{ post.rating }} out of 5</span>
-                </div>
+                <p class="excerpt">{{ post.excerpt }}</p>
                 
                 <!-- Read More Link -->
-                <a href="#" class="inline-flex items-center text-primary font-medium hover:underline">
+                <a href="#" class="read-more">
                   Read Full Review
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                   </svg>
                 </a>
@@ -108,10 +83,8 @@
   <script setup>
   import { ref, computed } from 'vue';
   
-  // Location filter state
   const selectedLocation = ref('');
   
-  // Sample blog posts data with only two venue reviews
   const blogPosts = ref([
     {
       title: "Prime Futsal: The Premier Indoor Facility in Gyaneshwor",
@@ -119,16 +92,7 @@
       date: "June 15, 2023",
       category: "Venue Review",
       location: "Gyaneshwor",
-      readTime: 5,
-      rating: 4.8,
-      features: [
-        "FIFA-approved synthetic turf courts",
-        "Professional LED lighting system",
-        "Spacious changing rooms with showers",
-        "Café and refreshment area",
-        "Ample parking space",
-        "Online booking system"
-      ]
+      readTime: 5
     },
     {
       title: "Imperial Futsal: Bhaktapur's Premier Futsal Destination",
@@ -136,35 +100,24 @@
       date: "April 22, 2023",
       category: "Venue Review",
       location: "Bhaktapur",
-      readTime: 6,
-      rating: 4.6,
-      features: [
-        "High-quality futsal courts",
-        "Modern changing facilities",
-        "Spectator seating areas",
-        "Equipment rental available",
-        "Friendly and professional staff",
-        "Flexible booking options"
-      ]
+      readTime: 6
     }
   ]);
   
-  // Get unique locations for the filter dropdown
+  //filter location section used grok.
+
   const availableLocations = computed(() => {
     const locations = blogPosts.value.map(post => post.location);
     return [...new Set(locations)].sort();
   });
   
-  // Filter posts based on selected location
   const filteredPosts = computed(() => {
     if (!selectedLocation.value) {
       return blogPosts.value;
     }
-    
     return blogPosts.value.filter(post => post.location === selectedLocation.value);
   });
   
-  // Clear the location filter
   const clearFilter = () => {
     selectedLocation.value = '';
   };
@@ -173,25 +126,262 @@
   <style scoped>
   .blog-section {
     background-color: #f8f9fa;
+    padding: 48px 16px;
   }
   
-  .bg-primary {
-    background-color: #ff5722;
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
   }
   
-  .bg-primary-dark {
-    background-color: #e64a19;
+  .section-header {
+    text-align: center;
+    margin-bottom: 32px;
+    
   }
   
-  .text-primary {
-    color: #ff5722;
+  .section-header h2 {
+    font-size: 45px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #15803d;
+
   }
   
-  .ring-primary {
-    --tw-ring-color: #ff5722;
+  .section-header p {
+    color: #15803cab;
+    max-width: 672px;
+    margin: 0 auto;
   }
   
-  .border-primary {
-    border-color: #ff5722;
+  .filter-controls {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+  
+  .filter-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 300px;
+  }
+  
+  .filter-wrapper label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: #374151;
+    margin-bottom: 4px;
+  }
+  
+  .filter-wrapper select {
+    width: 100%;
+    padding: 8px 40px 8px 12px;
+    font-size: 16px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    outline: none;
+  }
+  
+  .filter-wrapper select:focus {
+    border-color: #15803d;
+    box-shadow: 0 0 0 2px rgba(255, 87, 34, 0.2);
+  }
+  
+  .filter-controls button {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 16px;
+    border: 1px solid transparent;
+    font-size: 14px;
+    font-weight: 500;
+    color: #15803d;;
+    background-color: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .filter-controls button svg {
+    width: 16px;
+    height: 16px;
+    margin-left: 4px;
+  }
+  
+  .filter-controls button:hover {
+    background-color: #f9fafb;
+  }
+  
+  .blog-grid-wrapper {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .blog-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+    max-width: 1024px;
+  }
+  
+  .blog-card {
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  .blog-card:hover {
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    transform: translateY(-4px);
+  }
+  
+  .card-content {
+    padding: 24px;
+  }
+  
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  
+  .category-tag {
+    background-color: #15803d;
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 4px 12px;
+    border-radius: 9999px;
+  }
+  
+  .location-tag {
+    background-color: #f3f4f6;
+    color: #4b5563;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 4px 12px;
+    border-radius: 9999px;
+  }
+  
+  .meta {
+    display: flex;
+    align-items: center;
+    color: #6b7280;
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+  
+  .meta span:first-child {
+    margin-right: 12px;
+  }
+  
+  .card-content h3 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 12px;
+  }
+  
+  .excerpt {
+    color: #6b7280;
+    margin-bottom: 16px;
+  }
+  
+  .features h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 8px;
+  }
+  
+  .features ul {
+    color: #6b7280;
+    font-size: 14px;
+  }
+  
+  .features li {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 4px;
+  }
+  
+  .features svg {
+    width: 16px;
+    height: 16px;
+    color: #15803d;
+    margin-right: 8px;
+    margin-top: 2px;
+  }
+  
+  .rating {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  
+  .stars {
+    display: flex;
+    margin-right: 8px;
+  }
+  
+  .stars svg {
+    width: 16px;
+    height: 16px;
+    fill: #d1d5db;
+  }
+  
+  .stars svg.active {
+    fill: #facc15;
+  }
+  
+  .rating span {
+    font-size: 14px;
+    color: #6b7280;
+  }
+  
+  .read-more {
+    display: inline-flex;
+    align-items: center;
+    color: #15803d;
+    font-weight: 500;
+  }
+  
+  .read-more:hover {
+    text-decoration: underline;
+  }
+  
+  .read-more svg {
+    width: 16px;
+    height: 16px;
+    margin-left: 4px;
+  }
+  
+  @media (min-width: 768px) {
+    .blog-section {
+      padding: 48px 32px;
+    }
+  
+    .filter-controls {
+      flex-direction: row;
+    }
+  
+    .filter-controls button {
+      margin-top: 0;
+    }
+  
+    .blog-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .blog-section {
+      padding: 48px 48px;
+    }
   }
   </style>

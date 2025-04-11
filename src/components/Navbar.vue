@@ -13,6 +13,7 @@
                 <div class="desktop-nav">
                     <router-link to="/" class="nav-link">Home</router-link>
                     <router-link to="/futsals" class="nav-link">Find Futsals</router-link>
+                    <router-link to="/blog" class="nav-link">Blog</router-link>
                     <router-link to="/profile" class="nav-link" v-if="authStore.isLoggedIn">Profile</router-link>
                     <router-link to="/login" class="nav-link" v-if="!authStore.isLoggedIn">Login</router-link>
                     <router-link to="/register" class="signup-btn" v-if="!authStore.isLoggedIn">Sign Up</router-link>

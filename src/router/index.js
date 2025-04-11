@@ -14,6 +14,7 @@ import FutsalStats from '@/views/FutsalAdmin/FutsalStats.vue'
 import TermsAndConditions from '@/views/TermsAndConditions.vue'
 import PrivacyPolicy from '@/views/PrivacyPolicy.vue'
 import Bookings from '@/views/Auth/Bookings.vue'
+import Blog from '@/views/Auth/Blog.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -102,6 +103,14 @@ const router = createRouter({
       path: '/futsal/:id/stats',
       name: 'futsal-stats',
       component: FutsalStats,
+      meta: {
+        requiresAuth: true,
+      }
+    },
+    {
+      path: '/blog',
+      name: 'blog',
+      component: Blog,
       meta: {
         requiresAuth: true,
       }
