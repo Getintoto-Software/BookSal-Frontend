@@ -15,6 +15,7 @@ import TermsAndConditions from '@/views/TermsAndConditions.vue'
 import PrivacyPolicy from '@/views/PrivacyPolicy.vue'
 import Bookings from '@/views/Auth/Bookings.vue'
 import Blog from '@/views/Blog/Blog.vue'
+import BlogView from '@/views/Blog/BlogView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -112,6 +113,11 @@ const router = createRouter({
       name: 'blog',
       component: Blog,
 
+    },
+    {
+      path: '/blog/:blogid',
+      name: 'blog-detail',
+      component: BlogView
     },
     {
       path: '/futsal/:id/edit',
