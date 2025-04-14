@@ -2,6 +2,7 @@
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import apiClient from '@/axios';
+import { notificationService } from '@/services/notificationService';
 
 const router = useRouter();
 
@@ -49,6 +50,10 @@ const isPasswordSaving = ref(false);
 // State for futsals
 const futsals = ref([]);
 
+// State for notifications
+const isNotificationEnabled = ref(false);
+const notificationError = ref('');
+
 // Loading and error states
 const isLoading = ref(true);
 const error = ref(null);
@@ -62,9 +67,8 @@ const isAuthenticated = () => {
 const fetchUserData = async () => {
     try {
         const response = await apiClient.get('auth/user/');
-        user.value = await response.data;
-        console.log(user.value.pk)
-        return user.value.pk; // Return user PK for profile fetch
+        user.value = response.data;
+        return user.value.pk;
     } catch (err) {
         console.error('Error fetching user data:', err);
         if (err.response?.status === 401) {
@@ -126,10 +130,52 @@ const initializeProfile = async () => {
         const userPk = await fetchUserData();
         await fetchUserProfile(userPk);
         await fetchFutsals(userPk);
+
+        // Check notification status for futsal admins
+        if (userProfile.value.is_futsal_admin) {
+            isNotificationEnabled.value = Notification.permission === 'granted';
+            notificationService.setupForegroundNotifications();
+        }
     } catch (err) {
         error.value = 'Failed to load profile data. Please try again.';
     } finally {
         isLoading.value = false;
+    }
+};
+
+// Toggle notifications
+const toggleNotifications = async () => {
+    if (isNotificationEnabled.value) {
+        // Disable notifications (clear token in backend)
+        try {
+            await apiClient.post(
+                'user/update-fcm-token/',
+                { fcm_token: null },
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('token')}`
+                    }
+                }
+            );
+            isNotificationEnabled.value = false;
+        } catch (err) {
+            console.error('Error disabling notifications:', err);
+            notificationError.value = 'Failed to disable notifications.';
+        }
+    } else {
+        // Enable notifications
+        try {
+            const token = await notificationService.initializeNotifications();
+            if (token) {
+                isNotificationEnabled.value = true;
+                notificationError.value = '';
+            } else {
+                notificationError.value = 'Notifications not enabled. Please allow permissions.';
+            }
+        } catch (err) {
+            console.error('Error enabling notifications:', err);
+            notificationError.value = 'Failed to enable notifications.';
+        }
     }
 };
 
@@ -176,7 +222,7 @@ const handleUpdate = async () => {
         toggleEdit();
     } catch (err) {
         console.error('Error updating profile:', err);
-        formError.value = err.response?.data?.non_field_errors?.[0] || 'Failed to update profile. Please try again.';
+        formError.value = err.response?.data?.non_field_errors?.[0] || 'Failed to update profile.';
     } finally {
         isSaving.value = false;
     }
@@ -215,7 +261,7 @@ const updatePassword = async () => {
         }
     } catch (err) {
         console.error('Error updating password:', err);
-        passwordError.value = err.response?.data?.detail || err.response?.data?.old_password?.[0] || 'Failed to update password. Please check your current password and try again.';
+        passwordError.value = err.response?.data?.detail || err.response?.data?.old_password?.[0] || 'Failed to update password.';
     } finally {
         isPasswordSaving.value = false;
     }
@@ -227,7 +273,7 @@ const editProfilePicture = () => {
 };
 
 const editProfile = () => {
-    router.push('/profile/edit')
+    router.push('/profile/edit');
 };
 
 const editUserDetails = () => {
@@ -337,7 +383,7 @@ onMounted(() => {
                                         <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
                                         <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
                                     </svg>
-                                    {{ 'Edit User' }}
+                                    Edit User
                                 </button>
                                 <button class="settings-btn" @click="openSettings">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
@@ -345,12 +391,23 @@ onMounted(() => {
                                         stroke-linejoin="round">
                                         <circle cx="12" cy="12" r="3"></circle>
                                         <path
-                                            d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l-.06-.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
+                                            d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l-.06-.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
                                         </path>
                                     </svg>
                                     Change Password
                                 </button>
+                                <button v-if="userProfile.is_futsal_admin" class="notification-btn"
+                                    @click="toggleNotifications">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                                        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                                    </svg>
+                                    {{ isNotificationEnabled ? 'Disable Notifications' : 'Enable Notifications' }}
+                                </button>
                             </div>
+                            <p v-if="notificationError" class="notification-error">{{ notificationError }}</p>
                         </div>
                     </div>
                 </div>
@@ -465,8 +522,8 @@ onMounted(() => {
 
                             <div class="detail-item" v-if="userProfile.is_futsal_admin">
                                 <div class="detail-label">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 -update-password24"
-                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                         stroke-linejoin="round">
                                         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                                         <circle cx="12" cy="7" r="4"></circle>
@@ -524,9 +581,7 @@ onMounted(() => {
                                 <div class="futsal-content">
                                     <h3 class="futsal-name">{{ futsal.futsal_name }}</h3>
                                     <p class="futsal-description"
-                                        v-html="futsal.futsal_description || 'No description available'">
-
-                                    </p>
+                                        v-html="futsal.futsal_description || 'No description available'"></p>
 
                                     <div class="futsal-meta">
                                         <div class="futsal-meta-item">
@@ -605,14 +660,12 @@ onMounted(() => {
                                     <line x1="12" y1="8" x2="12" y2="16"></line>
                                     <line x1="8" y1="12" x2="16" y2="12"></line>
                                 </svg>
-
                                 Add Futsal
-
                             </button>
                         </RouterLink>
                     </section>
 
-                    <!-- Recent Bookings Section (Placeholder) -->
+                    <!-- Recent Bookings Section -->
                     <section class="profile-section bookings-section">
                         <div class="section-header">
                             <h2>
@@ -701,30 +754,16 @@ onMounted(() => {
                 </div>
             </div>
         </div>
+
     </div>
 </template>
 
 <style scoped>
-/* Existing styles unchanged */
 .profile-page {
     min-height: 100vh;
     background-color: #f8f9fa;
     font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
     color: #333;
-}
-
-
-
-.loading-state {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 4rem 2rem;
-    text-align: center;
-    background-color: white;
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow);
 }
 
 .profile-header {
@@ -847,6 +886,7 @@ onMounted(() => {
 
 .edit-profile-btn,
 .settings-btn,
+.notification-btn,
 .add-futsal-btn {
     display: flex;
     align-items: center;
@@ -870,19 +910,28 @@ onMounted(() => {
     background-color: #1b5e20;
 }
 
-.settings-btn {
+.settings-btn,
+.notification-btn {
     background-color: #f1f8e9;
     color: #2e7d32;
 }
 
-.settings-btn:hover {
+.settings-btn:hover,
+.notification-btn:hover {
     background-color: #e8f5e9;
 }
 
 .edit-profile-btn svg,
-.settings-btn svg {
+.settings-btn svg,
+.notification-btn svg {
     width: 16px;
     height: 16px;
+}
+
+.notification-error {
+    font-size: 0.9rem;
+    color: #c62828;
+    margin-top: 10px;
 }
 
 .profile-content {
@@ -1088,7 +1137,6 @@ onMounted(() => {
     animation: spin 1s linear infinite;
 }
 
-
 .spinner-profile {
     width: 50px;
     height: 50px;
@@ -1289,53 +1337,6 @@ onMounted(() => {
     color: #333;
 }
 
-.booking-status {
-    display: inline-block;
-    padding: 4px 10px;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: 600;
-}
-
-.booking-status.completed {
-    background-color: #e8f5e9;
-    color: #2e7d32;
-}
-
-.booking-status.upcoming {
-    background-color: #e3f2fd;
-    color: #1976d2;
-}
-
-.booking-status.cancelled {
-    background-color: #ffebee;
-    color: #c62828;
-}
-
-.table-action-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 30px;
-    height: 30px;
-    border: none;
-    border-radius: 50%;
-    background-color: #f5f5f5;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.table-action-btn:hover {
-    background-color: #e0e0e0;
-}
-
-.table-action-btn svg {
-    width: 16px;
-    height: 16px;
-    color: #666;
-}
-
-/* New styles for settings popup */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -1430,7 +1431,6 @@ onMounted(() => {
     justify-content: flex-end;
 }
 
-/* Responsive Styles */
 @media (max-width: 768px) {
     .profile-header-content {
         flex-direction: column;
@@ -1443,6 +1443,7 @@ onMounted(() => {
 
     .profile-actions {
         justify-content: center;
+        flex-wrap: wrap;
     }
 
     .detail-item {
