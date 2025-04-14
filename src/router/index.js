@@ -16,6 +16,7 @@ import PrivacyPolicy from '@/views/PrivacyPolicy.vue'
 import Bookings from '@/views/Auth/Bookings.vue'
 import Blog from '@/views/Blog/Blog.vue'
 import BlogView from '@/views/Blog/BlogView.vue'
+import RegularBookings from '@/views/FutsalAdmin/RegularBookings.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -106,6 +107,14 @@ const router = createRouter({
       component: FutsalStats,
       meta: {
         requiresAuth: true,
+      }
+    },
+    {
+      path: '/futsal/:id/add-regular-booking',
+      name: 'add-regular-booking',
+      component: RegularBookings,
+      meta: {
+        requiresAuth: true
       }
     },
     {
