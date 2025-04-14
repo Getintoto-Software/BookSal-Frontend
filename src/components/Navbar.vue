@@ -17,7 +17,7 @@
                     <router-link to="/profile" class="nav-link" v-if="authStore.isLoggedIn">Profile</router-link>
                     <router-link to="/login" class="nav-link" v-if="!authStore.isLoggedIn">Login</router-link>
                     <router-link to="/register" class="signup-btn" v-if="!authStore.isLoggedIn">Sign Up</router-link>
-                    <button @click="handleLogout" class="nav-link logout-btn"
+                    <button @click="handleLogout" class="signup-btn"
                         v-if="authStore.isLoggedIn">Logout</button>
                 </div>
 
@@ -47,8 +47,8 @@
                 <router-link to="/signup" class="mobile-signup-btn" v-if="!authStore.isLoggedIn"
                     @click="closeMobileMenu">Sign
                     Up</router-link>
-                <RouterLink @click="handleLogout" class="mobile-nav-link" v-if="authStore.isLoggedIn">Logout
-                </RouterLink>
+                <button @click="handleLogout" class="mobile-signup-btn" v-if="authStore.isLoggedIn">Logout
+                </button>
             </div>
         </div>
     </nav>
@@ -174,6 +174,7 @@ const handleLogout = async () => {
     font-size: 0.875rem;
     font-weight: 500;
     padding: 0;
+    
 }
 
 .mobile-menu-btn {
@@ -201,6 +202,7 @@ const handleLogout = async () => {
     display: flex;
     flex-direction: column;
     padding-bottom: 1rem;
+    min-height: 100vh;
 }
 
 .mobile-nav-link {
