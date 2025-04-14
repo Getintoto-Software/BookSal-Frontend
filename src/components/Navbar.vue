@@ -39,6 +39,7 @@
             <div v-if="isMobileMenuOpen" class="mobile-nav">
                 <router-link to="/" class="mobile-nav-link" @click="closeMobileMenu">Home</router-link>
                 <router-link to="/futsals" class="mobile-nav-link" @click="closeMobileMenu">Find Futsals</router-link>
+                <router-link to="/blog" class="mobile-nav-link">Blog</router-link>
                 <router-link to="/profile" class="mobile-nav-link" v-if="authStore.isLoggedIn"
                     @click="closeMobileMenu">Profile</router-link>
                 <router-link to="/login" class="mobile-nav-link" v-if="!authStore.isLoggedIn"
@@ -46,8 +47,8 @@
                 <router-link to="/signup" class="mobile-signup-btn" v-if="!authStore.isLoggedIn"
                     @click="closeMobileMenu">Sign
                     Up</router-link>
-                <button @click="handleLogout" class="mobile-nav-link logout-btn"
-                    v-if="authStore.isLoggedIn">Logout</button>
+                <RouterLink @click="handleLogout" class="mobile-nav-link" v-if="authStore.isLoggedIn">Logout
+                </RouterLink>
             </div>
         </div>
     </nav>
@@ -55,7 +56,7 @@
 
 <script setup>
 import { ref } from 'vue';
-import { useRouter } from 'vue-router';
+import { RouterLink, useRouter } from 'vue-router';
 import apiClient from '@/axios';
 import { useAuthStore } from '../stores/auth';
 
