@@ -78,7 +78,7 @@
         }),
         category: post.category?.name || 'Uncategorized',
         location: post.meta_tags?.split(',')[1]?.trim() || 'Unknown',
-        readTime: 5
+        readTime: calculateReadTime(post.content || ''),
       };
     } catch (error) {
       console.error('Failed to fetch blog post:', error);
@@ -87,6 +87,13 @@
       isLoading.value = false;
     }
   };
+
+  const calculateReadTime = (content) => {
+  const wordsPerMinute = 200;
+  const wordCount = content.split(/\s+/).length;
+  const readTime = Math.ceil(wordCount / wordsPerMinute);
+  return readTime < 1 ? 1 : readTime;
+};
   
   onMounted(() => {
     console.log('Route Params:', route.params);

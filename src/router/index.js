@@ -17,6 +17,7 @@ import Bookings from '@/views/Auth/Bookings.vue'
 import Blog from '@/views/Blog/Blog.vue'
 import BlogView from '@/views/Blog/BlogView.vue'
 import RegularBookings from '@/views/FutsalAdmin/RegularBookings.vue'
+import NotFoundView from '@/views/NotFoundView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -154,6 +155,11 @@ const router = createRouter({
       name: 'privacy-policy',
       component: PrivacyPolicy
     },
+    {
+      path: '/:notFound',
+      name: 'notFound',
+      component: NotFoundView
+    }
   ],
   scrollBehavior(to, from, savedPosition) {
     // Always scroll to top
