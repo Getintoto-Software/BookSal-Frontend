@@ -1,20 +1,26 @@
-// public/firebase-messaging-sw.js
-importScripts('/firebase-config.js');
-importScripts('https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js');
-importScripts('https://www.gstatic.com/firebasejs/10.14.1/firebase-messaging-compat.js');
+importScripts('https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js');
+importScripts('https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging-compat.js');
 
-firebase.initializeApp(self.FIREBASE_CONFIG);
+const firebaseConfig = {
+    apiKey: "your-api-key",
+    authDomain: "your-auth-domain",
+    projectId: "your-project-id",
+    storageBucket: "your-storage-bucket",
+    messagingSenderId: "your-messaging-sender-id",
+    appId: "your-app-id",
+    measurementId: "your-measurement-id"
+};
 
+firebase.initializeApp(firebaseConfig);
 const messaging = firebase.messaging();
 
 messaging.onBackgroundMessage((payload) => {
-    console.log('[firebase-messaging-sw.js] Received background message:', payload);
+    console.log('[firebase-messaging-sw.js] Received background message ', payload);
     const { title, body } = payload.notification || {};
     if (title && body) {
         self.registration.showNotification(title, {
             body,
-            icon: '/favicon.ico',
-            badge: '/badge.png'
+            icon: '/favicon.ico'
         });
     }
 });
