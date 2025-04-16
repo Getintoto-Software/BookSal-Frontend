@@ -54,6 +54,11 @@ const futsals = ref([]);
 const isNotificationEnabled = ref(false);
 const notificationError = ref('');
 
+// State for bookings
+const bookings = ref([]);
+const loadingBookings = ref(false);
+const bookingError = ref(null);
+
 // Loading and error states
 const isLoading = ref(true);
 const error = ref(null);
@@ -116,6 +121,66 @@ const fetchFutsals = async (userPk) => {
     }
 };
 
+// Fetch last 10 bookings
+const fetchBookings = async (userPk) => {
+    try {
+        loadingBookings.value = true;
+        bookingError.value = null;
+
+        const response = await apiClient.get(`booking/list-bookings/user/${userPk}/`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+
+        if (!Array.isArray(response.data)) {
+            throw new Error('Unexpected API response format');
+        }
+
+        const normalizedBookings = response.data
+            .map(booking => ({
+                id: booking.id || '',
+                futsalName: booking.futsal?.futsal_name || 'Unknown Futsal',
+                location: booking.futsal?.location || 'Unknown Location',
+                date: booking.booking_date || '',
+                timeSlot: `${booking.booking_start_time?.slice(0, 5)} - ${booking.booking_end_time?.slice(0, 5)}`,
+                status: booking.status || 'pending'
+            }))
+            .filter(booking => booking !== null)
+            .sort((a, b) => new Date(b.date) - new Date(a.date))
+            .slice(0, 10);
+
+        bookings.value = normalizedBookings;
+    } catch (err) {
+        console.error('Error fetching bookings:', err);
+        bookingError.value = handleApiError(err);
+    } finally {
+        loadingBookings.value = false;
+    }
+};
+
+// Handle API errors
+const handleApiError = (err) => {
+    if (!navigator.onLine) {
+        return 'No internet connection. Please check your network.';
+    }
+    if (err.response) {
+        switch (err.response.status) {
+            case 401:
+                return 'Your session has expired. Please log in again.';
+            case 403:
+                return 'You are not authorized to view these bookings.';
+            case 404:
+                return 'No bookings found for your account.';
+            case 500:
+                return 'Something went wrong on our server. Please try again later.';
+            default:
+                return 'An unexpected error occurred. Please try again.';
+        }
+    }
+    return 'Failed to load bookings. Please try again later.';
+};
+
 // Initialize profile data
 const initializeProfile = async () => {
     if (!isAuthenticated()) {
@@ -130,6 +195,7 @@ const initializeProfile = async () => {
         const userPk = await fetchUserData();
         await fetchUserProfile(userPk);
         await fetchFutsals(userPk);
+        await fetchBookings(userPk);
 
         // Check notification status for futsal admins
         if (userProfile.value.is_futsal_admin) {
@@ -301,7 +367,7 @@ const viewAllBookings = () => {
 };
 
 const viewBooking = (id) => {
-    router.push(`/booking/${id}`);
+    router.push(`/bookings`);
 };
 
 // Mount the component and fetch data
@@ -690,20 +756,27 @@ onMounted(() => {
                         </div>
 
                         <div class="bookings-table-container">
-                            <table class="bookings-table">
+                            <div v-if="loadingBookings" class="spinner-profile" style="margin: 20px auto;"></div>
+                            <div v-else-if="bookingError" class="error">{{ bookingError }}</div>
+                            <table v-else class="bookings-table">
                                 <thead>
                                     <tr>
                                         <th>Futsal</th>
                                         <th>Date</th>
                                         <th>Time</th>
                                         <th>Status</th>
-                                        <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td colspan="5">Bookings will be implemented in the next update. Thank you for
-                                            your patience.</td>
+                                    <tr v-if="bookings.length === 0">
+                                        <td colspan="4">No bookings found.</td>
+                                    </tr>
+                                    <tr v-for="booking in bookings" :key="booking.id" @click="viewBooking(booking.id)"
+                                        style="cursor: pointer;">
+                                        <td>{{ booking.futsalName }}</td>
+                                        <td>{{ new Date(booking.date).toLocaleDateString() }}</td>
+                                        <td>{{ booking.timeSlot }}</td>
+                                        <td>{{ booking.status.charAt(0).toUpperCase() + booking.status.slice(1) }}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -754,7 +827,6 @@ onMounted(() => {
                 </div>
             </div>
         </div>
-
     </div>
 </template>
 
@@ -1429,6 +1501,12 @@ onMounted(() => {
     display: flex;
     gap: 15px;
     justify-content: flex-end;
+}
+
+.error {
+    color: #c62828;
+    text-align: center;
+    padding: 20px;
 }
 
 @media (max-width: 768px) {
