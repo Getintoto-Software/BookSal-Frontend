@@ -1,4 +1,7 @@
 <template>
+    <div>
+        <AdminSidebar />
+    </div>
     <div class="stats-page" :class="{ 'loading': isLoading }">
         <!-- Loading Overlay -->
         <transition name="fade">
@@ -121,9 +124,11 @@
 </template>
 
 <script setup>
+import AdminSidebar from '@/components/AdminSidebar.vue'
 import { ref, computed, onMounted, watch } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import apiClient from '@/axios';
+import AdminSidebarVue from '@/components/AdminSidebar.vue';
 
 const router = useRouter();
 const route = useRoute();
