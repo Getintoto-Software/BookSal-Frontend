@@ -1,219 +1,306 @@
 <template>
   <div>
-    <AdminSidebar />
-  </div>
-  
-  <div class="regular-bookings-page">
-    <div class="page-header">
-      <div class="header-content">
-        <h1 style="color: white">Regular Bookings</h1>
-        <p>Set up recurring bookings for teams and regular customers</p>
+    <div class="regular-bookings-page">
+      <div class="page-header">
+        <div class="header-content">
+          <h1 style="color: white">Regular Bookings</h1>
+          <p>Set up recurring bookings for teams and regular customers</p>
+        </div>
+      </div>
+
+      <div class="container">
+        <!-- Booking Form -->
+        <div class="booking-form-container">
+          <div class="form-card">
+            <h2 class="form-title">Add Regular Booking</h2>
+
+            <!-- Customer Information -->
+            <div class="form-section">
+              <h3 class="section-title">Customer Information</h3>
+
+              <div class="form-group">
+                <label for="customerName">Customer Name*</label>
+                <input
+                  id="customerName"
+                  v-model="formData.customerName"
+                  type="text"
+                  class="form-input"
+                  :class="{ error: errors.customerName }"
+                  placeholder="Enter customer name"
+                />
+                <p v-if="errors.customerName" class="error-message">{{ errors.customerName }}</p>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="customerPhone">Phone Number*</label>
+                  <input
+                    id="customerPhone"
+                    v-model="formData.customerPhone"
+                    type="text"
+                    class="form-input"
+                    :class="{ error: errors.customerPhone }"
+                    placeholder="Enter phone number"
+                  />
+                  <p v-if="errors.customerPhone" class="error-message">
+                    {{ errors.customerPhone }}
+                  </p>
+                </div>
+
+                <div class="form-group">
+                  <label for="customerEmail">Email</label>
+                  <input
+                    id="customerEmail"
+                    v-model="formData.customerEmail"
+                    type="email"
+                    class="form-input"
+                    :class="{ error: errors.customerEmail }"
+                    placeholder="Enter email address"
+                  />
+                  <p v-if="errors.customerEmail" class="error-message">
+                    {{ errors.customerEmail }}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Booking Schedule -->
+            <div class="form-section">
+              <h3 class="section-title">Booking Schedule</h3>
+
+              <div class="form-group">
+                <label>Days of Week*</label>
+                <div class="days-selector">
+                  <div
+                    v-for="day in weekdays"
+                    :key="day.value"
+                    class="day-option"
+                    :class="{ selected: formData.selectedDays.includes(day.value) }"
+                    @click="toggleDay(day.value)"
+                  >
+                    <span class="day-abbr">{{ day.abbr }}</span>
+                    <span class="day-name">{{ day.name }}</span>
+                  </div>
+                </div>
+                <p v-if="errors.selectedDays" class="error-message">{{ errors.selectedDays }}</p>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="startTime">Start Time*</label>
+                  <select
+                    id="startTime"
+                    v-model="formData.startTime"
+                    class="form-input"
+                    :class="{ error: errors.startTime }"
+                  >
+                    <option value="">Select time</option>
+                    <option v-for="time in timeSlots" :key="time" :value="time">{{ time }}</option>
+                  </select>
+                  <p v-if="errors.startTime" class="error-message">{{ errors.startTime }}</p>
+                </div>
+
+                <div class="form-group">
+                  <label for="duration">Duration*</label>
+                  <select
+                    id="duration"
+                    v-model="formData.duration"
+                    class="form-input"
+                    :class="{ error: errors.duration }"
+                  >
+                    <option value="">Select duration</option>
+                    <option value="1">1 hour</option>
+                    <option value="1.5">1.5 hours</option>
+                    <option value="2">2 hours</option>
+                    <option value="2.5">2.5 hours</option>
+                    <option value="3">3 hours</option>
+                  </select>
+                  <p v-if="errors.duration" class="error-message">{{ errors.duration }}</p>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="startDate">Start Date*</label>
+                  <input
+                    id="startDate"
+                    v-model="formData.startDate"
+                    type="date"
+                    class="form-input"
+                    :class="{ error: errors.startDate }"
+                    :min="today"
+                  />
+                  <p v-if="errors.startDate" class="error-message">{{ errors.startDate }}</p>
+                </div>
+
+                <div class="form-group">
+                  <label for="endDate">End Date*</label>
+                  <input
+                    id="endDate"
+                    v-model="formData.endDate"
+                    type="date"
+                    class="form-input"
+                    :class="{ error: errors.endDate }"
+                    :min="formData.startDate || today"
+                  />
+                  <p v-if="errors.endDate" class="error-message">{{ errors.endDate }}</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="checkbox-group">
+                <input id="customPrice" type="checkbox" v-model="formData.hasCustomPrice" />
+                <label for="customPrice">Set custom price for regular customer</label>
+              </div>
+            </div>
+
+            <div v-if="formData.hasCustomPrice" class="form-group">
+              <label for="customPriceValue">Custom Price (per session)*</label>
+              <div class="input-with-prefix">
+                <span class="input-prefix">NPR</span>
+                <input
+                  id="customPriceValue"
+                  v-model="formData.customPrice"
+                  type="number"
+                  class="form-input with-prefix"
+                  :class="{ error: errors.customPrice }"
+                  placeholder="Enter custom price"
+                />
+              </div>
+              <p v-if="errors.customPrice" class="error-message">{{ errors.customPrice }}</p>
+            </div>
+
+            <div class="form-group">
+              <div class="checkbox-group">
+                <input id="paymentReceived" type="checkbox" v-model="formData.paymentReceived" />
+                <label for="paymentReceived">Payment received for first session</label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Additional Notes -->
+          <div class="form-section">
+            <h3 class="section-title">Additional Notes</h3>
+
+            <div class="form-group">
+              <textarea
+                v-model="formData.notes"
+                class="form-textarea"
+                placeholder="Add any special requirements or notes about this booking"
+                rows="3"
+              ></textarea>
+            </div>
+          </div>
+
+          <!-- Form Actions -->
+          <div class="form-actions">
+            <button type="button" class="btn-secondary" @click="resetForm">Reset</button>
+            <button
+              type="button"
+              class="btn-primary"
+              @click="previewBooking"
+              :disabled="isSubmitting"
+            >
+              {{ isSubmitting ? 'Processing...' : 'Preview & Save' }}
+            </button>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="container">
-      <!-- Booking Form -->
-      <div class="booking-form-container">
-        <div class="form-card">
-          <h2 class="form-title">Add Regular Booking</h2>
+    <!-- Preview Modal -->
+    <div v-if="showPreviewModal" class="modal-overlay">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Booking Preview</h3>
+          <button class="close-button" @click="showPreviewModal = false">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
 
-          <!-- Customer Information -->
-          <div class="form-section">
-            <h3 class="section-title">Customer Information</h3>
+        <div class="modal-body">
+          <div class="preview-section">
+            <h4>Customer</h4>
+            <p>
+              <strong>{{ formData.customerName }}</strong>
+            </p>
+            <p>{{ formData.customerPhone }}</p>
+            <p v-if="formData.customerEmail">{{ formData.customerEmail }}</p>
+          </div>
 
-            <div class="form-group">
-              <label for="customerName">Customer Name*</label>
-              <input
-                id="customerName"
-                v-model="formData.customerName"
-                type="text"
-                class="form-input"
-                :class="{ error: errors.customerName }"
-                placeholder="Enter customer name"
-              />
-              <p v-if="errors.customerName" class="error-message">{{ errors.customerName }}</p>
-            </div>
+          <div class="preview-section">
+            <h4>Booking Details</h4>
+            <p>
+              <strong>Time:</strong>
+              {{ formData.startTime }} ({{ formData.duration }} hours)
+            </p>
+            <p>
+              <strong>Days:</strong>
+              {{ getSelectedDaysText() }}
+            </p>
+            <p>
+              <strong>Period:</strong>
+              {{ formatDate(formData.startDate) }} to {{ formatDate(formData.endDate) }}
+            </p>
+          </div>
 
-            <div class="form-row">
-              <div class="form-group">
-                <label for="customerPhone">Phone Number*</label>
-                <input
-                  id="customerPhone"
-                  v-model="formData.customerPhone"
-                  type="text"
-                  class="form-input"
-                  :class="{ error: errors.customerPhone }"
-                  placeholder="Enter phone number"
-                />
-                <p v-if="errors.customerPhone" class="error-message">{{ errors.customerPhone }}</p>
-              </div>
-
-              <div class="form-group">
-                <label for="customerEmail">Email</label>
-                <input
-                  id="customerEmail"
-                  v-model="formData.customerEmail"
-                  type="email"
-                  class="form-input"
-                  :class="{ error: errors.customerEmail }"
-                  placeholder="Enter email address"
-                />
-                <p v-if="errors.customerEmail" class="error-message">{{ errors.customerEmail }}</p>
+          <div class="preview-section">
+            <h4>Recurring Dates ({{ recurringDates.length }} sessions)</h4>
+            <div class="dates-grid">
+              <div v-for="(date, index) in recurringDates" :key="index" class="date-item">
+                <span class="date-number">{{ index + 1 }}</span>
+                <span class="date-text">{{ formatDate(date) }}</span>
               </div>
             </div>
           </div>
 
-          <!-- Booking Schedule -->
-          <div class="form-section">
-            <h3 class="section-title">Booking Schedule</h3>
+          <div class="preview-section">
+            <p>
+              <strong>Total sessions:</strong>
+              {{ recurringDates.length }}
+            </p>
 
-            <div class="form-group">
-              <label>Days of Week*</label>
-              <div class="days-selector">
-                <div
-                  v-for="day in weekdays"
-                  :key="day.value"
-                  class="day-option"
-                  :class="{ selected: formData.selectedDays.includes(day.value) }"
-                  @click="toggleDay(day.value)"
-                >
-                  <span class="day-abbr">{{ day.abbr }}</span>
-                  <span class="day-name">{{ day.name }}</span>
-                </div>
-              </div>
-              <p v-if="errors.selectedDays" class="error-message">{{ errors.selectedDays }}</p>
-            </div>
-
-            <div class="form-row">
-              <div class="form-group">
-                <label for="startTime">Start Time*</label>
-                <select
-                  id="startTime"
-                  v-model="formData.startTime"
-                  class="form-input"
-                  :class="{ error: errors.startTime }"
-                >
-                  <option value="">Select time</option>
-                  <option v-for="time in timeSlots" :key="time" :value="time">{{ time }}</option>
-                </select>
-                <p v-if="errors.startTime" class="error-message">{{ errors.startTime }}</p>
-              </div>
-
-              <div class="form-group">
-                <label for="duration">Duration*</label>
-                <select
-                  id="duration"
-                  v-model="formData.duration"
-                  class="form-input"
-                  :class="{ error: errors.duration }"
-                >
-                  <option value="">Select duration</option>
-                  <option value="1">1 hour</option>
-                  <option value="1.5">1.5 hours</option>
-                  <option value="2">2 hours</option>
-                  <option value="2.5">2.5 hours</option>
-                  <option value="3">3 hours</option>
-                </select>
-                <p v-if="errors.duration" class="error-message">{{ errors.duration }}</p>
-              </div>
-            </div>
-
-            <div class="form-row">
-              <div class="form-group">
-                <label for="startDate">Start Date*</label>
-                <input
-                  id="startDate"
-                  v-model="formData.startDate"
-                  type="date"
-                  class="form-input"
-                  :class="{ error: errors.startDate }"
-                  :min="today"
-                />
-                <p v-if="errors.startDate" class="error-message">{{ errors.startDate }}</p>
-              </div>
-
-              <div class="form-group">
-                <label for="endDate">End Date*</label>
-                <input
-                  id="endDate"
-                  v-model="formData.endDate"
-                  type="date"
-                  class="form-input"
-                  :class="{ error: errors.endDate }"
-                  :min="formData.startDate || today"
-                />
-                <p v-if="errors.endDate" class="error-message">{{ errors.endDate }}</p>
-              </div>
-            </div>
+            <p>
+              <strong>Payment status:</strong>
+              {{ formData.paymentReceived ? 'First session paid' : 'Pending' }}
+            </p>
           </div>
 
-          <div class="form-group">
-            <div class="checkbox-group">
-              <input id="customPrice" type="checkbox" v-model="formData.hasCustomPrice" />
-              <label for="customPrice">Set custom price for regular customer</label>
-            </div>
-          </div>
-
-          <div v-if="formData.hasCustomPrice" class="form-group">
-            <label for="customPriceValue">Custom Price (per session)*</label>
-            <div class="input-with-prefix">
-              <span class="input-prefix">NPR</span>
-              <input
-                id="customPriceValue"
-                v-model="formData.customPrice"
-                type="number"
-                class="form-input with-prefix"
-                :class="{ error: errors.customPrice }"
-                placeholder="Enter custom price"
-              />
-            </div>
-            <p v-if="errors.customPrice" class="error-message">{{ errors.customPrice }}</p>
-          </div>
-
-          <div class="form-group">
-            <div class="checkbox-group">
-              <input id="paymentReceived" type="checkbox" v-model="formData.paymentReceived" />
-              <label for="paymentReceived">Payment received for first session</label>
-            </div>
+          <div v-if="formData.notes" class="preview-section">
+            <h4>Notes</h4>
+            <p>{{ formData.notes }}</p>
           </div>
         </div>
 
-        <!-- Additional Notes -->
-        <div class="form-section">
-          <h3 class="section-title">Additional Notes</h3>
-
-          <div class="form-group">
-            <textarea
-              v-model="formData.notes"
-              class="form-textarea"
-              placeholder="Add any special requirements or notes about this booking"
-              rows="3"
-            ></textarea>
-          </div>
-        </div>
-
-        <!-- Form Actions -->
-        <div class="form-actions">
-          <button type="button" class="btn-secondary" @click="resetForm">Reset</button>
-          <button
-            type="button"
-            class="btn-primary"
-            @click="previewBooking"
-            :disabled="isSubmitting"
-          >
-            {{ isSubmitting ? 'Processing...' : 'Preview & Save' }}
+        <div class="modal-footer">
+          <button class="btn-secondary" @click="showPreviewModal = false">Edit</button>
+          <button class="btn-primary" @click="saveBooking" :disabled="isSaving">
+            {{
+              isSaving
+                ? `Creating bookings... (${createdBookings}/${recurringDates.length})`
+                : 'Confirm & Save'
+            }}
           </button>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- Preview Modal -->
-  <div v-if="showPreviewModal" class="modal-overlay">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3>Booking Preview</h3>
-        <button class="close-button" @click="showPreviewModal = false">
+    <!-- Success Modal -->
+    <div v-if="showSuccessModal" class="modal-overlay">
+      <div class="modal-content success-modal">
+        <div class="success-icon">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -223,103 +310,18 @@
             stroke-linecap="round"
             stroke-linejoin="round"
           >
-            <line x1="18" y1="6" x2="6" y2="18"></line>
-            <line x1="6" y1="6" x2="18" y2="18"></line>
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+            <polyline points="22 4 12 14.01 9 11.01"></polyline>
           </svg>
-        </button>
-      </div>
-
-      <div class="modal-body">
-        <div class="preview-section">
-          <h4>Customer</h4>
-          <p>
-            <strong>{{ formData.customerName }}</strong>
-          </p>
-          <p>{{ formData.customerPhone }}</p>
-          <p v-if="formData.customerEmail">{{ formData.customerEmail }}</p>
         </div>
 
-        <div class="preview-section">
-          <h4>Booking Details</h4>
-          <p>
-            <strong>Time:</strong>
-            {{ formData.startTime }} ({{ formData.duration }} hours)
-          </p>
-          <p>
-            <strong>Days:</strong>
-            {{ getSelectedDaysText() }}
-          </p>
-          <p>
-            <strong>Period:</strong>
-            {{ formatDate(formData.startDate) }} to {{ formatDate(formData.endDate) }}
-          </p>
+        <h3>Regular Booking Created!</h3>
+        <p>{{ successMessage }}</p>
+
+        <div class="success-actions">
+          <button class="btn-secondary" @click="resetAndClose">Add Another Booking</button>
+          <button class="btn-primary" @click="viewAllBookings">View All Bookings</button>
         </div>
-
-        <div class="preview-section">
-          <h4>Recurring Dates ({{ recurringDates.length }} sessions)</h4>
-          <div class="dates-grid">
-            <div v-for="(date, index) in recurringDates" :key="index" class="date-item">
-              <span class="date-number">{{ index + 1 }}</span>
-              <span class="date-text">{{ formatDate(date) }}</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="preview-section">
-          <p>
-            <strong>Total sessions:</strong>
-            {{ recurringDates.length }}
-          </p>
-
-          <p>
-            <strong>Payment status:</strong>
-            {{ formData.paymentReceived ? 'First session paid' : 'Pending' }}
-          </p>
-        </div>
-
-        <div v-if="formData.notes" class="preview-section">
-          <h4>Notes</h4>
-          <p>{{ formData.notes }}</p>
-        </div>
-      </div>
-
-      <div class="modal-footer">
-        <button class="btn-secondary" @click="showPreviewModal = false">Edit</button>
-        <button class="btn-primary" @click="saveBooking" :disabled="isSaving">
-          {{
-            isSaving
-              ? `Creating bookings... (${createdBookings}/${recurringDates.length})`
-              : 'Confirm & Save'
-          }}
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Success Modal -->
-  <div v-if="showSuccessModal" class="modal-overlay">
-    <div class="modal-content success-modal">
-      <div class="success-icon">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-          <polyline points="22 4 12 14.01 9 11.01"></polyline>
-        </svg>
-      </div>
-
-      <h3>Regular Booking Created!</h3>
-      <p>{{ successMessage }}</p>
-
-      <div class="success-actions">
-        <button class="btn-secondary" @click="resetAndClose">Add Another Booking</button>
-        <button class="btn-primary" @click="viewAllBookings">View All Bookings</button>
       </div>
     </div>
   </div>
@@ -597,7 +599,7 @@ const saveBooking = async () => {
         booking_start_time: startTime,
         booking_end_time: endTime,
         booking_status: true, // Confirmed
-        booking_notes: formData.notes || `Regular booking for ${formData.customerName}`,
+        booking_notes: `Regular booking for ${formData.customerName}. ${formData.customerPhone} ${formData.notes}`,
         futsal: route.params.id, // Get futsal ID from route params
       }
 

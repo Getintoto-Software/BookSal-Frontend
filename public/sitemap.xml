@@ -2,51 +2,159 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://booksall.app/</loc>
-    <lastmod>2025-04-16</lastmod>
+    <lastmod>2025-04-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>1</priority>
   </url>
   <url>
     <loc>https://booksall.app/about</loc>
-    <lastmod>2025-04-16</lastmod>
+    <lastmod>2025-04-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://booksall.app/futsals</loc>
-    <lastmod>2025-04-16</lastmod>
+    <lastmod>2025-04-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://booksall.app/login</loc>
-    <lastmod>2025-04-16</lastmod>
+    <lastmod>2025-04-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://booksall.app/register</loc>
-    <lastmod>2025-04-16</lastmod>
+    <lastmod>2025-04-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://booksall.app/terms</loc>
-    <lastmod>2025-04-16</lastmod>
+    <lastmod>2025-04-29</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://booksall.app/privacy-policy</loc>
-    <lastmod>2025-04-16</lastmod>
+    <lastmod>2025-04-29</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://booksall.app/blog</loc>
-    <lastmod>2025-04-16</lastmod>
+    <lastmod>2025-04-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://booksall.app/futsals/cd018ce9-dabc-4ae1-be45-cb82ba1a1a0a</loc>
+    <lastmod>2025-04-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://booksall.app/futsals/cd018ce9-dabc-4ae1-be45-cb82ba1a1a0a/book</loc>
+    <lastmod>2025-04-29</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://booksall.app/futsals/f984614f-9635-4963-8bb0-443a735de5ad</loc>
+    <lastmod>2025-04-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://booksall.app/futsals/f984614f-9635-4963-8bb0-443a735de5ad/book</loc>
+    <lastmod>2025-04-29</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://booksall.app/futsals/e07b8fcc-3f1b-48bb-8dd5-81b634009455</loc>
+    <lastmod>2025-04-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://booksall.app/futsals/e07b8fcc-3f1b-48bb-8dd5-81b634009455/book</loc>
+    <lastmod>2025-04-29</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://booksall.app/futsals/b0f19ef6-3328-4721-bf92-997d155ec181</loc>
+    <lastmod>2025-04-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://booksall.app/futsals/b0f19ef6-3328-4721-bf92-997d155ec181/book</loc>
+    <lastmod>2025-04-29</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://booksall.app/blog/futsal-as-a-team-building-tool-for-workplaces-in-n</loc>
+    <lastmod>2025-04-24T18:10:14.312233Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://booksall.app/blog/how-to-recover-after-an-intense-futsal-match</loc>
+    <lastmod>2025-04-24T18:06:08.871366Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://booksall.app/blog/from-casual-to-competitive-joining-local-futsal-le</loc>
+    <lastmod>2025-04-23T15:24:35.472015Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://booksall.app/blog/how-to-build-your-own-futsal-dream-team</loc>
+    <lastmod>2025-04-23T15:22:41.007752Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://booksall.app/blog/why-morning-futsal-might-be-your-new-favorite-work</loc>
+    <lastmod>2025-04-22T16:10:26.005646Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://booksall.app/blog/why-every-college-student-in-nepal-should-try-futs</loc>
+    <lastmod>2025-04-22T16:07:58.332244Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://booksall.app/blog/futsal-for-beginners-everything-you-need-to-know-b</loc>
+    <lastmod>2025-04-20T16:15:32.297472Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://booksall.app/blog/planning-a-futsal-tournament-with-friends-heres-a</loc>
+    <lastmod>2025-04-20T16:08:42.131162Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://booksall.app/blog/weekend-futsal-plans-how-to-make-the-most-of-your</loc>
+    <lastmod>2025-04-18T15:06:39.876229Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://booksall.app/blog/how-technology-is-transforming-local-sports-in-nep</loc>
+    <lastmod>2025-04-18T15:03:02.453018Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://booksall.app/blog/why-playing-futsal-regularly-is-great-for-your-hea</loc>

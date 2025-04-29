@@ -1,14 +1,77 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
-import Navbar from './components/Navbar.vue';
-import Footer from './components/Footer.vue';
+import Navbar from './components/Navbar.vue'
+import FutsalAdminNavbar from './components/FutsalAdminNavbar.vue'
+import Footer from './components/Footer.vue'
 import { useAuthStore } from '@/stores/auth'
+import { ref, onMounted } from 'vue'
+import apiClient from '@/axios'
 
-const authStore = useAuthStore();
+const authStore = useAuthStore()
+const isFutsalAdmin = ref(false)
+const user = ref(null)
+const userProfile = ref(null)
+
+const fetchUserData = async () => {
+  try {
+    const response = await apiClient.get('auth/user/')
+    user.value = response.data
+    return user.value.pk
+  } catch (err) {
+    console.error('Error fetching user data:', err)
+    if (err.response?.status === 401) {
+      authStore.logout()
+    }
+    throw err
+  }
+}
+
+const fetchUserProfile = async (userPk) => {
+  try {
+    const response = await apiClient.get(`user/profile/retrieve-user-profile/${userPk}/`)
+    userProfile.value = {
+      bio: response.data.bio,
+      address: response.data.address,
+      city: response.data.city,
+      country: response.data.country,
+      zip_code: response.data.zip_code,
+      profile_picture: response.data.profile_picture,
+      is_verified: response.data.is_verified,
+      is_futsal_admin: response.data.is_futsal_admin,
+    }
+    isFutsalAdmin.value = userProfile.value.is_futsal_admin
+  } catch (err) {
+    if (err.response?.status === 404) {
+      isFutsalAdmin.value = false
+    } else {
+      console.error('Error fetching user profile:', err)
+      throw err
+    }
+  }
+}
+
+const verifyToken = async () => {
+  try {
+    await authStore.verifyAuth()
+    if (authStore.isLoggedIn) {
+      const userPk = await fetchUserData()
+      if (userPk) {
+        await fetchUserProfile(userPk)
+      }
+    }
+  } catch (error) {
+    authStore.logout()
+    isFutsalAdmin.value = false
+  }
+}
+
+onMounted(() => {
+  verifyToken()
+})
 
 window.addEventListener('storage', () => {
-  authStore.checkAuth();
-});
+  authStore.checkAuth()
+})
 </script>
 
 <template>
@@ -86,7 +149,8 @@ html {
 }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
+    Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   line-height: 1.5;
   color: var(--gray-900);
   background-color: #ffffff;
@@ -454,7 +518,8 @@ button:disabled {
 
 /* Animation Utilities */
 .transition {
-  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
+  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow,
+    transform;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }

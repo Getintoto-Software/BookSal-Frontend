@@ -4,7 +4,7 @@ import { format } from 'date-fns';
 
 const apiClient = axios.create({
     baseURL: 'https://apibooksal.getintoto.com/api/v1/',
-    // withCredentials: true, // Make sure the cookies are sent with the request
+    withCredentials: true, // Make sure the cookies are sent with the request
 });
 
 // Add token to each request if it's available

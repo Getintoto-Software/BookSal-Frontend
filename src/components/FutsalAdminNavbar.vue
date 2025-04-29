@@ -2,14 +2,28 @@
   <nav class="navbar">
     <div class="container">
       <div class="navbar-content">
+        <!-- Sidebar Toggle Button (Visible on all screens) -->
+        <button @click="toggleSidebar" class="sidebar-toggle-btn">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="hamburger-icon"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          </svg>
+        </button>
+
         <!-- Logo -->
         <div class="logo">
           <router-link to="/" class="logo-link">
-            <span
-              class="logo-text"
-              style="font-family: 'Bungee Shade sans-serif'; font-weight: 400; font-style: normal"
-              >Booksall</span
-            >
+            <span class="logo-text">Booksall</span>
           </router-link>
         </div>
 
@@ -18,16 +32,8 @@
           <router-link to="/" class="nav-link">Home</router-link>
           <router-link to="/futsals" class="nav-link">Find Futsals</router-link>
           <router-link to="/blog" class="nav-link">Blog</router-link>
-          <router-link to="/profile" class="nav-link" v-if="authStore.isLoggedIn"
-            >Profile</router-link
-          >
-          <router-link to="/login" class="nav-link" v-if="!authStore.isLoggedIn">Login</router-link>
-          <router-link to="/register" class="signup-btn" v-if="!authStore.isLoggedIn"
-            >Sign Up</router-link
-          >
-          <button @click="handleLogout" class="signup-btn" v-if="authStore.isLoggedIn">
-            Logout
-          </button>
+          <router-link to="/profile" class="nav-link">Profile</router-link>
+          <button @click="handleLogout" class="signup-btn">Logout</button>
         </div>
 
         <!-- Mobile menu button -->
@@ -65,37 +71,51 @@
         <router-link to="/futsals" class="mobile-nav-link" @click="closeMobileMenu"
           >Find Futsals</router-link
         >
-        <router-link to="/blog" class="mobile-nav-link">Blog</router-link>
-        <router-link
-          to="/profile"
-          class="mobile-nav-link"
-          v-if="authStore.isLoggedIn"
-          @click="closeMobileMenu"
+        <router-link to="/blog" class="mobile-nav-link" @click="closeMobileMenu">Blog</router-link>
+        <router-link to="/profile" class="mobile-nav-link" @click="closeMobileMenu"
           >Profile</router-link
         >
-        <router-link
-          to="/login"
-          class="mobile-nav-link"
-          v-if="!authStore.isLoggedIn"
-          @click="closeMobileMenu"
-          >Login</router-link
-        >
-        <router-link
-          to="/signup"
-          class="mobile-signup-btn"
-          v-if="!authStore.isLoggedIn"
-          @click="closeMobileMenu"
-          >Sign Up</router-link
-        >
-        <button @click="handleLogout" class="mobile-signup-btn" v-if="authStore.isLoggedIn">
-          Logout
+        <button @click="handleLogout" class="mobile-signup-btn">Logout</button>
+      </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div v-if="isSidebarOpen" class="sidebar">
+      <div class="sidebar-header">
+        <h2 class="sidebar-title" style="color: white">Futsal Admin</h2>
+        <button @click="toggleSidebar" class="close-sidebar-btn">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="close-icon"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
         </button>
+      </div>
+      <div class="sidebar-content">
+        <router-link to="/admin/bookings" class="sidebar-link" @click="toggleSidebar"
+          >Manage Bookings</router-link
+        >
+        <router-link to="/admin/reports" class="sidebar-link" @click="toggleSidebar"
+          >Reports</router-link
+        >
+        <router-link to="/admin/settings" class="sidebar-link" @click="toggleSidebar"
+          >Settings</router-link
+        >
       </div>
     </div>
   </nav>
 </template>
-
-<script setup>
+  
+  <script setup>
 import { ref } from 'vue'
 import { RouterLink, useRouter } from 'vue-router'
 import apiClient from '@/axios'
@@ -104,6 +124,7 @@ import { useAuthStore } from '../stores/auth'
 const router = useRouter()
 const authStore = useAuthStore()
 const isMobileMenuOpen = ref(false)
+const isSidebarOpen = ref(false)
 
 // Toggle mobile menu
 const toggleMobileMenu = () => {
@@ -113,6 +134,11 @@ const toggleMobileMenu = () => {
 // Close mobile menu
 const closeMobileMenu = () => {
   isMobileMenuOpen.value = false
+}
+
+// Toggle sidebar
+const toggleSidebar = () => {
+  isSidebarOpen.value = !isSidebarOpen.value
 }
 
 // Handle logout
@@ -130,22 +156,17 @@ const handleLogout = async () => {
   }
 }
 </script>
-
-<style scoped>
+  
+  <style scoped>
 .navbar {
   background-color: #16a34a;
   color: white;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   position: fixed;
-  /* Makes it stick to the top */
   top: 0;
-  /* Aligns it to the top */
   left: 0;
-  /* Ensures it spans full width */
   right: 0;
-  /* Ensures it spans full width */
   z-index: 1000;
-  /* Keeps it above other content */
 }
 
 .container {
@@ -160,6 +181,20 @@ const handleLogout = async () => {
   justify-content: space-between;
   align-items: center;
   height: 4rem;
+}
+
+.sidebar-toggle-btn {
+  color: white;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  margin-right: 1rem;
+}
+
+.sidebar-toggle-btn .hamburger-icon {
+  width: 1.5rem;
+  height: 1.5rem;
 }
 
 .logo-link {
@@ -201,19 +236,12 @@ const handleLogout = async () => {
   text-decoration: none;
   margin-left: 2rem;
   transition: background-color 0.2s;
+  border: none;
+  cursor: pointer;
 }
 
 .signup-btn:hover {
   background-color: #dcfce7;
-}
-
-.logout-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 0.875rem;
-  font-weight: 500;
-  padding: 0;
 }
 
 .mobile-menu-btn {
@@ -266,10 +294,71 @@ const handleLogout = async () => {
   margin-top: 0.5rem;
   width: fit-content;
   transition: background-color 0.2s;
+  border: none;
+  cursor: pointer;
 }
 
 .mobile-signup-btn:hover {
   background-color: #dcfce7;
+}
+
+/* Sidebar Styles */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 100vh;
+  background-color: #ffffff;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  z-index: 1001;
+  transform: translateX(0);
+  transition: transform 0.3s ease-in-out;
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: #16a34a;
+  color: white;
+}
+
+.sidebar-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.close-sidebar-btn {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.close-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.sidebar-content {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-link {
+  color: #16a34a;
+  text-decoration: none;
+  padding: 0.75rem 0;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.sidebar-link:hover {
+  color: #15803d;
 }
 
 @media (min-width: 768px) {
