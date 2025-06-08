@@ -68,24 +68,10 @@ const isAuthenticated = () => {
   return !!localStorage.getItem('token')
 }
 
-// Fetch with timeout to prevent hanging
-const fetchWithTimeout = async (url, options, timeout = 10000) => {
-  const controller = new AbortController()
-  const id = setTimeout(() => controller.abort(), timeout)
-  try {
-    const response = await apiClient.get(url, { ...options, signal: controller.signal })
-    clearTimeout(id)
-    return response
-  } catch (err) {
-    clearTimeout(id)
-    throw err
-  }
-}
-
 // Fetch user data
 const fetchUserData = async () => {
   try {
-    const response = await fetchWithTimeout('auth/user/', {})
+    const response = await apiClient.get('auth/user/')
     user.value = response.data
     return user.value.pk
   } catch (err) {
@@ -100,7 +86,7 @@ const fetchUserData = async () => {
 // Fetch user profile
 const fetchUserProfile = async (userPk) => {
   try {
-    const response = await fetchWithTimeout(`user/profile/retrieve-user-profile/${userPk}/`, {})
+    const response = await apiClient.get(`user/profile/retrieve-user-profile/${userPk}/`)
     userProfile.value = {
       bio: response.data.bio,
       address: response.data.address,
@@ -127,7 +113,7 @@ const fetchUserProfile = async (userPk) => {
 // Fetch user's futsals
 const fetchFutsals = async (userPk) => {
   try {
-    const response = await fetchWithTimeout('futsal/list-futsals/', {})
+    const response = await apiClient.get('futsal/list-futsals/')
     futsals.value = response.data.filter((futsal) => futsal.futsal_owner === userPk)
   } catch (err) {
     console.error('Error fetching futsals:', err)
@@ -141,11 +127,7 @@ const fetchBookings = async (userPk) => {
     loadingBookings.value = true
     bookingError.value = null
 
-    const response = await fetchWithTimeout(`booking/list-bookings/user/${userPk}/`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
-    })
+    const response = await apiClient.get(`booking/list-bookings/user/${userPk}/`)
 
     if (!Array.isArray(response.data)) {
       throw new Error('Unexpected API response format')
@@ -210,11 +192,9 @@ const initializeProfile = async () => {
     error.value = null
 
     const userPk = await fetchUserData()
-    await Promise.all([
-      fetchUserProfile(userPk),
-      fetchFutsals(userPk),
-      fetchBookings(userPk),
-    ])
+    await fetchUserProfile(userPk)
+    await fetchFutsals(userPk)
+    await fetchBookings(userPk)
 
     // Check notification status for futsal admins
     if (userProfile.value.is_futsal_admin) {
@@ -223,7 +203,6 @@ const initializeProfile = async () => {
     }
   } catch (err) {
     error.value = 'Failed to load profile data. Please try again.'
-    console.error('Profile initialization error:', err)
   } finally {
     isLoading.value = false
   }
@@ -231,10 +210,6 @@ const initializeProfile = async () => {
 
 // Toggle notifications
 const toggleNotifications = async () => {
-  if (!('Notification' in window)) {
-    notificationError.value = 'Notifications are not supported on this device.'
-    return
-  }
   if (isNotificationEnabled.value) {
     // Disable notifications (clear token in backend)
     try {
@@ -321,14 +296,12 @@ const handleUpdate = async () => {
 // Handle settings popup and password update
 const openSettings = () => {
   showSettingsPopup.value = true
-  document.body.classList.add('modal-open')
   passwordError.value = ''
   passwordForm.value = { old_password: '', new_password1: '', new_password2: '' }
 }
 
 const closeSettingsPopup = () => {
   showSettingsPopup.value = false
-  document.body.classList.remove('modal-open')
 }
 
 const updatePassword = async () => {
@@ -406,9 +379,6 @@ onMounted(() => {
 </script>
 
 <template>
-  <!-- Note: Ensure your index.html includes the following viewport meta tag for iPhone compatibility:
-       <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  -->
   <div class="profile-page">
     <!-- Loading State -->
     <div v-if="isLoading" style="margin: auto; padding-top: 50vh">
@@ -449,7 +419,7 @@ onMounted(() => {
 
               <div class="profile-contact">
                 <div class="contact-item">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 /train/24" fill="none" stroke="currentColor"
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
                     <polyline points="22,6 12,13 2,6"></polyline>
@@ -509,7 +479,8 @@ onMounted(() => {
               <h2>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  Postgres<circle cx="12" cy="7" r="4"></circle>
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
                 </svg>
                 User Details
               </h2>
@@ -598,7 +569,7 @@ onMounted(() => {
                   Profile Picture
                 </div>
                 <input type="file" @change="formData.profile_picture = $event.target.files[0]" class="edit-file-input"
-                  accept="image/*" capture="environment" />
+                  accept="image/*" />
               </div>
 
               <div class="detail-item" v-if="userProfile.is_futsal_admin">
@@ -903,16 +874,11 @@ onMounted(() => {
   cursor: pointer;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   transition: all 0.2s ease;
-  touch-action: manipulation;
 }
 
 .edit-avatar-button:hover {
   background-color: #1b5e20;
   transform: scale(1.1);
-}
-
-.edit-avatar-button:active {
-  transform: scale(0.95);
 }
 
 .edit-avatar-button svg {
@@ -993,14 +959,6 @@ onMounted(() => {
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
-  touch-action: manipulation;
-}
-
-.edit-profile-btn:active,
-.settings-btn:active,
-.notification-btn:active,
-.add-futsal-btn:active {
-  transform: scale(0.95);
 }
 
 .edit-profile-btn,
@@ -1088,12 +1046,6 @@ onMounted(() => {
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
-  touch-action: manipulation;
-}
-
-.edit-section-btn:active,
-.view-all-btn:active {
-  transform: scale(0.95);
 }
 
 .edit-section-btn {
@@ -1182,11 +1134,6 @@ onMounted(() => {
   box-shadow: 0 0 0 2px rgba(46, 125, 50, 0.1);
 }
 
-textarea.edit-input {
-  resize: vertical;
-  max-width: 100%;
-}
-
 .edit-file-input {
   font-size: 0.9rem;
   color: #333;
@@ -1217,12 +1164,6 @@ textarea.edit-input {
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
-  touch-action: manipulation;
-}
-
-.save-btn:active,
-.cancel-btn:active {
-  transform: scale(0.95);
 }
 
 .save-btn {
@@ -1396,11 +1337,6 @@ textarea.edit-input {
   cursor: pointer;
   transition: all 0.2s ease;
   text-decoration: none;
-  touch-action: manipulation;
-}
-
-.futsal-action-btn:active {
-  transform: scale(0.95);
 }
 
 .futsal-action-btn svg {
@@ -1472,10 +1408,6 @@ textarea.edit-input {
   color: #333;
 }
 
-body.modal-open {
-  overflow: hidden;
-}
-
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -1487,7 +1419,6 @@ body.modal-open {
   justify-content: center;
   align-items: center;
   z-index: 1000;
-  overflow: auto;
 }
 
 .modal {
@@ -1519,11 +1450,6 @@ body.modal-open {
   border: none;
   cursor: pointer;
   padding: 5px;
-  touch-action: manipulation;
-}
-
-.close-btn:active {
-  transform: scale(0.95);
 }
 
 .close-btn svg {
@@ -1608,25 +1534,6 @@ body.modal-open {
 
   .futsals-grid {
     grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 414px) {
-  .profile-actions {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .futsals-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .container {
-    padding: 0 10px;
-  }
-
-  .futsal-card {
-    min-width: 100%;
   }
 }
 

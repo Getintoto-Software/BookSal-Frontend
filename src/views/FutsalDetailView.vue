@@ -473,6 +473,8 @@ onMounted(() => {
 });
 </script>
 
+
+
 <style scoped>
 .time-slot {
     padding: 12px 8px;

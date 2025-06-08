@@ -20,28 +20,16 @@
 
               <div class="form-group">
                 <label for="customerName">Customer Name*</label>
-                <input
-                  id="customerName"
-                  v-model="formData.customerName"
-                  type="text"
-                  class="form-input"
-                  :class="{ error: errors.customerName }"
-                  placeholder="Enter customer name"
-                />
+                <input id="customerName" v-model="formData.customerName" type="text" class="form-input"
+                  :class="{ error: errors.customerName }" placeholder="Enter customer name" />
                 <p v-if="errors.customerName" class="error-message">{{ errors.customerName }}</p>
               </div>
 
               <div class="form-row">
                 <div class="form-group">
                   <label for="customerPhone">Phone Number*</label>
-                  <input
-                    id="customerPhone"
-                    v-model="formData.customerPhone"
-                    type="text"
-                    class="form-input"
-                    :class="{ error: errors.customerPhone }"
-                    placeholder="Enter phone number"
-                  />
+                  <input id="customerPhone" v-model="formData.customerPhone" type="text" class="form-input"
+                    :class="{ error: errors.customerPhone }" placeholder="Enter phone number" />
                   <p v-if="errors.customerPhone" class="error-message">
                     {{ errors.customerPhone }}
                   </p>
@@ -49,14 +37,8 @@
 
                 <div class="form-group">
                   <label for="customerEmail">Email</label>
-                  <input
-                    id="customerEmail"
-                    v-model="formData.customerEmail"
-                    type="email"
-                    class="form-input"
-                    :class="{ error: errors.customerEmail }"
-                    placeholder="Enter email address"
-                  />
+                  <input id="customerEmail" v-model="formData.customerEmail" type="email" class="form-input"
+                    :class="{ error: errors.customerEmail }" placeholder="Enter email address" />
                   <p v-if="errors.customerEmail" class="error-message">
                     {{ errors.customerEmail }}
                   </p>
@@ -71,13 +53,8 @@
               <div class="form-group">
                 <label>Days of Week*</label>
                 <div class="days-selector">
-                  <div
-                    v-for="day in weekdays"
-                    :key="day.value"
-                    class="day-option"
-                    :class="{ selected: formData.selectedDays.includes(day.value) }"
-                    @click="toggleDay(day.value)"
-                  >
+                  <div v-for="day in weekdays" :key="day.value" class="day-option"
+                    :class="{ selected: formData.selectedDays.includes(day.value) }" @click="toggleDay(day.value)">
                     <span class="day-abbr">{{ day.abbr }}</span>
                     <span class="day-name">{{ day.name }}</span>
                   </div>
@@ -88,12 +65,8 @@
               <div class="form-row">
                 <div class="form-group">
                   <label for="startTime">Start Time*</label>
-                  <select
-                    id="startTime"
-                    v-model="formData.startTime"
-                    class="form-input"
-                    :class="{ error: errors.startTime }"
-                  >
+                  <select id="startTime" v-model="formData.startTime" class="form-input"
+                    :class="{ error: errors.startTime }">
                     <option value="">Select time</option>
                     <option v-for="time in timeSlots" :key="time" :value="time">{{ time }}</option>
                   </select>
@@ -102,18 +75,14 @@
 
                 <div class="form-group">
                   <label for="duration">Duration*</label>
-                  <select
-                    id="duration"
-                    v-model="formData.duration"
-                    class="form-input"
-                    :class="{ error: errors.duration }"
-                  >
+                  <select id="duration" v-model="formData.duration" class="form-input"
+                    :class="{ error: errors.duration }">
                     <option value="">Select duration</option>
                     <option value="1">1 hour</option>
-                    <option value="1.5">1.5 hours</option>
                     <option value="2">2 hours</option>
-                    <option value="2.5">2.5 hours</option>
                     <option value="3">3 hours</option>
+                    <option value="4">4 hours</option>
+                    <option value="5">5 hours</option>
                   </select>
                   <p v-if="errors.duration" class="error-message">{{ errors.duration }}</p>
                 </div>
@@ -122,27 +91,15 @@
               <div class="form-row">
                 <div class="form-group">
                   <label for="startDate">Start Date*</label>
-                  <input
-                    id="startDate"
-                    v-model="formData.startDate"
-                    type="date"
-                    class="form-input"
-                    :class="{ error: errors.startDate }"
-                    :min="today"
-                  />
+                  <input id="startDate" v-model="formData.startDate" type="date" class="form-input"
+                    :class="{ error: errors.startDate }" :min="today" />
                   <p v-if="errors.startDate" class="error-message">{{ errors.startDate }}</p>
                 </div>
 
                 <div class="form-group">
                   <label for="endDate">End Date*</label>
-                  <input
-                    id="endDate"
-                    v-model="formData.endDate"
-                    type="date"
-                    class="form-input"
-                    :class="{ error: errors.endDate }"
-                    :min="formData.startDate || today"
-                  />
+                  <input id="endDate" v-model="formData.endDate" type="date" class="form-input"
+                    :class="{ error: errors.endDate }" :min="formData.startDate || today" />
                   <p v-if="errors.endDate" class="error-message">{{ errors.endDate }}</p>
                 </div>
               </div>
@@ -159,14 +116,8 @@
               <label for="customPriceValue">Custom Price (per session)*</label>
               <div class="input-with-prefix">
                 <span class="input-prefix">NPR</span>
-                <input
-                  id="customPriceValue"
-                  v-model="formData.customPrice"
-                  type="number"
-                  class="form-input with-prefix"
-                  :class="{ error: errors.customPrice }"
-                  placeholder="Enter custom price"
-                />
+                <input id="customPriceValue" v-model="formData.customPrice" type="number" class="form-input with-prefix"
+                  :class="{ error: errors.customPrice }" placeholder="Enter custom price" />
               </div>
               <p v-if="errors.customPrice" class="error-message">{{ errors.customPrice }}</p>
             </div>
@@ -184,24 +135,15 @@
             <h3 class="section-title">Additional Notes</h3>
 
             <div class="form-group">
-              <textarea
-                v-model="formData.notes"
-                class="form-textarea"
-                placeholder="Add any special requirements or notes about this booking"
-                rows="3"
-              ></textarea>
+              <textarea v-model="formData.notes" class="form-textarea"
+                placeholder="Add any special requirements or notes about this booking" rows="3"></textarea>
             </div>
           </div>
 
           <!-- Form Actions -->
           <div class="form-actions">
             <button type="button" class="btn-secondary" @click="resetForm">Reset</button>
-            <button
-              type="button"
-              class="btn-primary"
-              @click="previewBooking"
-              :disabled="isSubmitting"
-            >
+            <button type="button" class="btn-primary" @click="previewBooking" :disabled="isSubmitting">
               {{ isSubmitting ? 'Processing...' : 'Preview & Save' }}
             </button>
           </div>
@@ -215,15 +157,8 @@
         <div class="modal-header">
           <h3>Booking Preview</h3>
           <button class="close-button" @click="showPreviewModal = false">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <line x1="18" y1="6" x2="6" y2="18"></line>
               <line x1="6" y1="6" x2="18" y2="18"></line>
             </svg>
@@ -257,7 +192,7 @@
           </div>
 
           <div class="preview-section">
-            <h4>Recurring Dates ({{ recurringDates.length }} sessions)</h4>
+            <h4>Recurring Dates ({{ recurringDates.length * formData.duration }} sessions)</h4>
             <div class="dates-grid">
               <div v-for="(date, index) in recurringDates" :key="index" class="date-item">
                 <span class="date-number">{{ index + 1 }}</span>
@@ -269,7 +204,7 @@
           <div class="preview-section">
             <p>
               <strong>Total sessions:</strong>
-              {{ recurringDates.length }}
+              {{ recurringDates.length * formData.duration }}
             </p>
 
             <p>
@@ -289,7 +224,7 @@
           <button class="btn-primary" @click="saveBooking" :disabled="isSaving">
             {{
               isSaving
-                ? `Creating bookings... (${createdBookings}/${recurringDates.length})`
+                ? `Creating bookings... (${createdBookings}/${recurringDates.length * formData.duration})`
                 : 'Confirm & Save'
             }}
           </button>
@@ -299,17 +234,10 @@
 
     <!-- Success Modal -->
     <div v-if="showSuccessModal" class="modal-overlay">
-      <div class="modal-content success-modal">
+      <div class="modal-content success-exchange-modal">
         <div class="success-icon">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
             <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
             <polyline points="22 4 12 14.01 9 11.01"></polyline>
           </svg>
@@ -346,7 +274,6 @@ const formData = reactive({
   duration: '',
   startDate: '',
   endDate: '',
-
   hasCustomPrice: false,
   customPrice: '',
   paymentReceived: false,
@@ -533,7 +460,7 @@ const validateForm = () => {
 
 const previewBooking = () => {
   if (!validateForm()) {
-    // Scroll to the first error
+    // Scroll to first error
     const firstErrorElement = document.querySelector('.error-message')
     if (firstErrorElement) {
       firstErrorElement.scrollIntoView({ behavior: 'smooth', block: 'center' })
@@ -554,8 +481,8 @@ const saveBooking = async () => {
     const userResponse = await apiClient.get('auth/user/')
     const userId = userResponse.data.pk
 
-    // Extract time from the selected time slot
-    const timeMatch = formData.startTime.match(/(\d+):(\d+) (AM|PM)/)
+    // Extract time from selected time slot
+    const timeMatch = formData.startTime.match(/(\d+):(\d+)\s(AM|PM)/)
     if (!timeMatch) {
       throw new Error('Invalid time format')
     }
@@ -571,51 +498,58 @@ const saveBooking = async () => {
       hours = 0
     }
 
-    // Format start time
-    const startTime = `${hours.toString().padStart(2, '0')}:${minutes
-      .toString()
-      .padStart(2, '0')}:00`
+    const durationHours = parseInt(formData.duration)
+    const bookingPromises = []
 
-    // Calculate end time based on duration
-    const durationHours = parseFloat(formData.duration)
-    const endHours = hours + Math.floor(durationHours)
-    const endMinutes = minutes + (durationHours % 1) * 60
+    // Create bookings for each date and each hour
+    recurringDates.value.forEach((date) => {
+      const formattedDate = date.toISOString().slice(0, 10)
 
-    let finalEndHours = endHours + Math.floor(endMinutes / 60)
-    const finalEndMinutes = endMinutes % 60
+      // Create individual one-hour bookings for the duration
+      for (let i = 0; i < durationHours; i++) {
+        const startHour = hours + i
+        const endHour = startHour + 1
 
-    // Format end time
-    const endTime = `${finalEndHours.toString().padStart(2, '0')}:${finalEndMinutes
-      .toString()
-      .padStart(2, '0')}:00`
+        // Handle hour overflow (e.g., 23:00 to 00:00)
+        const formattedStartHour = startHour >= 24 ? startHour - 24 : startHour
+        const formattedEndHour = endHour >= 24 ? endHour - 24 : endHour
 
-    // Create bookings for each date
-    const promises = recurringDates.value.map(async (date) => {
-      const formattedDate = date.toISOString().split('T')[0]
+        // Format times
+        const startTime = `${formattedStartHour.toString().padStart(2, '0')}:${minutes
+          .toString()
+          .padStart(2, '0')}:00`
+        const endTime = `${formattedEndHour.toString().padStart(2, '0')}:${minutes
+          .toString()
+          .padStart(2, '0')}:00`
 
-      const bookingData = {
-        user: userId,
-        booking_date: formattedDate,
-        booking_start_time: startTime,
-        booking_end_time: endTime,
-        booking_status: true, // Confirmed
-        booking_notes: `Regular booking for ${formData.customerName}. ${formData.customerPhone} ${formData.notes}`,
-        futsal: route.params.id, // Get futsal ID from route params
-      }
+        const bookingData = {
+          user: userId,
+          booking_date: formattedDate,
+          booking_start_time: startTime,
+          booking_end_time: endTime,
+          booking_status: true, // Confirmed
+          booking_notes: `Regular booking for ${formData.customerName}. ${formData.customerPhone} ${formData.notes || ''}`,
+          futsal: route.params.id, // Get futsal ID from route params
+        }
 
-      try {
-        await apiClient.post('booking/create-booking/', bookingData)
-        createdBookings.value++
-        return true
-      } catch (error) {
-        console.error(`Error creating booking for ${formattedDate}:`, error)
-        failedBookings.value++
-        return false
+        bookingPromises.push(
+          apiClient
+            .post('booking/create-booking/', bookingData)
+            .then(() => {
+              createdBookings.value++
+              return true
+            })
+            .catch((error) => {
+              console.error(`Error creating booking for ${formattedDate} at ${startTime}:`, error)
+              failedBookings.value++
+              return false
+            })
+        )
       }
     })
 
     // Wait for all booking requests to complete
-    await Promise.all(promises)
+    await Promise.all(bookingPromises)
 
     // Show success message
     if (failedBookings.value === 0) {
@@ -656,7 +590,7 @@ const resetAndClose = () => {
 }
 
 const viewAllBookings = () => {
-  // Navigate to the bookings management page
+  // Navigate to the bookings page
   router.push('/bookings')
 }
 
@@ -671,7 +605,6 @@ onMounted(() => {
   formData.endDate = endDate.toISOString().split('T')[0]
 })
 </script>
-
 <style scoped>
 .regular-bookings-page {
   max-width: 800px;

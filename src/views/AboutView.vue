@@ -188,7 +188,7 @@
 
           <div class="team-member">
             <div class="member-photo">
-              <img src="@/assets/images/team.png" alt="Ayush Bishwokarma" />
+              <img src="@/assets/images/rassu.jpeg" alt="Ayush Bishwokarma" />
             </div>
             <h3>Ayush Bishwokarma</h3>
             <p class="member-role">Frontend Developer</p>
@@ -217,7 +217,7 @@
 
           <div class="team-member">
             <div class="member-photo">
-              <img src="@/assets/images/team.png" alt="Sudipti Upreti" />
+              <img src="@/assets/images/sudipti.jpg" alt="Sudipti Upreti" />
             </div>
             <h3>Sudipti Upreti</h3>
             <p class="member-role">Graphic Designer</p>
